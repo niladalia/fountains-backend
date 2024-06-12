@@ -1,0 +1,68 @@
+version: '3'
+
+services:
+    rabbitmq:
+        container_name: rabbitmq
+        image: 'rabbitmq:3.10.5-management'
+        restart: unless-stopped
+        ports:
+            - 5672:15672
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+        networks:
+            - shared_network
+            - project_network
+            
+    php:
+        container_name: project_php
+        user: "${UID}:${GID}"
+        build:
+            context: .
+            dockerfile: .docker/php/Dockerfile
+            args:
+                TIMEZONE: Europe/Madrid
+        volumes:
+            - ./:/var/www/project/
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        networks:
+            - project_network
+
+    nginx:
+        container_name: project_nginx
+        build:
+            context: .
+            dockerfile: .docker/nginx/Dockerfile
+        volumes:
+            - ./:/var/www/project/
+        ports:
+            - 83:80
+        networks:
+            - project_network
+            
+    db:
+        container_name: project_db
+        image: mysql:8.0.20
+        command: --default-authentication-plugin=mysql_native_password
+        volumes:
+            - db_library:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: chopin
+            MYSQL_DATABASE: project_db
+            MYSQL_USER: nil
+            MYSQL_PASSWORD: chopin
+        ports:
+            - 3307:3306
+        networks:
+            - project_network
+volumes:
+    projectback_app_sync:
+        external: true
+    db_library:
+
+networks:
+    project_network:
+    shared_network:
+        name: project_shared_network
+        driver: bridge
