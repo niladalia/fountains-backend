@@ -2,17 +2,17 @@
 
 namespace App\Shared\Domain\ValueObject;
 
-abstract class StringValueObject
+abstract class BooleanValueObject
 {
-    protected ?string $value;
+    protected ?bool $value;
 
-    public function __construct(?string $value = null)
+    public function __construct(?bool $value = null)
     {
         $this->value = $value;
         $this->validate();
     }
 
-    public function getValue(): ?string
+    public function getValue(): ?bool
     {
         return $this->value;
     }

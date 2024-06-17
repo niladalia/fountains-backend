@@ -1,4 +1,0 @@
-product_controller_post:
-  path: /api/product
-  controller: App\Products\Infrastructure\Controllers\ProductsPostController
-  methods:  [POST]

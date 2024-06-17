@@ -2,7 +2,6 @@ doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
         types:
-            book_id: App\Products\Infrastructure\Persistence\Doctrine\ProductIdType
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
@@ -18,12 +17,18 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            Products:
+            Providers:
                 type: xml
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Products/Infrastructure/Persistence/Doctrine'
-                prefix: 'App\Products\Domain'
-                alias: App\Products\Domain
+                dir: '%kernel.project_dir%/src/Providers/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Providers\Domain'
+                alias: App\Providers\Domain
+            Fountains:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Fountains/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Fountains\Domain'
+                alias: App\Fountains\Domain
         controller_resolver:
             auto_mapping: false
 

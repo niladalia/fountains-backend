@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="App\Fountains\Infrastructure\Persistence\DoctrineFountainRepository" name="App\Fountains\Domain\Fountain" table="fountains">
+
+        <embedded name="id" class="App\Fountains\Domain\ValueObject\FountainId" use-column-prefix="false"/>
+        <embedded name="lat" class="App\Fountains\Domain\ValueObject\FountainLat" use-column-prefix="false"/>
+        <embedded name="long" class="App\Fountains\Domain\ValueObject\FountainLong" use-column-prefix="false"/>
+        <embedded name="name" class="App\Fountains\Domain\ValueObject\FountainName" use-column-prefix="false"/>
+        <embedded name="fountain_type" class="App\Fountains\Domain\ValueObject\FountainType" use-column-prefix="false"/>
+        <embedded name="picture" class="App\Fountains\Domain\ValueObject\FountainPicture" use-column-prefix="false"/>
+        <embedded name="description" class="App\Fountains\Domain\ValueObject\FountainDescription" use-column-prefix="false"/>
+        <embedded name="operational_status" class="App\Fountains\Domain\ValueObject\FountainOperationalStatus" use-column-prefix="false"/>
+        <embedded name="safe_water" class="App\Fountains\Domain\ValueObject\FountainSafeWater" use-column-prefix="false"/>
+        <embedded name="access_bottles" class="App\Fountains\Domain\ValueObject\FountainAccesBottles" use-column-prefix="false"/>
+        <embedded name="access_pets" class="App\Fountains\Domain\ValueObject\FountainAccesPets" use-column-prefix="false"/>
+        <embedded name="access_wheelchair" class="App\Fountains\Domain\ValueObject\FountainAccessWheelchair" use-column-prefix="false"/>
+        <embedded name="provider_name" class="App\Fountains\Domain\ValueObject\FountainProviderName" use-column-prefix="false"/>
+        <embedded name="provider_id" class="App\Fountains\Domain\ValueObject\FountainProviderId" use-column-prefix="false"/>
+        <embedded name="user_id" class="App\Fountains\Domain\ValueObject\FountainUserId" use-column-prefix="false"/>
+        <embedded name="created_at" class="App\Fountains\Domain\ValueObject\FountainCreatedAt" use-column-prefix="false"/>
+        <embedded name="updated_at" class="App\Fountains\Domain\ValueObject\FountainUpdatedAt" use-column-prefix="false"/>
+
+    </entity>
+</doctrine-mapping>
