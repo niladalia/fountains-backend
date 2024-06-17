@@ -7,8 +7,9 @@ COPY .docker/php/php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
 
 COPY .docker/xdebug-config.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
-RUN docker-php-ext-install \
-    pdo pdo_mysql 
+RUN apk add --no-cache postgresql-dev
+
+RUN docker-php-ext-install pdo_pgsql
 
 RUN pecl install apcu-5.1.23 && pecl install amqp-2.1.1 && pecl install xdebug-3.3.0
 

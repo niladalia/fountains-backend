@@ -12,10 +12,10 @@ services:
             - RABBITMQ_DEFAULT_PASS=guest
         networks:
             - shared_network
-            - project_network
+            - fountains_network
             
     php:
-        container_name: project_php
+        container_name: fountains_php
         user: "${UID}:${GID}"
         build:
             context: .
@@ -27,42 +27,39 @@ services:
         extra_hosts:
             - "host.docker.internal:host-gateway"
         networks:
-            - project_network
+            - fountains_network
 
     nginx:
-        container_name: project_nginx
+        container_name: fountains_nginx
         build:
             context: .
             dockerfile: .docker/nginx/Dockerfile
         volumes:
             - ./:/var/www/project/
         ports:
-            - 83:80
+            - 88:80
         networks:
-            - project_network
-            
+            - fountains_network
     db:
-        container_name: project_db
-        image: mysql:8.0.20
-        command: --default-authentication-plugin=mysql_native_password
+        container_name: fountains_db
+        image: postgis/postgis:latest
         volumes:
-            - db_library:/var/lib/mysql
+            - db_library:/var/lib/postgresql/data
         environment:
-            MYSQL_ROOT_PASSWORD: chopin
-            MYSQL_DATABASE: project_db
-            MYSQL_USER: nil
-            MYSQL_PASSWORD: chopin
+            POSTGRES_USER: nil
+            POSTGRES_PASSWORD: chopin
+            POSTGRES_DB: fountains_db
         ports:
-            - 3307:3306
+            - 5432:5432
         networks:
-            - project_network
+            - fountains_network
 volumes:
     projectback_app_sync:
         external: true
     db_library:
 
 networks:
-    project_network:
+    fountains_network:
     shared_network:
-        name: project_shared_network
+        name: fountains_shared_network
         driver: bridge
