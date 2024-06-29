@@ -11,6 +11,7 @@
         <embedded name="description" class="App\Fountains\Domain\ValueObject\FountainDescription" use-column-prefix="false"/>
         <embedded name="operational_status" class="App\Fountains\Domain\ValueObject\FountainOperationalStatus" use-column-prefix="false"/>
         <embedded name="safe_water" class="App\Fountains\Domain\ValueObject\FountainSafeWater" use-column-prefix="false"/>
+        <embedded name="legal_water" class="App\Fountains\Domain\ValueObject\FountainLegalWater" use-column-prefix="false"/>
         <embedded name="access_bottles" class="App\Fountains\Domain\ValueObject\FountainAccesBottles" use-column-prefix="false"/>
         <embedded name="access_pets" class="App\Fountains\Domain\ValueObject\FountainAccesPets" use-column-prefix="false"/>
         <embedded name="access_wheelchair" class="App\Fountains\Domain\ValueObject\FountainAccessWheelchair" use-column-prefix="false"/>
@@ -18,6 +19,7 @@
         <embedded name="provider_id" class="App\Fountains\Domain\ValueObject\FountainProviderId" use-column-prefix="false"/>
         <embedded name="user_id" class="App\Fountains\Domain\ValueObject\FountainUserId" use-column-prefix="false"/>
         <embedded name="created_at" class="App\Fountains\Domain\ValueObject\FountainCreatedAt" use-column-prefix="false"/>
+        <embedded name="provider_updated_at" class="App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt" use-column-prefix="false"/>
         <embedded name="updated_at" class="App\Fountains\Domain\ValueObject\FountainUpdatedAt" use-column-prefix="false"/>
 
     </entity>

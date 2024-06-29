@@ -4,17 +4,16 @@ namespace App\Fountains\Domain\ValueObject;
 
 use App\Shared\Domain\ValueObject\StringValueObject;
 
-enum FountainSafeWater : string
+enum FountainLegalWater : string
 {
-    case YES = 'yes';
-    case PROBABLY = 'probably';
-    case NO = 'no';
+    case TREATED = 'treated';
+    case UNTREATED = 'untreated';
     case UNKNOWN = 'unknown';
 
     public static function fromString(string|null $value):self
     {
         if($value === null){
-            return self::UNKNOWN;
+            return self::wUNKNOWN;
         }
         return self::from($value);
     }

@@ -15,12 +15,14 @@ class CreateFountainRequest
         private ?string $description = null,
         private ?bool $operational_status = null,
         private ?string $safe_water,
+        private ?string $legal_water,
         private ?bool $access_bottles = null,
         private ?bool $access_pets = null,
         private ?bool $access_wheelchair = null,
         private ?string $provider_name = null,
         private ?string $provider_id = null,
         private ?string $user_id = null,
+        private ?DateTime $provider_updated_at = null,
         private ?DateTime $updated_at = null
     ) {}
 
@@ -70,6 +72,11 @@ class CreateFountainRequest
         return $this->safe_water;
     }
 
+    public function legal_water(): ?string
+    {
+        return $this->legal_water;
+    }
+
     public function access_bottles(): ?bool
     {
         return $this->access_bottles;
@@ -103,5 +110,11 @@ class CreateFountainRequest
     {
         return $this->updated_at;
     }
+
+    public function provider_updated_at(): ?DateTime
+    {
+        return $this->provider_updated_at;
+    }
+
 
 }
