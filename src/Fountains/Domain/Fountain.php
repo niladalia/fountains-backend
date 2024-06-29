@@ -9,12 +9,14 @@ use App\Fountains\Domain\ValueObject\FountainCreatedAt;
 use App\Fountains\Domain\ValueObject\FountainDescription;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainLat;
+use App\Fountains\Domain\ValueObject\FountainLegalWater;
 use App\Fountains\Domain\ValueObject\FountainLong;
 use App\Fountains\Domain\ValueObject\FountainName;
 use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
 use App\Fountains\Domain\ValueObject\FountainPicture;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
+use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
@@ -35,18 +37,19 @@ class Fountain
         private ?FountainDescription       $description,
         private ?FountainOperationalStatus $operational_status,
         private ?FountainSafeWater         $safe_water,
+        private ?FountainLegalWater        $legal_water,
         private ?FountainAccesBottles      $access_bottles,
         private ?FountainAccesPets         $access_pets,
         private ?FountainAccessWheelchair  $access_wheelchair,
         private ?FountainProviderName      $provider_name,
         private ?FountainProviderId        $provider_id,
         private ?FountainUserId            $user_id,
+        private ?FountainProviderUpdatedAt $provider_updated_at,
         private ?FountainUpdatedAt         $updated_at
     )
     {
         $this->created_at = new FountainCreatedAt(new DateTime('now', new DateTimeZone('UTC')));
-
-        $this->updated_at = $updated_at->getValue() ?? new FountainUpdatedAt($this->created_at->getValue());
+        $this->updated_at = $updated_at->getValue() === null ? new FountainUpdatedAt($this->created_at->getValue()) : $updated_at;
 
     }
 
@@ -60,12 +63,14 @@ class Fountain
         ?FountainDescription       $description,
         ?FountainOperationalStatus $operational_status,
         ?FountainSafeWater         $safe_water,
+        ?FountainLegalWater        $legal_water,
         ?FountainAccesBottles      $access_bottles,
         ?FountainAccesPets         $access_pets,
         ?FountainAccessWheelchair  $access_wheelchair,
         ?FountainProviderName      $provider_name,
         ?FountainProviderId        $provider_id,
         ?FountainUserId            $user_id,
+        ?FountainProviderUpdatedAt $provider_updated_at,
         ?FountainUpdatedAt         $updated_at
 
     ): self {
@@ -79,12 +84,14 @@ class Fountain
             $description,
             $operational_status,
             $safe_water,
+            $legal_water,
             $access_bottles,
             $access_pets,
             $access_wheelchair,
             $provider_name,
             $provider_id,
             $user_id,
+            $provider_updated_at,
             $updated_at
         );
     }
@@ -176,6 +183,16 @@ class Fountain
         $this->safe_water = $safe_water;
     }
 
+    public function legal_water(): FountainLegalWater
+    {
+        return $this->legal_water;
+    }
+
+    public function setLegalWater(FountainLegalWater $legal_water): void
+    {
+        $this->legal_water = $legal_water;
+    }
+
     public function access_bottles(): ?FountainAccesBottles
     {
         return $this->access_bottles;
@@ -244,6 +261,16 @@ class Fountain
     public function setUpdatedAt(?FountainUpdatedAt $updated_at): void
     {
         $this->updated_at = $updated_at;
+    }
+
+    public function provider_updated_at(): ?FountainProviderUpdatedAt
+    {
+        return $this->provider_updated_at;
+    }
+
+    public function setProviderUpdatedAt(?FountainProviderUpdatedAt $provider_updated_at): void
+    {
+        $this->provider_updated_at = $provider_updated_at;
     }
 
     public function created_at(): ?FountainCreatedAt

@@ -21,7 +21,8 @@ final class Version20240613092837 extends AbstractMigration
     {
 
         $this->addSql("CREATE TYPE fountain_type AS ENUM ('natural', 'tap_water', 'watering_place','unknown');");
-        $this->addSql("CREATE TYPE safe_water AS ENUM ('yes', 'probably', 'untreated','no','unknown');");
+        $this->addSql("CREATE TYPE safe_water AS ENUM ('yes', 'probably','no','unknown');");
+        $this->addSql("CREATE TYPE legal_water AS ENUM ('trated', 'untrated','unknown');");
 
         $this->addSql('
             CREATE TABLE fountains (
@@ -29,9 +30,10 @@ final class Version20240613092837 extends AbstractMigration
                 lat DOUBLE PRECISION NOT NULL,
                 long DOUBLE PRECISION NOT NULL,
                 geo_point geography(Point, 4326),
-                safe_water VARCHAR(255) NOT NULL,
+                safe_water VARCHAR(50) NOT NULL,
+                legal_water VARCHAR(50) NOT NULL,
                 name VARCHAR(255) DEFAULT NULL,
-                fountain_type VARCHAR(255) DEFAULT NULL,
+                fountain_type VARCHAR(50) DEFAULT NULL,
                 picture VARCHAR(255) DEFAULT NULL,
                 description VARCHAR(255) DEFAULT NULL,
                 operational_status BOOLEAN DEFAULT NULL,
@@ -41,6 +43,7 @@ final class Version20240613092837 extends AbstractMigration
                 provider_name VARCHAR(255) DEFAULT NULL,
                 provider_id VARCHAR(255) DEFAULT NULL,
                 user_id VARCHAR(255) DEFAULT NULL,
+                provider_updated_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
                 updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
                 created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY(id),
@@ -58,5 +61,6 @@ final class Version20240613092837 extends AbstractMigration
         $this->addSql("DROP TABLE fountains;");
         $this->addSql("DROP TYPE fountain_type;");
         $this->addSql("DROP TYPE safe_water;");
+        $this->addSql("DROP TYPE legal_water;");
     }
 }

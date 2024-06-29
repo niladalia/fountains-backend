@@ -18,6 +18,9 @@ class FountainsPostController extends ApiController
 
         $this->validateRequest($request_data, $this->constraints());
 
+        $providerUpdatedAt = $this->parseDateTime($request_data['provider_updated_at'] ?? null);
+        $updatedAt = $this->parseDateTime($request_data['updated_at'] ?? null);
+
         $fountain_request = new CreateFountainRequest(
             Uuid::generate()->getValue(),
             $request_data['lat'],
@@ -28,13 +31,15 @@ class FountainsPostController extends ApiController
             $request_data['description'] ?? null,
             $request_data['operational_status'] ?? null,
             $request_data['safe_water'] ?? null,
+            $request_data['legal_water'] ?? null,
             $request_data['access_bottles'] ?? null,
             $request_data['access_pets'] ?? null,
             $request_data['access_wheelchair'] ?? null,
             $request_data['provider_name'] ?? null,
             $request_data['provider_id'] ?? null,
             $request_data['user_id'] ?? null,
-            $request_data['updated_at'] ?? null
+            $providerUpdatedAt,
+            $updatedAt
         );
 
         $product_creator->__invoke($fountain_request);

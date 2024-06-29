@@ -36,6 +36,23 @@ final class Version20240613093159 extends AbstractMigration
             EXECUTE FUNCTION update_geo_point(); 
            ");
 
+        $this->addSql("
+            CREATE OR REPLACE FUNCTION update_updated_at_column()
+                RETURNS TRIGGER AS $$
+                BEGIN
+                    NEW.updated_at = NOW();
+                    RETURN NEW;
+                END;
+            $$ LANGUAGE plpgsql;
+        ");
+
+        $this->addSql("
+            CREATE TRIGGER updated_at_trigger
+            BEFORE UPDATE ON fountains
+            FOR EACH ROW
+            EXECUTE FUNCTION update_updated_at_column();
+        ");
+
     }
 
     public function down(Schema $schema): void
