@@ -96,6 +96,45 @@ class Fountain
         );
     }
 
+    public function update(
+        FountainLat                $lat,
+        FountainLong               $long,
+        ?FountainName              $name,
+        ?FountainType              $fountain_type,
+        ?FountainPicture           $picture,
+        ?FountainDescription       $description,
+        ?FountainOperationalStatus $operational_status,
+        ?FountainSafeWater         $safe_water,
+        ?FountainLegalWater        $legal_water,
+        ?FountainAccesBottles      $access_bottles,
+        ?FountainAccesPets         $access_pets,
+        ?FountainAccessWheelchair  $access_wheelchair,
+        ?FountainProviderName      $provider_name,
+        ?FountainProviderId        $provider_id,
+        ?FountainUserId            $user_id,
+        ?FountainProviderUpdatedAt $provider_updated_at,
+        ?FountainUpdatedAt         $updated_at
+
+    ): void {
+        $this->updateName($name);
+        $this->updateLat($lat);
+        $this->updateLong($long);
+        $this->updatePicture($picture);
+        $this->updateType($fountain_type);
+        $this->updateDescription($description);
+        $this->updateOperationalStatus($operational_status);
+        $this->updateSafeWater($safe_water);
+        $this->updateLegalWater($legal_water);
+        $this->updateAccesBottles($access_bottles);
+        $this->updateAccesPets($access_pets);
+        $this->updateAccessWheelchair($access_wheelchair);
+        $this->updateProviderName($provider_name);
+        $this->updateProviderId($provider_id);
+        $this->updateUserId($user_id);
+        $this->updateUpdatedAt($updated_at);
+        $this->updateProviderUpdatedAt($provider_updated_at);
+    }
+
     public function id(): ?FountainId
     {
         return $this->id;
@@ -106,7 +145,7 @@ class Fountain
         return $this->name;
     }
 
-    public function setName(?FountainName $name): static
+    public function updateName(?FountainName $name): static
     {
         $this->name = $name;
 
@@ -118,7 +157,7 @@ class Fountain
         return $this->lat;
     }
 
-    public function setLat(FountainLat $lat): void
+    public function updateLat(FountainLat $lat): void
     {
         $this->lat = $lat;
     }
@@ -128,7 +167,7 @@ class Fountain
         return $this->long;
     }
 
-    public function setLong(FountainLong $long): void
+    public function updateLong(FountainLong $long): void
     {
         $this->long = $long;
     }
@@ -138,7 +177,7 @@ class Fountain
         return $this->picture;
     }
 
-    public function setPicture(?FountainPicture $picture): void
+    public function updatePicture(?FountainPicture $picture): void
     {
         $this->picture = $picture;
     }
@@ -148,7 +187,7 @@ class Fountain
         return $this->fountain_type;
     }
 
-    public function setType(?FountainType $fountain_type): void
+    public function updateType(?FountainType $fountain_type): void
     {
         $this->fountain_type = $fountain_type;
     }
@@ -158,7 +197,7 @@ class Fountain
         return $this->description;
     }
 
-    public function setDescription(?FountainDescription $description): void
+    public function updateDescription(?FountainDescription $description): void
     {
         $this->description = $description;
     }
@@ -168,7 +207,7 @@ class Fountain
         return $this->operational_status;
     }
 
-    public function setOperationalStatus(?FountainOperationalStatus $operational_status): void
+    public function updateOperationalStatus(?FountainOperationalStatus $operational_status): void
     {
         $this->operational_status = $operational_status;
     }
@@ -178,7 +217,7 @@ class Fountain
         return $this->safe_water;
     }
 
-    public function setSafeWater(FountainSafeWater $safe_water): void
+    public function updateSafeWater(FountainSafeWater $safe_water): void
     {
         $this->safe_water = $safe_water;
     }
@@ -188,7 +227,7 @@ class Fountain
         return $this->legal_water;
     }
 
-    public function setLegalWater(FountainLegalWater $legal_water): void
+    public function updateLegalWater(FountainLegalWater $legal_water): void
     {
         $this->legal_water = $legal_water;
     }
@@ -198,7 +237,7 @@ class Fountain
         return $this->access_bottles;
     }
 
-    public function setAccesBottles(?FountainAccesBottles $access_bottles): void
+    public function updateAccesBottles(?FountainAccesBottles $access_bottles): void
     {
         $this->access_bottles = $access_bottles;
     }
@@ -208,7 +247,7 @@ class Fountain
         return $this->access_pets;
     }
 
-    public function setAccesPets(?FountainAccesPets $access_pets): void
+    public function updateAccesPets(?FountainAccesPets $access_pets): void
     {
         $this->access_pets = $access_pets;
     }
@@ -218,7 +257,7 @@ class Fountain
         return $this->access_wheelchair;
     }
 
-    public function setAccessWheelchair(?FountainAccessWheelchair $access_wheelchair): void
+    public function updateAccessWheelchair(?FountainAccessWheelchair $access_wheelchair): void
     {
         $this->access_wheelchair = $access_wheelchair;
     }
@@ -228,7 +267,7 @@ class Fountain
         return $this->provider_name;
     }
 
-    public function setProviderName(?FountainProviderName $provider_name): void
+    public function updateProviderName(?FountainProviderName $provider_name): void
     {
         $this->provider_name = $provider_name;
     }
@@ -238,7 +277,7 @@ class Fountain
         return $this->provider_id;
     }
 
-    public function setProviderId(?FountainProviderId $provider_id): void
+    public function updateProviderId(?FountainProviderId $provider_id): void
     {
         $this->provider_id = $provider_id;
     }
@@ -248,7 +287,7 @@ class Fountain
         return $this->user_id;
     }
 
-    public function setUserId(?FountainUserId $user_id): void
+    public function updateUserId(?FountainUserId $user_id): void
     {
         $this->user_id = $user_id;
     }
@@ -258,7 +297,7 @@ class Fountain
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?FountainUpdatedAt $updated_at): void
+    public function updateUpdatedAt(?FountainUpdatedAt $updated_at): void
     {
         $this->updated_at = $updated_at;
     }
@@ -268,7 +307,7 @@ class Fountain
         return $this->provider_updated_at;
     }
 
-    public function setProviderUpdatedAt(?FountainProviderUpdatedAt $provider_updated_at): void
+    public function updateProviderUpdatedAt(?FountainProviderUpdatedAt $provider_updated_at): void
     {
         $this->provider_updated_at = $provider_updated_at;
     }

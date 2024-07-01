@@ -2,3 +2,8 @@ fountain_controller_post:
   path: /api/fountain
   controller: App\Fountains\Infrastructure\Controllers\FountainsPostController
   methods:  [POST]
+
+fountain_controller_put:
+  path: /api/fountain
+  controller: App\Fountains\Infrastructure\Controllers\FountainsPutController
+  methods:  [PUT]
