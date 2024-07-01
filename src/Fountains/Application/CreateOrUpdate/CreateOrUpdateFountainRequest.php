@@ -6,7 +6,7 @@ use DateTime;
 class CreateOrUpdateFountainRequest
 {
     public function __construct(
-        private ?string $id,
+        private ?string $id = null,
         private float $lat,
         private float $long,
         private ?string $name,

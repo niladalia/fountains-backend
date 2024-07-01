@@ -30,7 +30,7 @@ class ApiExceptionListener
             'error' => [
                 'code' => $code,
                 'message' => $exception->getMessage(),
-                #'trace' => $exception->getTrace()
+                'trace' => $exception->getTrace()
             ]
         ];
 

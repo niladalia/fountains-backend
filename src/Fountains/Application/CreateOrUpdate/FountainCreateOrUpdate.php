@@ -25,7 +25,10 @@ class FountainCreateOrUpdate
         );
 
         if ($fountain) {
-            $updateFountainRequest = CreateOrUpdateFountainRequestFactory::toUpdateFountainRequest($fountainRequest);
+            $updateFountainRequest = CreateOrUpdateFountainRequestFactory::toUpdateFountainRequest(
+                $fountainRequest,
+                $fountain->id()
+            );
             $this->fountainUpdater->__invoke($updateFountainRequest, $fountain);
         } else {
             $createFountainRequest = CreateOrUpdateFountainRequestFactory::toCreateFountainRequest(
