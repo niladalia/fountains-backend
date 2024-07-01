@@ -31,10 +31,10 @@ class CreateOrUpdateFountainRequestFactory
         );
     }
 
-    public static function toUpdateFountainRequest(CreateOrUpdateFountainRequest $request): UpdateFountainRequest
+    public static function toUpdateFountainRequest(CreateOrUpdateFountainRequest $request, string $fountainId): UpdateFountainRequest
     {
         return new UpdateFountainRequest(
-            $request->id(),
+            $fountainId,
             $request->lat(),
             $request->long(),
             $request->name(),
