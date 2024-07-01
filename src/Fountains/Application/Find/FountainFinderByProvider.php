@@ -5,8 +5,9 @@ namespace App\Fountains\Application\Find;
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
+use App\Fountains\Domain\ValueObject\FountainProviderName;
 
-class FountainFinderByProviderId
+class FountainFinderByProvider
 {
     private $fountainRepository;
 
@@ -16,9 +17,9 @@ class FountainFinderByProviderId
     }
 
 
-    public function __invoke(FountainProviderId $providerId): ?Fountain
+    public function __invoke(FountainProviderName $providerName, FountainProviderId $providerId): ?Fountain
     {
-        return  !$providerId->getValue() ? null : $this->fountainRepository->findByProviderId($providerId);
+        return  !$providerId->getValue() ? null : $this->fountainRepository->findByProvider($providerName, $providerId);
 
     }
 }

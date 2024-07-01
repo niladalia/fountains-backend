@@ -2,11 +2,8 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
-use App\Fountains\Application\Create\CreateFountainRequest;
-use App\Fountains\Application\Create\FountainCreator;
 use App\Fountains\Application\CreateOrUpdate\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\CreateOrUpdate\FountainCreateOrUpdate;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,16 +22,16 @@ class FountainsPutController extends ApiController
             $updatedAt = $this->parseDateTime($request_data['updated_at'] ?? null);
 
             return new CreateOrUpdateFountainRequest(
-                Uuid::generate()->getValue(),
+                $request_data['id'] ?? null,
                 $request_data['lat'],
                 $request_data['long'],
                 $request_data['name'] ?? null,
+                $request_data['safe_water'] ?? null,
+                $request_data['legal_water'] ?? null,
                 $request_data['fountain_type'] ?? null,
                 $request_data['picture'] ?? null,
                 $request_data['description'] ?? null,
                 $request_data['operational_status'] ?? null,
-                $request_data['safe_water'] ?? null,
-                $request_data['legal_water'] ?? null,
                 $request_data['access_bottles'] ?? null,
                 $request_data['access_pets'] ?? null,
                 $request_data['access_wheelchair'] ?? null,

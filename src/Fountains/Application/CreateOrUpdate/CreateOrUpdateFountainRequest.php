@@ -6,16 +6,16 @@ use DateTime;
 class CreateOrUpdateFountainRequest
 {
     public function __construct(
-        private string $id,
+        private ?string $id,
         private float $lat,
         private float $long,
         private ?string $name,
+        private ?string $safe_water,
+        private ?string $legal_water,
         private ?string $fountain_type = null,
         private ?string $picture = null,
         private ?string $description = null,
         private ?bool $operational_status = null,
-        private ?string $safe_water,
-        private ?string $legal_water,
         private ?bool $access_bottles = null,
         private ?bool $access_pets = null,
         private ?bool $access_wheelchair = null,

@@ -4,10 +4,11 @@ namespace App\Fountains\Domain;
 
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
+use App\Fountains\Domain\ValueObject\FountainProviderName;
 
 interface FountainRepository
 {
     public function save(Fountain $fountain): void;
     public function findById(FountainId $id): ?Fountain;
-    public function findByProviderId(FountainProviderId $provider_id): ?Fountain;
+    public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain;
 }
