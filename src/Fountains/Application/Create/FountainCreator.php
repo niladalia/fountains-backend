@@ -8,7 +8,6 @@ use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
 use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
-use App\Fountains\Domain\ValueObject\FountainCreatedAt;
 use App\Fountains\Domain\ValueObject\FountainDescription;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainLat;
@@ -28,9 +27,8 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 class FountainCreator
 {
     public function __construct(private FountainRepository $fountainRepository)
-    {
+    { }
 
-    }
     public function __invoke(CreateFountainRequest $fountainRequest){
 
         $fountain = Fountain::create(

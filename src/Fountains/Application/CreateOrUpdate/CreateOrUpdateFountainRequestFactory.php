@@ -7,10 +7,10 @@ use App\Fountains\Application\Update\UpdateFountainRequest;
 
 class CreateOrUpdateFountainRequestFactory
 {
-    public static function toCreateFountainRequest(CreateOrUpdateFountainRequest $request): CreateFountainRequest
+    public static function toCreateFountainRequest(CreateOrUpdateFountainRequest $request, string $fountainId): CreateFountainRequest
     {
         return new CreateFountainRequest(
-            $request->id(),
+            $fountainId,
             $request->lat(),
             $request->long(),
             $request->name(),

@@ -19,6 +19,8 @@ class FountainsPostController extends ApiController
         $this->validateRequest($request_data, $this->constraints());
 
         $providerUpdatedAt = $this->parseDateTime($request_data['provider_updated_at'] ?? null);
+
+        // remove
         $updatedAt = $this->parseDateTime($request_data['updated_at'] ?? null);
 
         $fountain_request = new CreateFountainRequest(

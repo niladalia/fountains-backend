@@ -6,6 +6,7 @@ use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
+use App\Fountains\Domain\ValueObject\FountainProviderName;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,10 +28,11 @@ class DoctrineFountainRepository extends ServiceEntityRepository implements Foun
         return $this->getEntityManager()->find(Fountain::class, $id);
     }
 
-    public function findByProviderId(FountainProviderId $provider_id): ?Fountain
+    public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain
     {
         $qb = $this->createQueryBuilder('fountains')
-            ->where('fountains.provider_id.value = :provider_id')
+            ->where('fountains.provider_name.value = :provider_name AND fountains.provider_id.value = :provider_id')
+            ->setParameter("provider_name", $providerName->getValue())
             ->setParameter("provider_id", $provider_id->getValue())
             ->setMaxResults(1);
 
