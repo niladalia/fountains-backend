@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FountainsPostController extends ApiController
 {
-    public function __invoke(Request $request,  FountainCreator $product_creator): Response
+    public function __invoke(Request $request,  FountainCreator $fountainCreator): Response
     {
         $request_data = json_decode($request->getContent(), true);
 
@@ -42,7 +42,7 @@ class FountainsPostController extends ApiController
             $updatedAt
         );
 
-        $product_creator->__invoke($fountain_request);
+        $fountainCreator->__invoke($fountain_request);
 
         return new Response('', Response::HTTP_CREATED);
     }
