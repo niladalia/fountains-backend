@@ -48,8 +48,7 @@ class FountainCreator
             new FountainProviderName($fountainRequest->provider_name()),
             new FountainProviderId($fountainRequest->provider_id()),
             new FountainUserId($fountainRequest->user_id()),
-            new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
-            new FountainUpdatedAt($fountainRequest->updated_at())
+            new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
         );
 
         $this->fountainRepository->save($fountain);

@@ -20,9 +20,6 @@ class FountainsPostController extends ApiController
 
         $providerUpdatedAt = $this->parseDateTime($request_data['provider_updated_at'] ?? null);
 
-        // remove
-        $updatedAt = $this->parseDateTime($request_data['updated_at'] ?? null);
-
         $fountain_request = new CreateFountainRequest(
             Uuid::generate()->getValue(),
             $request_data['lat'],
@@ -40,8 +37,7 @@ class FountainsPostController extends ApiController
             $request_data['provider_name'] ?? null,
             $request_data['provider_id'] ?? null,
             $request_data['user_id'] ?? null,
-            $providerUpdatedAt,
-            $updatedAt
+            $providerUpdatedAt
         );
 
         $fountainCreator->__invoke($fountain_request);
