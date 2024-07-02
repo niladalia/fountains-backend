@@ -5,6 +5,8 @@ namespace App\Fountains\Application\Create;
 use DateTime;
 class CreateFountainRequest
 {
+    private ?DateTime $updated_at = null;
+
     public function __construct(
         private string $id,
         private float $lat,
@@ -22,8 +24,7 @@ class CreateFountainRequest
         private ?string $provider_name = null,
         private ?string $provider_id = null,
         private ?string $user_id = null,
-        private ?DateTime $provider_updated_at = null,
-        private ?DateTime $updated_at = null
+        private ?DateTime $provider_updated_at = null
     ) {}
 
 

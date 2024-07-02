@@ -26,6 +26,7 @@ use DateTime;
 class Fountain
 {
     private ?FountainCreatedAt $created_at = null;
+    private ?FountainUpdatedAt  $updated_at = null;
 
     public function __construct(
         private FountainId                 $id,
@@ -44,13 +45,10 @@ class Fountain
         private ?FountainProviderName      $provider_name,
         private ?FountainProviderId        $provider_id,
         private ?FountainUserId            $user_id,
-        private ?FountainProviderUpdatedAt $provider_updated_at,
-        private ?FountainUpdatedAt         $updated_at
+        private ?FountainProviderUpdatedAt $provider_updated_at
     )
     {
         $this->created_at = new FountainCreatedAt(new DateTime('now', new DateTimeZone('UTC')));
-        $this->updated_at = $updated_at->getValue() === null ? new FountainUpdatedAt($this->created_at->getValue()) : $updated_at;
-
     }
 
     public static function create(
@@ -70,8 +68,7 @@ class Fountain
         ?FountainProviderName      $provider_name,
         ?FountainProviderId        $provider_id,
         ?FountainUserId            $user_id,
-        ?FountainProviderUpdatedAt $provider_updated_at,
-        ?FountainUpdatedAt         $updated_at
+        ?FountainProviderUpdatedAt $provider_updated_at
 
     ): self {
         return new self(
@@ -91,8 +88,7 @@ class Fountain
             $provider_name,
             $provider_id,
             $user_id,
-            $provider_updated_at,
-            $updated_at
+            $provider_updated_at
         );
     }
 

@@ -26,8 +26,7 @@ class CreateOrUpdateFountainRequestFactory
             $request->provider_name(),
             $request->provider_id(),
             $request->user_id(),
-            $request->provider_updated_at(),
-            $request->updated_at()
+            $request->provider_updated_at()
         );
     }
 
