@@ -12,8 +12,5 @@ class FountainName extends StringValueObject
         if ($this->value == null) {
             return null;
         }
-        if (strlen($this->value) <= 2) {
-            InvalidArgument::throw('El nombre tiene que tener un mínimo de 3 caracteres');
-        }
     }
 }
