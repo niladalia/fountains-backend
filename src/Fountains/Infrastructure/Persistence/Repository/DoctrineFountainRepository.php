@@ -4,6 +4,7 @@ namespace App\Fountains\Infrastructure\Persistence\Repository;
 
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
+use App\Fountains\Domain\Fountains;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
@@ -27,6 +28,14 @@ class DoctrineFountainRepository extends ServiceEntityRepository implements Foun
     {
         return $this->getEntityManager()->find(Fountain::class, $id);
     }
+
+    public function search(): ?Fountains
+    {
+        $fountains = $this->findBy([]);
+
+        return new Fountains(...$fountains);
+    }
+
 
     public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain
     {
