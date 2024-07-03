@@ -28,7 +28,7 @@ class FountainsPutController extends ApiController
                 $request_data['name'] ?? null,
                 $request_data['safe_water'] ?? null,
                 $request_data['legal_water'] ?? null,
-                $request_data['fountain_type'] ?? null,
+                $request_data['type'] ?? null,
                 $request_data['picture'] ?? null,
                 $request_data['description'] ?? null,
                 $request_data['operational_status'] ?? null,

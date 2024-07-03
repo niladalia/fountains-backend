@@ -44,7 +44,7 @@ final class Version20240613092837 extends AbstractMigration
                 provider_id VARCHAR(255) DEFAULT NULL,
                 user_id VARCHAR(255) DEFAULT NULL,
                 provider_updated_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
-                updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+                updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY(id),
                 UNIQUE(lat, long),

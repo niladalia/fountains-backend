@@ -13,7 +13,7 @@ enum FountainLegalWater : string
     public static function fromString(string|null $value):self
     {
         if($value === null){
-            return self::wUNKNOWN;
+            return self::UNKNOWN;
         }
         return self::from($value);
     }

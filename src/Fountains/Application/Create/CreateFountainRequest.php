@@ -8,7 +8,6 @@ class CreateFountainRequest
     private ?DateTime $updated_at = null;
 
     public function __construct(
-        private string $id,
         private float $lat,
         private float $long,
         private ?string $name,
@@ -27,11 +26,6 @@ class CreateFountainRequest
         private ?DateTime $provider_updated_at = null
     ) {}
 
-
-    public function id(): string
-    {
-        return $this->id;
-    }
 
     public function lat(): float
     {
