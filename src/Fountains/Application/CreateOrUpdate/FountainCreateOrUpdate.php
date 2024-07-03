@@ -32,8 +32,7 @@ class FountainCreateOrUpdate
             $this->fountainUpdater->__invoke($updateFountainRequest, $fountain);
         } else {
             $createFountainRequest = CreateOrUpdateFountainRequestFactory::toCreateFountainRequest(
-                $fountainRequest,
-                Uuid::generate()->getValue()
+                $fountainRequest
             );
             $this->fountainCreator->__invoke($createFountainRequest);
         }

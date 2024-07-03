@@ -23,6 +23,7 @@ use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainUserId;
 use DateTimeZone;
 use DateTime;
+
 class Fountain
 {
     private ?FountainCreatedAt $created_at = null;
@@ -48,7 +49,9 @@ class Fountain
         private ?FountainProviderUpdatedAt $provider_updated_at
     )
     {
-        $this->created_at = new FountainCreatedAt(new DateTime('now', new DateTimeZone('UTC')));
+        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $this->created_at = new FountainCreatedAt($now);
+        $this->updated_at = new FountainUpdatedAt($now);
     }
 
     public static function create(
