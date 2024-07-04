@@ -31,7 +31,7 @@ class FountainUpdater
 
     public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
     {
-        if(!$fountain){
+        if (!$fountain) {
            $fountain = $this->fountainFinder->__invoke(new FountainId($fountainRequest->id()));
         }
 
