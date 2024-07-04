@@ -16,13 +16,14 @@ class FountainFinder
         $this->fountainRepository = $fountainRepository;
     }
 
-
     public function __invoke(FountainId $id): Fountain
     {
         $fountain = $this->fountainRepository->findById($id);
+
         if (!$fountain) {
             FountainNotFound::throw($id->getValue());
         }
+        
         return $fountain;
     }
 }

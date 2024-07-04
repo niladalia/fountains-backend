@@ -1,17 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Domain\ValueObject;
 
 use DateTime;
 
-abstract class DateTimeValueObject
+abstract class DateTimeValueObject extends ValueObject
 {
-    protected ?DateTime $value;
-
     public function __construct(?DateTime $value = null)
     {
-        $this->value = $value;
-        $this->validate();
+        parent::__construct($value);
     }
 
     public function getValue(): ?DateTime
@@ -19,10 +18,8 @@ abstract class DateTimeValueObject
         return $this->value;
     }
 
-    public function formatISO()
+    public function formatISO(): ?string
     {
-        return $this->value?->format(DateTime::ATOM) ?? null;
+        return $this->value?->format(DateTime::ATOM);
     }
-
-    protected function validate(){ }
 }

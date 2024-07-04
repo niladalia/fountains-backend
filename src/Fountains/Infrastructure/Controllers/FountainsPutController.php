@@ -19,7 +19,6 @@ class FountainsPutController extends ApiController
             $this->validateRequest($request_data, $this->constraints());
 
             $providerUpdatedAt = $this->parseDateTime($request_data['provider_updated_at'] ?? null);
-            $updatedAt = $this->parseDateTime($request_data['updated_at'] ?? null);
 
             $fountain_request = new CreateOrUpdateFountainRequest(
                 $request_data['id'] ?? null,
@@ -38,8 +37,7 @@ class FountainsPutController extends ApiController
                 $request_data['provider_name'] ?? null,
                 $request_data['provider_id'] ?? null,
                 $request_data['user_id'] ?? null,
-                $providerUpdatedAt,
-                $updatedAt
+                $providerUpdatedAt
             );
 
             $fountainCreateOrUpdate->__invoke($fountain_request);

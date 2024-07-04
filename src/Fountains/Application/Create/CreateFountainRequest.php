@@ -3,10 +3,9 @@
 namespace App\Fountains\Application\Create;
 
 use DateTime;
+
 class CreateFountainRequest
 {
-    private ?DateTime $updated_at = null;
-
     public function __construct(
         private float $lat,
         private float $long,
@@ -25,7 +24,6 @@ class CreateFountainRequest
         private ?string $user_id = null,
         private ?DateTime $provider_updated_at = null
     ) {}
-
 
     public function lat(): float
     {
@@ -101,15 +99,9 @@ class CreateFountainRequest
         return $this->user_id;
     }
 
-    public function updated_at(): ?DateTime
-    {
-        return $this->updated_at;
-    }
-
     public function provider_updated_at(): ?DateTime
     {
         return $this->provider_updated_at;
     }
-
 
 }

@@ -23,7 +23,7 @@ class ApiExceptionListener
         if ($exception instanceof HttpExceptionInterface || $exception instanceof DomainException) {
             $code = $exception->getStatusCode();
         } else {
-            $code = 500;
+            $code = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 
         $responseData = [

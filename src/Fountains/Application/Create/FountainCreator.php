@@ -2,7 +2,6 @@
 
 namespace App\Fountains\Application\Create;
 
-
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
@@ -21,7 +20,6 @@ use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
-use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Shared\Domain\ValueObject\Uuid;
 
@@ -30,7 +28,7 @@ class FountainCreator
     public function __construct(private FountainRepository $fountainRepository)
     { }
 
-    public function __invoke(CreateFountainRequest $fountainRequest){
+    public function __invoke(CreateFountainRequest $fountainRequest) {
 
         /*
            We generate the UUID in the application service because since both POST and PUT controller can create new UUIDs,

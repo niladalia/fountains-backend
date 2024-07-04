@@ -4,7 +4,6 @@ namespace App\Fountains\Infrastructure\Controllers;
 
 use App\Fountains\Application\Create\CreateFountainRequest;
 use App\Fountains\Application\Create\FountainCreator;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Request;

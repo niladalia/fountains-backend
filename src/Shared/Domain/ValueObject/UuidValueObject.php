@@ -1,25 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Domain\ValueObject;
 
-class UuidValueObject
+class UuidValueObject extends ValueObject
 {
-    protected ?Uuid $value;
-
     public function __construct(?string $value = null)
     {
-        if($value !== null) {
-            $value = new Uuid($value);
+        if ($value !== null) {
+            $value = Uuid::fromString($value);
         }
         $this->value = $value;
-
-        $this->validate();
     }
 
     public function getValue(): ?Uuid
     {
         return $this->value;
     }
-
-    protected function validate(){ }
 }

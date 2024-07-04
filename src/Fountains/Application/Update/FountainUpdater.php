@@ -2,8 +2,6 @@
 
 namespace App\Fountains\Application\Update;
 
-use App\Fountains\Application\Create\CreateFountainRequest;
-use App\Fountains\Application\CreateOrUpdate\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\Find\FountainFinder;
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
@@ -29,12 +27,10 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 class FountainUpdater
 {
     public function __construct(private FountainRepository $repository, private FountainFinder $fountainFinder)
+    { }
+
+    public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
     {
-
-    }
-
-    public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null){
-
         if(!$fountain){
            $fountain = $this->fountainFinder->__invoke(new FountainId($fountainRequest->id()));
         }
@@ -60,6 +56,5 @@ class FountainUpdater
         );
 
         $this->repository->save($fountain);
-
     }
 }
