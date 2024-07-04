@@ -50,7 +50,7 @@ docker compose down
 To also delete database and other data volumes:
 
 ```sh
-docker-compose down --volumes --remove-orphans  # CAUTION (!) This deletes all data!
+docker compose down --volumes --remove-orphans  # CAUTION (!) This deletes all data!
 ```
 
 ### Debugging

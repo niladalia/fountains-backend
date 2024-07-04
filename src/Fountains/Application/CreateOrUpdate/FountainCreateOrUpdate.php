@@ -16,7 +16,7 @@ class FountainCreateOrUpdate
         private FountainUpdater          $fountainUpdater
     ) {}
 
-    public function __invoke(CreateOrUpdateFountainRequest $fountainRequest){
+    public function __invoke(CreateOrUpdateFountainRequest $fountainRequest) {
 
         /*
             lat,long ?

@@ -46,8 +46,7 @@ class Fountain
         private ?FountainProviderId        $provider_id,
         private ?FountainUserId            $user_id,
         private ?FountainProviderUpdatedAt $provider_updated_at
-    )
-    {
+    ) {
         $now = DateTimeUtils::now();
         $this->created_at = new FountainCreatedAt($now);
         $this->updated_at = new FountainUpdatedAt($now);
@@ -178,7 +177,7 @@ class Fountain
         $this->picture = $picture;
     }
 
-    public function getType(): ?FountainType
+    public function type(): ?FountainType
     {
         return $this->fountain_type;
     }
@@ -198,7 +197,7 @@ class Fountain
         $this->description = $description;
     }
 
-    public function operationa_status(): ?FountainOperationalStatus
+    public function operational_status(): ?FountainOperationalStatus
     {
         return $this->operational_status;
     }
@@ -321,9 +320,9 @@ class Fountain
             'lat' => $this->lat()->getValue(),
             'long' => $this->long()->getValue(),
             'picture' => $this->picture()->getValue(),
-            'type' => $this->getType()->value,
+            'type' => $this->type()->value,
             'description' => $this->description()->getValue(),
-            'operational_status' => $this->operationa_status()->getValue(),
+            'operational_status' => $this->operational_status()->getValue(),
             'safe_water' => $this->safe_water()->value,
             'legal_water' => $this->legal_water()->value,
             'access_bottles' => $this->access_bottles()->getValue(),
@@ -337,6 +336,5 @@ class Fountain
             'created_at' => $this->created_at()->formatISO()
         ];
     }
-
 
 }
