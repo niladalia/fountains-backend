@@ -324,7 +324,7 @@ class Fountain
             'lat' => $this->lat()->getValue(),
             'long' => $this->long()->getValue(),
             'picture' => $this->picture()->getValue(),
-            'fountain_type' => $this->getType()->value,
+            'type' => $this->getType()->value,
             'description' => $this->description()->getValue(),
             'operational_status' => $this->operationa_status()->getValue(),
             'safe_water' => $this->safe_water()->value,

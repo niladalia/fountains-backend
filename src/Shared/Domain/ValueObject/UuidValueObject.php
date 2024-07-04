@@ -21,6 +21,5 @@ class UuidValueObject
         return $this->value;
     }
 
-    protected function validate(){
-    }
+    protected function validate(){ }
 }

@@ -19,10 +19,10 @@ abstract class DateTimeValueObject
         return $this->value;
     }
 
-    public function formatISO(){
-        return $this->value->format(DateTime::ATOM);
+    public function formatISO()
+    {
+        return $this->value?->format(DateTime::ATOM) ?? null;
     }
-    protected function validate(){
 
-    }
+    protected function validate(){ }
 }
