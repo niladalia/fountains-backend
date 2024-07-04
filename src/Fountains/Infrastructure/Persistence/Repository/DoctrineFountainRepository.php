@@ -33,7 +33,7 @@ class DoctrineFountainRepository extends ServiceEntityRepository implements Foun
     {
         $fountains = $this->findBy([]);
 
-        return new Fountains(...$fountains);
+        return new Fountains($fountains);
     }
 
 
