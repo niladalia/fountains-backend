@@ -2,6 +2,7 @@
 
 namespace App\Shared\Infrastructure\Symfony;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validation;
@@ -21,6 +22,6 @@ class Validator
         foreach ($validationErrors as $violation) {
             $errors_array[] = $violation->getPropertyPath() . " : " . $violation->getMessage();
         }
-        throw new HttpException(400, json_encode($errors_array));
+        throw new HttpException(Response::HTTP_BAD_REQUEST, json_encode($errors_array));
     }
 }

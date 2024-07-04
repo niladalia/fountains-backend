@@ -16,10 +16,8 @@ class FountainFinderByProvider
         $this->fountainRepository = $fountainRepository;
     }
 
-
     public function __invoke(FountainProviderName $providerName, FountainProviderId $providerId): ?Fountain
     {
-        return  !$providerId->getValue() ? null : $this->fountainRepository->findByProvider($providerName, $providerId);
-
+        return $providerId->getValue() ? $this->fountainRepository->findByProvider($providerName, $providerId) : null;
     }
 }

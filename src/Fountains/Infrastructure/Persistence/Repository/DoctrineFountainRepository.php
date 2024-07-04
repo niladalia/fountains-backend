@@ -36,14 +36,12 @@ class DoctrineFountainRepository extends ServiceEntityRepository implements Foun
         return new Fountains($fountains);
     }
 
-
     public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain
     {
         $qb = $this->createQueryBuilder('fountains')
             ->where('fountains.provider_name.value = :provider_name AND fountains.provider_id.value = :provider_id')
             ->setParameter("provider_name", $providerName->getValue())
-            ->setParameter("provider_id", $provider_id->getValue())
-            ->setMaxResults(1);
+            ->setParameter("provider_id", $provider_id->getValue());
 
         return $qb->getQuery()->getOneOrNullResult();
     }

@@ -7,7 +7,6 @@ use App\Fountains\Application\Find\FountainFinderByProvider;
 use App\Fountains\Application\Update\FountainUpdater;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
-use App\Shared\Domain\ValueObject\Uuid;
 
 class FountainCreateOrUpdate
 {

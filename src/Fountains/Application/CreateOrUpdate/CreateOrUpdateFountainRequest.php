@@ -22,10 +22,8 @@ class CreateOrUpdateFountainRequest
         private ?string $provider_name = null,
         private ?string $provider_id = null,
         private ?string $user_id = null,
-        private ?DateTime $provider_updated_at = null,
-        private ?DateTime $updated_at = null
+        private ?DateTime $provider_updated_at = null
     ) {}
-
 
     public function id(): string
     {
@@ -96,6 +94,7 @@ class CreateOrUpdateFountainRequest
     {
         return $this->provider_name;
     }
+
     public function provider_id(): ?string
     {
         return $this->provider_id;
@@ -106,15 +105,9 @@ class CreateOrUpdateFountainRequest
         return $this->user_id;
     }
 
-    public function updated_at(): ?DateTime
-    {
-        return $this->updated_at;
-    }
-
     public function provider_updated_at(): ?DateTime
     {
         return $this->provider_updated_at;
     }
-
 
 }

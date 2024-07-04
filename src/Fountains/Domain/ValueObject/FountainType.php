@@ -2,17 +2,16 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-enum FountainType: string
+enum FountainType : string
 {
     case NATURAL = 'natural';
     case TAP_WATER = 'tap_water';
     case WATERING_PLACE = 'watering_place';
     case UNKNOWN = 'unknown';
 
-
-    public static function fromString(string|null $value):self
+    public static function fromString(?string $value): self
     {
-        if($value === null){
+        if ($value === null) {
             return self::UNKNOWN;
         }
         return self::from($value);

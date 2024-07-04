@@ -21,8 +21,7 @@ use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainUserId;
-use DateTimeZone;
-use DateTime;
+use App\Shared\Domain\Utils\DateTimeUtils;
 
 class Fountain
 {
@@ -49,7 +48,7 @@ class Fountain
         private ?FountainProviderUpdatedAt $provider_updated_at
     )
     {
-        $now = new DateTime('now', new DateTimeZone('UTC'));
+        $now = DateTimeUtils::now();
         $this->created_at = new FountainCreatedAt($now);
         $this->updated_at = new FountainUpdatedAt($now);
     }
@@ -144,11 +143,9 @@ class Fountain
         return $this->name;
     }
 
-    public function updateName(?FountainName $name): static
+    public function updateName(?FountainName $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
     public function lat(): FountainLat

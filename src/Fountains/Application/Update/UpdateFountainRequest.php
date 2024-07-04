@@ -3,6 +3,7 @@
 namespace App\Fountains\Application\Update;
 
 use DateTime;
+
 class UpdateFountainRequest
 {
     public function __construct(
@@ -14,8 +15,8 @@ class UpdateFountainRequest
         private ?string $picture = null,
         private ?string $description = null,
         private ?bool $operational_status = null,
-        private ?string $safe_water,
-        private ?string $legal_water,
+        private ?string $safe_water = null,
+        private ?string $legal_water = null,
         private ?bool $access_bottles = null,
         private ?bool $access_pets = null,
         private ?bool $access_wheelchair = null,
@@ -25,7 +26,6 @@ class UpdateFountainRequest
         private ?DateTime $provider_updated_at = null,
         private ?DateTime $updated_at = null
     ) {}
-
 
     public function id(): string
     {
@@ -115,6 +115,5 @@ class UpdateFountainRequest
     {
         return $this->provider_updated_at;
     }
-
 
 }
