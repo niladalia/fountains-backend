@@ -19,6 +19,17 @@ class FountainCreateOrUpdate
 
     public function __invoke(CreateOrUpdateFountainRequest $fountainRequest){
 
+        /*
+            lat,long ?
+            No: Insert new
+            Yes:
+            same provider_name,provider_id ?
+              yes: If provider_updated_at new > old: Update all fields (replace: recent ?? null)
+              no: Update non-null fields (patch: recent ?? other). new provider_updated_at >= old ? recent=new, other=old : recent=old, other=new
+            provider_updated_at = recent
+            provider_name, provider_id = new
+         */
+
         $fountain = $this->fountainFinderByProviderId->__invoke(
             new FountainProviderName($fountainRequest->provider_name()),
             new FountainProviderId($fountainRequest->provider_id())

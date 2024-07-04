@@ -26,15 +26,23 @@ final class Version20240613093159 extends AbstractMigration
                     NEW.geo_point := ST_SetSRID(ST_MakePoint(NEW.long, NEW.lat), 4326);
                     RETURN NEW;
                 END;
-            $$ LANGUAGE plpgsql;"
-        );
+            $$ LANGUAGE plpgsql;
+        ");
 
         $this->addSql("
             CREATE TRIGGER update_geo_point_trigger
-            BEFORE INSERT OR UPDATE ON fountains
+            BEFORE UPDATE ON fountains
             FOR EACH ROW
-            EXECUTE FUNCTION update_geo_point(); 
-           ");
+            WHEN (NEW.lat != OLD.lat OR NEW.long != OLD.long)
+            EXECUTE FUNCTION update_geo_point();
+        ");
+
+        $this->addSql("
+            CREATE TRIGGER insert_geo_point_trigger
+            BEFORE INSERT ON fountains
+            FOR EACH ROW
+            EXECUTE FUNCTION update_geo_point();
+        ");
 
         $this->addSql("
             CREATE OR REPLACE FUNCTION update_updated_at_column()
@@ -57,7 +65,12 @@ final class Version20240613093159 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql("DROP FUNCTION IF EXISTS update_geo_point(INTEGER, TEXT);");
+        $this->addSql("DROP FUNCTION IF EXISTS update_updated_at_column(INTEGER, TEXT);");
+        $this->addSql("DROP TRIGGER IF EXISTS update_geo_point_trigger ON fountains;");
+        $this->addSql("DROP TRIGGER IF EXISTS insert_geo_point_trigger ON fountains;");
+        $this->addSql("DROP TRIGGER IF EXISTS updated_at_trigger ON fountains;");
+        $this->addSql("DROP TRIGGER IF EXISTS trigger_name ON fountains;");
 
     }
 }
