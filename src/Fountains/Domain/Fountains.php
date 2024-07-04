@@ -14,8 +14,8 @@ final class Fountains
     {
         $fountains = [];
 
-        foreach ($this->fountains as $book) {
-            $fountains[] = $book->toArray();
+        foreach ($this->fountains as $fountain) {
+            $fountains[] = $fountain->toArray();
         }
 
         return $fountains;

@@ -17,5 +17,5 @@ abstract class IntegerValueObject
         return $this->value;
     }
 
-    protected function validate(){}
+    protected function validate(){ }
 }

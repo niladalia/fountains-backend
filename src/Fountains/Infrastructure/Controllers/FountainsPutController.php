@@ -15,13 +15,13 @@ class FountainsPutController extends ApiController
     {
         $request_batch = json_decode($request->getContent(), true);
 
-        $fountain_request = array_map(function ($request_data) {
+        foreach ($request_batch as $request_data) {
             $this->validateRequest($request_data, $this->constraints());
 
             $providerUpdatedAt = $this->parseDateTime($request_data['provider_updated_at'] ?? null);
             $updatedAt = $this->parseDateTime($request_data['updated_at'] ?? null);
 
-            return new CreateOrUpdateFountainRequest(
+            $fountain_request = new CreateOrUpdateFountainRequest(
                 $request_data['id'] ?? null,
                 $request_data['lat'],
                 $request_data['long'],
@@ -41,10 +41,9 @@ class FountainsPutController extends ApiController
                 $providerUpdatedAt,
                 $updatedAt
             );
-        }, $request_batch);
 
-
-        array_walk($fountain_request, [$fountainCreateOrUpdate, '__invoke']);
+            $fountainCreateOrUpdate->__invoke($fountain_request);
+        }
 
         return new Response('', Response::HTTP_CREATED);
     }

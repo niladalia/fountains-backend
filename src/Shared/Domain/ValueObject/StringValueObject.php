@@ -17,7 +17,5 @@ abstract class StringValueObject
         return $this->value;
     }
 
-    protected function validate(){
-
-    }
+    protected function validate(){ }
 }
