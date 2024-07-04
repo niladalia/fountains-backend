@@ -65,12 +65,11 @@ final class Version20240613093159 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql("DROP FUNCTION IF EXISTS update_geo_point(INTEGER, TEXT);");
-        $this->addSql("DROP FUNCTION IF EXISTS update_updated_at_column(INTEGER, TEXT);");
         $this->addSql("DROP TRIGGER IF EXISTS update_geo_point_trigger ON fountains;");
         $this->addSql("DROP TRIGGER IF EXISTS insert_geo_point_trigger ON fountains;");
-        $this->addSql("DROP TRIGGER IF EXISTS updated_at_trigger ON fountains;");
-        $this->addSql("DROP TRIGGER IF EXISTS trigger_name ON fountains;");
+        $this->addSql("DROP FUNCTION IF EXISTS update_geo_point();");
 
+        $this->addSql("DROP TRIGGER IF EXISTS updated_at_trigger ON fountains;");
+        $this->addSql("DROP FUNCTION IF EXISTS update_updated_at_column();");
     }
 }
