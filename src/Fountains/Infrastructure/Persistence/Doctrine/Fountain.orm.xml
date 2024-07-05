@@ -6,7 +6,7 @@
         <embedded name="lat" class="App\Fountains\Domain\ValueObject\FountainLat" use-column-prefix="false"/>
         <embedded name="long" class="App\Fountains\Domain\ValueObject\FountainLong" use-column-prefix="false"/>
         <embedded name="name" class="App\Fountains\Domain\ValueObject\FountainName" use-column-prefix="false"/>
-        <field name="fountain_type" column="fountain_type" nullable="true"/>
+        <field name="type" column="type" nullable="true"/>
         <embedded name="picture" class="App\Fountains\Domain\ValueObject\FountainPicture" use-column-prefix="false"/>
         <embedded name="description" class="App\Fountains\Domain\ValueObject\FountainDescription" use-column-prefix="false"/>
         <embedded name="operational_status" class="App\Fountains\Domain\ValueObject\FountainOperationalStatus" use-column-prefix="false"/>
