@@ -21,27 +21,26 @@ use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUserId;
-use App\Shared\Domain\ValueObject\Uuid;
 
 class FountainCreator
 {
     public function __construct(private FountainRepository $fountainRepository)
     { }
 
-    public function __invoke(CreateFountainRequest $fountainRequest) {
-
+    public function __invoke(CreateFountainRequest $fountainRequest)
+    {
         /*
            We generate the UUID in the application service because since both POST and PUT controller can create new UUIDs,
            we wanted to have a centralized place for the generation of the uuid. Typicaly we would generate it in the Infrastructure layer
         */
-        $uuid =  Uuid::generate()->getValue();
+        $uuid = FountainId::generate();
 
         $fountain = Fountain::create(
-            new FountainId($uuid),
+            $uuid,
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
             new FountainName($fountainRequest->name()),
-            FountainType::fromString($fountainRequest->fountain_type()),
+            FountainType::fromString($fountainRequest->type()),
             new FountainPicture($fountainRequest->picture()),
             new FountainDescription($fountainRequest->description()),
             new FountainOperationalStatus($fountainRequest->operational_status()),

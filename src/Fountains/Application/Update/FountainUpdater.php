@@ -39,7 +39,7 @@ class FountainUpdater
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
             new FountainName($fountainRequest->name()),
-            FountainType::fromString($fountainRequest->fountain_type()),
+            FountainType::fromString($fountainRequest->type()),
             new FountainPicture($fountainRequest->picture()),
             new FountainDescription($fountainRequest->description()),
             new FountainOperationalStatus($fountainRequest->operational_status()),
@@ -51,8 +51,7 @@ class FountainUpdater
             new FountainProviderName($fountainRequest->provider_name()),
             new FountainProviderId($fountainRequest->provider_id()),
             new FountainUserId($fountainRequest->user_id()),
-            new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
-            new FountainUpdatedAt($fountainRequest->updated_at())
+            new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
         );
 
         $this->repository->save($fountain);

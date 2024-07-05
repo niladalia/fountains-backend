@@ -11,7 +11,7 @@ class UpdateFountainRequest
         private float $lat,
         private float $long,
         private ?string $name,
-        private ?string $fountain_type = null,
+        private ?string $type = null,
         private ?string $picture = null,
         private ?string $description = null,
         private ?bool $operational_status = null,
@@ -23,8 +23,7 @@ class UpdateFountainRequest
         private ?string $provider_name = null,
         private ?string $provider_id = null,
         private ?string $user_id = null,
-        private ?DateTime $provider_updated_at = null,
-        private ?DateTime $updated_at = null
+        private ?DateTime $provider_updated_at = null
     ) {}
 
     public function id(): string
@@ -47,9 +46,9 @@ class UpdateFountainRequest
         return $this->name;
     }
 
-    public function fountain_type(): ?string
+    public function type(): ?string
     {
-        return $this->fountain_type;
+        return $this->type;
     }
 
     public function picture(): ?string
@@ -101,19 +100,14 @@ class UpdateFountainRequest
         return $this->provider_id;
     }
 
-    public function user_id(): ?string
-    {
-        return $this->user_id;
-    }
-
-    public function updated_at(): ?DateTime
-    {
-        return $this->updated_at;
-    }
-
     public function provider_updated_at(): ?DateTime
     {
         return $this->provider_updated_at;
+    }
+
+    public function user_id(): ?string
+    {
+        return $this->user_id;
     }
 
 }

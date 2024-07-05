@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FountainsPutController extends ApiController
 {
-    public function __invoke(Request $request,  FountainCreateOrUpdate $fountainCreateOrUpdate): Response
+    public function __invoke(Request $request, FountainCreateOrUpdate $fountainCreateOrUpdate): Response
     {
         $request_batch = json_decode($request->getContent(), true);
 
@@ -43,7 +43,7 @@ class FountainsPutController extends ApiController
             $fountainCreateOrUpdate->__invoke($fountain_request);
         }
 
-        return new Response('', Response::HTTP_CREATED);
+        return new Response('', Response::HTTP_OK);
     }
 
     private function constraints(): Assert\Collection
