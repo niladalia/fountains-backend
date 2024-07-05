@@ -10,7 +10,7 @@ class CreateFountainRequest
         private float $lat,
         private float $long,
         private ?string $name,
-        private ?string $fountain_type = null,
+        private ?string $type = null,
         private ?string $picture = null,
         private ?string $description = null,
         private ?bool $operational_status = null,
@@ -40,9 +40,9 @@ class CreateFountainRequest
         return $this->name;
     }
 
-    public function fountain_type(): ?string
+    public function type(): ?string
     {
-        return $this->fountain_type;
+        return $this->type;
     }
 
     public function picture(): ?string
