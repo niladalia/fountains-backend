@@ -11,6 +11,10 @@ cp .env .env.local
 - Edit `APP_ENV` to [select active environment](https://symfony.com/doc/current/configuration.html#selecting-the-active-environment) (`dev` or `prod`)
 - Edit [other values](https://symfony.com/doc/current/configuration.html#overriding-environment-values-via-env-local) as needed
 
+Regenerate `APP_SECRET`:
+
+`php bin/console regenerate-app-secret`
+
 ## Run
 
 Run docker containers (php server, nginx, database...) with [docker compose](https://docs.docker.com/compose/install/)
