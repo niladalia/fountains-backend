@@ -41,6 +41,12 @@ To start again all containers:
 make start-project
 ```
 
+To restart containers:
+
+```sh
+make restart-project
+```
+
 To delete all containers:
 
 ```sh
