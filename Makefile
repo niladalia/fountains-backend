@@ -8,5 +8,7 @@ start-project:
 stop-project:
 	docker compose stop
 
+restart-project: stop-project start-project
+
 run-migrations:
 	docker exec -it fountains_php php bin/console doctrine:migrations:migrate
