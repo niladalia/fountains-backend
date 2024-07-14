@@ -47,7 +47,7 @@ services:
         container_name: fountains_db
         image: postgis/postgis:latest
         volumes:
-            - db_library:/var/lib/postgresql/data
+            - fountains_database:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -61,7 +61,7 @@ services:
             - fountains_network
 
 volumes:
-    db_library:
+    fountains_database:
 
 networks:
     fountains_network:

@@ -21,12 +21,11 @@ use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
-use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainUserId;
 
 class FountainUpdater
 {
-    public function __construct(private FountainRepository $repository, private FountainFinder $fountainFinder)
+    public function __construct(private FountainRepository $fountainRepository, private FountainFinder $fountainFinder)
     { }
 
     public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
@@ -54,6 +53,6 @@ class FountainUpdater
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
         );
 
-        $this->repository->save($fountain);
+        $this->fountainRepository->save($fountain);
     }
 }
