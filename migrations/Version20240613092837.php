@@ -19,10 +19,9 @@ final class Version20240613092837 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-
-        $this->addSql("CREATE TYPE fountain_type AS ENUM ('natural', 'tap_water', 'watering_place','unknown');");
-        $this->addSql("CREATE TYPE safe_water_type AS ENUM ('yes', 'probably','no','unknown');");
-        $this->addSql("CREATE TYPE legal_water_type AS ENUM ('trated', 'untrated','unknown');");
+        $this->addSql("CREATE TYPE fountain_type AS ENUM ('natural', 'tap_water', 'watering_place', 'unknown');");
+        $this->addSql("CREATE TYPE safe_water_type AS ENUM ('yes', 'probably', 'no', 'unknown');");
+        $this->addSql("CREATE TYPE legal_water_type AS ENUM ('treated', 'untreated', 'unknown');");
 
         $this->addSql('
             CREATE TABLE fountains (
@@ -30,13 +29,13 @@ final class Version20240613092837 extends AbstractMigration
                 lat DOUBLE PRECISION NOT NULL,
                 long DOUBLE PRECISION NOT NULL,
                 geo_point geography(Point, 4326),
-                type VARCHAR(32) DEFAULT NULL,
+                type fountain_type DEFAULT NULL,
                 name VARCHAR(255) DEFAULT NULL,
                 description TEXT DEFAULT NULL,
                 picture VARCHAR(255) DEFAULT NULL,
                 operational_status BOOLEAN DEFAULT NULL,
-                safe_water VARCHAR(16) NOT NULL,
-                legal_water VARCHAR(16) NOT NULL,
+                safe_water safe_water_type NOT NULL,
+                legal_water legal_water_type NOT NULL,
                 access_bottles BOOLEAN DEFAULT NULL,
                 access_pets BOOLEAN DEFAULT NULL,
                 acces_wheelchair BOOLEAN DEFAULT NULL,
@@ -53,7 +52,7 @@ final class Version20240613092837 extends AbstractMigration
             );
         ');
 
-        $this->addSql("CREATE INDEX idx_fuentes_geo_point ON fountains USING GIST(geo_point);");
+        $this->addSql("CREATE INDEX idx_fountains_geo_point ON fountains USING GIST(geo_point);");
     }
 
     public function down(Schema $schema): void
