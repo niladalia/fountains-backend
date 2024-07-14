@@ -38,6 +38,8 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
         if ($this->appApiToken !== $apiToken) {
             throw new CustomUserMessageAuthenticationException('Api token is invalid');
         }
+        #return new User();
+        $user = new User();
 
         return new SelfValidatingPassport(new UserBadge($apiToken));
     }
