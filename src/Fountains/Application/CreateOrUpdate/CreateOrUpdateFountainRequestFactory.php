@@ -13,7 +13,7 @@ class CreateOrUpdateFountainRequestFactory
             $request->lat(),
             $request->long(),
             $request->name(),
-            $request->fountain_type(),
+            $request->type(),
             $request->picture(),
             $request->description(),
             $request->operational_status(),
@@ -36,7 +36,7 @@ class CreateOrUpdateFountainRequestFactory
             $request->lat(),
             $request->long(),
             $request->name(),
-            $request->fountain_type(),
+            $request->type(),
             $request->picture(),
             $request->description(),
             $request->operational_status(),
@@ -48,8 +48,7 @@ class CreateOrUpdateFountainRequestFactory
             $request->provider_name(),
             $request->provider_id(),
             $request->user_id(),
-            $request->provider_updated_at(),
-            $request->updated_at()
+            $request->provider_updated_at()
         );
     }
 }

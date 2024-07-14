@@ -10,7 +10,7 @@ class FountainIdType extends GuidType
 {
     public function getName(): string
     {
-        return 'product_id';
+        return 'fountain_id';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?FountainId

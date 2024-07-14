@@ -1,21 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Domain\ValueObject;
 
-abstract class IntegerValueObject
+abstract class IntegerValueObject extends ValueObject
 {
-    protected ?int $value;
-
     public function __construct(?int $value = null)
     {
-        $this->value = $value;
-        $this->validate();
+        parent::__construct($value);
     }
 
     public function getValue(): ?int
     {
         return $this->value;
     }
-
-    protected function validate(){ }
 }

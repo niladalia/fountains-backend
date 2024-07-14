@@ -13,7 +13,7 @@ class FountainsGetController extends ApiController
     public function __invoke(Request $request,  FountainsFinder $fountainsFinder): Response
     {
         $fountains = $fountainsFinder->__invoke();
-        var_dump(new \DateTimeZone('UTC'));
-        return new JsonResponse($fountains->toArray(), 200);
+        
+        return new JsonResponse($fountains->toArray(), Response::HTTP_OK);
     }
 }

@@ -1,23 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Domain\ValueObject;
 
-use App\Shared\Domain\Exceptions\InvalidArgument;
-
-abstract class FloatValueObject
+abstract class FloatValueObject extends ValueObject
 {
-    protected ?float $value;
-
     public function __construct(?float $value = null)
     {
-        $this->value = $value;
-        $this->validate();
+        parent::__construct($value);
     }
 
     public function getValue(): ?float
     {
         return $this->value;
     }
-
-    protected function validate(){ }
 }

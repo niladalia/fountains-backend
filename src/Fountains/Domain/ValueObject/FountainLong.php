@@ -9,8 +9,6 @@ class FountainLong extends FloatValueObject
 {
     protected function validate()
     {
-        parent::validate();
-
         if ($this->value === null) {
             InvalidArgument::throw('La longitud no puede estar vacía.');
         }
