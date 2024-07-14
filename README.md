@@ -29,7 +29,7 @@ To make migrations (first time or with new migrations):
 make run-migrations # input yes
 ```
 
-**Endpoint**: http://localhost:88/api/fountains
+**Endpoint**: http://localhost:8000/api/fountains
 
 Port configurable with `NGINX_PORT` in `.env.local`
 
