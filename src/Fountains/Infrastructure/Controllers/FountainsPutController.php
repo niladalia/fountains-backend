@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FountainsPutController extends ApiController
 {
-    public function __invoke(Request $request,  FountainCreateOrUpdate $fountainCreateOrUpdate): Response
+    public function __invoke(Request $request, FountainCreateOrUpdate $fountainCreateOrUpdate): Response
     {
         $request_batch = json_decode($request->getContent(), true);
 
@@ -19,7 +19,6 @@ class FountainsPutController extends ApiController
             $this->validateRequest($request_data, $this->constraints());
 
             $providerUpdatedAt = $this->parseDateTime($request_data['provider_updated_at'] ?? null);
-            $updatedAt = $this->parseDateTime($request_data['updated_at'] ?? null);
 
             $fountain_request = new CreateOrUpdateFountainRequest(
                 $request_data['id'] ?? null,
@@ -38,14 +37,13 @@ class FountainsPutController extends ApiController
                 $request_data['provider_name'] ?? null,
                 $request_data['provider_id'] ?? null,
                 $request_data['user_id'] ?? null,
-                $providerUpdatedAt,
-                $updatedAt
+                $providerUpdatedAt
             );
 
             $fountainCreateOrUpdate->__invoke($fountain_request);
         }
 
-        return new Response('', Response::HTTP_CREATED);
+        return new Response('', Response::HTTP_OK);
     }
 
     private function constraints(): Assert\Collection

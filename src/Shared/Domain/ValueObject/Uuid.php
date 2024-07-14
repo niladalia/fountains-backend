@@ -10,22 +10,34 @@ use Stringable;
 
 class Uuid implements Stringable
 {
-    public function __construct(protected string $value)
+    protected function __construct(protected string $value)
     {
-        $this->ensureIsValidUuid($value);
+        /*
+          This class is trusted,
+          to improve performance do not validate when using a protected constructor.
+        */
     }
 
-    final public static function generate(): self
+    public static final function fromString(string $value): self
     {
+        // value is not trusted, so validate here
+        $uuid = new static($value);
+        static::ensureIsValidUuid($uuid->value);
+        return $uuid;
+    }
+
+    public static final function generate(): self
+    {
+        // RamseyUuid::uuid4 is a valid Uuid, so call constructor without validation
         return new static(RamseyUuid::uuid4()->toString());
     }
 
-    final public function getValue(): string
+    public function getValue(): string
     {
         return $this->value;
     }
 
-    final public function equals(self $other): bool
+    public function equals(self $other): bool
     {
         return $this->getValue() === $other->getValue();
     }
@@ -35,10 +47,10 @@ class Uuid implements Stringable
         return $this->getValue();
     }
 
-    private function ensureIsValidUuid(string $id): void
+    protected static function ensureIsValidUuid(string $id): void
     {
         if (!RamseyUuid::isValid($id)) {
-            InvalidArgument::throw('UUid format is not valid !.');
+            InvalidArgument::throw('Uuid format is not valid!');
         }
     }
 }

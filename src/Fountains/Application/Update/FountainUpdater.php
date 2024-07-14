@@ -2,8 +2,6 @@
 
 namespace App\Fountains\Application\Update;
 
-use App\Fountains\Application\Create\CreateFountainRequest;
-use App\Fountains\Application\CreateOrUpdate\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\Find\FountainFinder;
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
@@ -29,13 +27,11 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 class FountainUpdater
 {
     public function __construct(private FountainRepository $repository, private FountainFinder $fountainFinder)
+    { }
+
+    public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
     {
-
-    }
-
-    public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null){
-
-        if(!$fountain){
+        if (!$fountain) {
            $fountain = $this->fountainFinder->__invoke(new FountainId($fountainRequest->id()));
         }
 
@@ -43,7 +39,7 @@ class FountainUpdater
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
             new FountainName($fountainRequest->name()),
-            FountainType::fromString($fountainRequest->fountain_type()),
+            FountainType::fromString($fountainRequest->type()),
             new FountainPicture($fountainRequest->picture()),
             new FountainDescription($fountainRequest->description()),
             new FountainOperationalStatus($fountainRequest->operational_status()),
@@ -55,11 +51,9 @@ class FountainUpdater
             new FountainProviderName($fountainRequest->provider_name()),
             new FountainProviderId($fountainRequest->provider_id()),
             new FountainUserId($fountainRequest->user_id()),
-            new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
-            new FountainUpdatedAt($fountainRequest->updated_at())
+            new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
         );
 
         $this->repository->save($fountain);
-
     }
 }

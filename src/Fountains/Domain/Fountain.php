@@ -21,8 +21,7 @@ use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainUserId;
-use DateTimeZone;
-use DateTime;
+use App\Shared\Domain\Utils\DateTimeUtils;
 
 class Fountain
 {
@@ -34,7 +33,7 @@ class Fountain
         private FountainLat                $lat,
         private FountainLong               $long,
         private ?FountainName              $name,
-        private ?FountainType              $fountain_type,
+        private ?FountainType              $type,
         private ?FountainPicture           $picture,
         private ?FountainDescription       $description,
         private ?FountainOperationalStatus $operational_status,
@@ -47,9 +46,8 @@ class Fountain
         private ?FountainProviderId        $provider_id,
         private ?FountainUserId            $user_id,
         private ?FountainProviderUpdatedAt $provider_updated_at
-    )
-    {
-        $now = new DateTime('now', new DateTimeZone('UTC'));
+    ) {
+        $now = DateTimeUtils::now();
         $this->created_at = new FountainCreatedAt($now);
         $this->updated_at = new FountainUpdatedAt($now);
     }
@@ -59,7 +57,7 @@ class Fountain
         FountainLat                $lat,
         FountainLong               $long,
         ?FountainName              $name,
-        ?FountainType              $fountain_type,
+        ?FountainType              $type,
         ?FountainPicture           $picture,
         ?FountainDescription       $description,
         ?FountainOperationalStatus $operational_status,
@@ -72,14 +70,13 @@ class Fountain
         ?FountainProviderId        $provider_id,
         ?FountainUserId            $user_id,
         ?FountainProviderUpdatedAt $provider_updated_at
-
     ): self {
         return new self(
             $id,
             $lat,
             $long,
             $name,
-            $fountain_type,
+            $type,
             $picture,
             $description,
             $operational_status,
@@ -99,7 +96,7 @@ class Fountain
         FountainLat                $lat,
         FountainLong               $long,
         ?FountainName              $name,
-        ?FountainType              $fountain_type,
+        ?FountainType              $type,
         ?FountainPicture           $picture,
         ?FountainDescription       $description,
         ?FountainOperationalStatus $operational_status,
@@ -111,15 +108,13 @@ class Fountain
         ?FountainProviderName      $provider_name,
         ?FountainProviderId        $provider_id,
         ?FountainUserId            $user_id,
-        ?FountainProviderUpdatedAt $provider_updated_at,
-        ?FountainUpdatedAt         $updated_at
-
+        ?FountainProviderUpdatedAt $provider_updated_at
     ): void {
         $this->updateName($name);
         $this->updateLat($lat);
         $this->updateLong($long);
         $this->updatePicture($picture);
-        $this->updateType($fountain_type);
+        $this->updateType($type);
         $this->updateDescription($description);
         $this->updateOperationalStatus($operational_status);
         $this->updateSafeWater($safe_water);
@@ -130,11 +125,10 @@ class Fountain
         $this->updateProviderName($provider_name);
         $this->updateProviderId($provider_id);
         $this->updateUserId($user_id);
-        $this->updateUpdatedAt($updated_at);
         $this->updateProviderUpdatedAt($provider_updated_at);
     }
 
-    public function id(): ?FountainId
+    public function id(): FountainId
     {
         return $this->id;
     }
@@ -144,11 +138,9 @@ class Fountain
         return $this->name;
     }
 
-    public function updateName(?FountainName $name): static
+    public function updateName(?FountainName $name): void
     {
         $this->name = $name;
-
-        return $this;
     }
 
     public function lat(): FountainLat
@@ -181,14 +173,14 @@ class Fountain
         $this->picture = $picture;
     }
 
-    public function getType(): ?FountainType
+    public function type(): ?FountainType
     {
-        return $this->fountain_type;
+        return $this->type;
     }
 
-    public function updateType(?FountainType $fountain_type): void
+    public function updateType(?FountainType $type): void
     {
-        $this->fountain_type = $fountain_type;
+        $this->type = $type;
     }
 
     public function description(): ?FountainDescription
@@ -201,7 +193,7 @@ class Fountain
         $this->description = $description;
     }
 
-    public function operationa_status(): ?FountainOperationalStatus
+    public function operational_status(): ?FountainOperationalStatus
     {
         return $this->operational_status;
     }
@@ -281,6 +273,16 @@ class Fountain
         $this->provider_id = $provider_id;
     }
 
+    public function provider_updated_at(): ?FountainProviderUpdatedAt
+    {
+        return $this->provider_updated_at;
+    }
+
+    public function updateProviderUpdatedAt(?FountainProviderUpdatedAt $provider_updated_at): void
+    {
+        $this->provider_updated_at = $provider_updated_at;
+    }
+
     public function user_id(): ?FountainUserId
     {
         return $this->user_id;
@@ -296,21 +298,6 @@ class Fountain
         return $this->updated_at;
     }
 
-    public function updateUpdatedAt(?FountainUpdatedAt $updated_at): void
-    {
-        $this->updated_at = $updated_at;
-    }
-
-    public function provider_updated_at(): ?FountainProviderUpdatedAt
-    {
-        return $this->provider_updated_at;
-    }
-
-    public function updateProviderUpdatedAt(?FountainProviderUpdatedAt $provider_updated_at): void
-    {
-        $this->provider_updated_at = $provider_updated_at;
-    }
-
     public function created_at(): ?FountainCreatedAt
     {
         return $this->created_at;
@@ -320,13 +307,13 @@ class Fountain
     {
         return [
             'id' => $this->id()->getValue(),
-            'name' => $this->name()->getValue(),
             'lat' => $this->lat()->getValue(),
             'long' => $this->long()->getValue(),
+            'type' => $this->type()->value,
+            'name' => $this->name()->getValue(),
             'picture' => $this->picture()->getValue(),
-            'type' => $this->getType()->value,
             'description' => $this->description()->getValue(),
-            'operational_status' => $this->operationa_status()->getValue(),
+            'operational_status' => $this->operational_status()->getValue(),
             'safe_water' => $this->safe_water()->value,
             'legal_water' => $this->legal_water()->value,
             'access_bottles' => $this->access_bottles()->getValue(),
@@ -334,12 +321,11 @@ class Fountain
             'access_wheelchair' => $this->access_wheelchair()->getValue(),
             'provider_name' => $this->provider_name()->getValue(),
             'provider_id' => $this->provider_id()->getValue(),
+            'provider_updated_at' => $this->provider_updated_at()->formatISO(),
             'user_id' => $this->user_id()->getValue(),
             'updated_at' => $this->updated_at()->formatISO(),
-            'provider_updated_at' => $this->provider_updated_at()->formatISO(),
             'created_at' => $this->created_at()->formatISO()
         ];
     }
-
 
 }

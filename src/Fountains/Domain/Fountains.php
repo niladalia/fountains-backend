@@ -4,20 +4,22 @@ namespace App\Fountains\Domain;
 
 final class Fountains
 {
+    /**
+     * @var Fountain[]
+     */
     private $fountains;
-    public function __construct(Fountain ...$fountains)
+
+    /**
+     * @param Fountain[] $fountains
+     */
+    public function __construct(array $fountains)
     {
         $this->fountains = $fountains;
     }
 
     public function toArray(): array
     {
-        $fountains = [];
-
-        foreach ($this->fountains as $fountain) {
-            $fountains[] = $fountain->toArray();
-        }
-
-        return $fountains;
+        return array_map(fn($fountain) => $fountain->toArray(), $this->fountains);
     }
+
 }

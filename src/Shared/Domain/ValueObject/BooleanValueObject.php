@@ -1,21 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Domain\ValueObject;
 
-abstract class BooleanValueObject
+abstract class BooleanValueObject extends ValueObject
 {
-    protected ?bool $value;
-
     public function __construct(?bool $value = null)
     {
-        $this->value = $value;
-        $this->validate();
+        parent::__construct($value);
     }
 
     public function getValue(): ?bool
     {
         return $this->value;
     }
-
-    protected function validate(){ }
 }
