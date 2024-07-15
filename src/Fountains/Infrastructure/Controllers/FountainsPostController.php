@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FountainsPostController extends ApiController
 {
-    public function __invoke(Request $request,  FountainCreator $fountainCreator): Response
+    public function __invoke(Request $request, FountainCreator $fountainCreator): Response
     {
         $request_data = json_decode($request->getContent(), true);
 
