@@ -2,6 +2,7 @@
 
 namespace App\Providers\Domain;
 
+use App\Providers\Domain\ValueObject\ProviderId;
 use App\Providers\Domain\ValueObject\ProviderName;
 
 class Provider
@@ -22,7 +23,7 @@ class Provider
         return $product;
     }
 
-    public function getName(): ProviderName
+    public function name(): ProviderName
     {
         return $this->name;
     }

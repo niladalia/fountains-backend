@@ -1,0 +1,4 @@
+providers_controller_post:
+  path: /api/providers
+  controller: App\Providers\Infrastructure\Controllers\ProvidersPostController
+  methods:  [POST]
