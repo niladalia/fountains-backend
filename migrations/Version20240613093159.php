@@ -14,7 +14,7 @@ final class Version20240613093159 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Fountains triggers: geo_point, updated_at';
     }
 
     public function up(Schema $schema): void

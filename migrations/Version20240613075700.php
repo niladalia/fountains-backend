@@ -14,18 +14,18 @@ final class Version20240613075700 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Providers';
     }
 
     public function up(Schema $schema): void
     {
         $this->addSql("CREATE EXTENSION IF NOT EXISTS postgis");
 
-        $this->addSql('CREATE TABLE provider (name VARCHAR(255) NOT NULL, PRIMARY KEY(name))');
+        $this->addSql('CREATE TABLE providers (name VARCHAR(64) NOT NULL, PRIMARY KEY(name))');
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE provider');
+        $this->addSql('DROP TABLE providers');
     }
 }
