@@ -25,34 +25,43 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 
 class FountainUpdater
 {
-    public function __construct(private FountainRepository $fountainRepository, private FountainFinder $fountainFinder)
-    { }
+    public function __construct(private FountainRepository $fountainRepository, private FountainFinder $fountainFinder) { }
 
     public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
     {
+        $this->fountainRepository->save($this->update($fountainRequest, $fountain));
+    }
+
+    public function queue(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
+    {
+        $this->fountainRepository->persist($this->update($fountainRequest, $fountain));
+    }
+
+    protected function update(UpdateFountainRequest $fountainRequest, Fountain $fountain = null): Fountain
+    {
         if (!$fountain) {
-           $fountain = $this->fountainFinder->__invoke(new FountainId($fountainRequest->id()));
-        }
+            $fountain = $this->fountainFinder->__invoke(new FountainId($fountainRequest->id()));
+         }
+ 
+         $fountain->update(
+             new FountainLat($fountainRequest->lat()),
+             new FountainLong($fountainRequest->long()),
+             new FountainName($fountainRequest->name()),
+             FountainType::fromString($fountainRequest->type()),
+             new FountainPicture($fountainRequest->picture()),
+             new FountainDescription($fountainRequest->description()),
+             new FountainOperationalStatus($fountainRequest->operational_status()),
+             FountainSafeWater::fromString($fountainRequest->safe_water()),
+             FountainLegalWater::fromString($fountainRequest->legal_water()),
+             new FountainAccesBottles($fountainRequest->access_bottles()),
+             new FountainAccesPets($fountainRequest->access_pets()),
+             new FountainAccessWheelchair($fountainRequest->access_wheelchair()),
+             new FountainProviderName($fountainRequest->provider_name()),
+             new FountainProviderId($fountainRequest->provider_id()),
+             new FountainUserId($fountainRequest->user_id()),
+             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
+         );
 
-        $fountain->update(
-            new FountainLat($fountainRequest->lat()),
-            new FountainLong($fountainRequest->long()),
-            new FountainName($fountainRequest->name()),
-            FountainType::fromString($fountainRequest->type()),
-            new FountainPicture($fountainRequest->picture()),
-            new FountainDescription($fountainRequest->description()),
-            new FountainOperationalStatus($fountainRequest->operational_status()),
-            FountainSafeWater::fromString($fountainRequest->safe_water()),
-            FountainLegalWater::fromString($fountainRequest->legal_water()),
-            new FountainAccesBottles($fountainRequest->access_bottles()),
-            new FountainAccesPets($fountainRequest->access_pets()),
-            new FountainAccessWheelchair($fountainRequest->access_wheelchair()),
-            new FountainProviderName($fountainRequest->provider_name()),
-            new FountainProviderId($fountainRequest->provider_id()),
-            new FountainUserId($fountainRequest->user_id()),
-            new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
-        );
-
-        $this->fountainRepository->save($fountain);
+         return $fountain;
     }
 }

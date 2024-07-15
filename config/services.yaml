@@ -25,3 +25,11 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # FountainRepository service definition
+    App\Fountains\Domain\FountainRepository:
+        class: App\Fountains\Infrastructure\Persistence\Repository\DoctrineFountainRepository
+        arguments:
+            $registry: '@doctrine'
+        public: false # injectable but not directly accessible in the dependencies container
+        shared: true # singleton in the context of a single request (different requests have different instances)
