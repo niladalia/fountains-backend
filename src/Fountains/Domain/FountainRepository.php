@@ -9,11 +9,11 @@ use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Shared\Domain\Repository\DatabaseRepository;
 
+/**
+ * @implements DatabaseRepository<Fountain>
+ */
 interface FountainRepository extends DatabaseRepository
-{
-    public function save(Fountain $fountain): void;
-    public function persist(Fountain $fountain): void;
-    
+{   
     public function search(): ?Fountains;
     public function findById(FountainId $id): ?Fountain;
     public function findByLocation(FountainLat $lat, FountainLong $long): ?Fountain;

@@ -2,9 +2,13 @@
 
 namespace App\Shared\Domain\Repository;
 
+use App\Shared\Domain\Entity;
+
 /**
  * Interface for a database repository that provides basic transaction management
  * and batch processing capabilities.
+ * 
+ * @template T extends Entity
  */
 interface DatabaseRepository
 {
@@ -27,22 +31,22 @@ interface DatabaseRepository
      * Make an instance managed and persistent.
      * The object will be entered into the database when the apply method is called.
      *
-     * @param object $object The object to persist.
+     * @param T $object The object to persist.
      */
-    public function persist(object $object): void;
-
-    /**
-     * Apply the changes to the database.
-     */
-    public function apply(): void;
+    public function persist(Entity $object): void;
 
     /**
      * Persist an object to the database.
      * This is a combination of persist and apply methods.
      *
-     * @param object $object The object to persist to the database.
+     * @param T $object The object to persist to the database.
      */
-    public function save(object $object): void;
+    public function save(Entity $object): void;
+
+    /**
+     * Apply the changes to the database.
+     */
+    public function apply(): void;
 
     /**
      * Executes a callable function within a database transaction.
