@@ -3,8 +3,9 @@
 namespace App\Providers\Domain;
 
 use App\Providers\Domain\ValueObject\ProviderName;
+use App\Shared\Domain\Entity;
 
-class Provider
+class Provider implements Entity
 {
 
     public function __construct(
