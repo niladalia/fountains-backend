@@ -22,8 +22,9 @@ use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Shared\Domain\Utils\DateTimeUtils;
+use App\Shared\Domain\Entity;
 
-class Fountain
+class Fountain implements Entity
 {
     private ?FountainCreatedAt $created_at = null;
     private ?FountainUpdatedAt  $updated_at = null;
