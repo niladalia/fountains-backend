@@ -10,20 +10,14 @@ use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Shared\Infrastructure\Persistence\Doctrine\Repository\DoctrineDatabaseRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class DoctrineFountainRepository extends ServiceEntityRepository implements FountainRepository
+class DoctrineFountainRepository extends DoctrineDatabaseRepository implements FountainRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Fountain::class);
-    }
-
-    public function save(Fountain $fountain): void
-    {
-        $this->getEntityManager()->persist($fountain);
-        $this->getEntityManager()->flush();
     }
 
     public function findById(FountainId $id): ?Fountain

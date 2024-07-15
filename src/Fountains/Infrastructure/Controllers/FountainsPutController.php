@@ -11,37 +11,43 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FountainsPutController extends ApiController
 {
-    public function __invoke(Request $request, FountainCreateOrUpdate $fountainCreateOrUpdate): Response
+    public function __construct(
+        private FountainCreateOrUpdate $fountainCreateOrUpdate
+    ) {}
+
+    public function __invoke(Request $request): Response
     {
-        $request_batch = json_decode($request->getContent(), true);
+        $requestBatch = json_decode($request->getContent(), true);
 
-        foreach ($request_batch as $request_data) {
-            $this->validateRequest($request_data, $this->constraints());
+        $validationConstraints = $this->constraints();
 
-            $providerUpdatedAt = $this->parseDateTime($request_data['provider_updated_at'] ?? null);
+        $fountainRequests = array_map(function ($requestData) use ($validationConstraints) {
+            $this->validateRequest($requestData, $validationConstraints);
 
-            $fountain_request = new CreateOrUpdateFountainRequest(
-                $request_data['id'] ?? null,
-                $request_data['lat'],
-                $request_data['long'],
-                $request_data['name'] ?? null,
-                $request_data['safe_water'] ?? null,
-                $request_data['legal_water'] ?? null,
-                $request_data['type'] ?? null,
-                $request_data['picture'] ?? null,
-                $request_data['description'] ?? null,
-                $request_data['operational_status'] ?? null,
-                $request_data['access_bottles'] ?? null,
-                $request_data['access_pets'] ?? null,
-                $request_data['access_wheelchair'] ?? null,
-                $request_data['provider_name'] ?? null,
-                $request_data['provider_id'] ?? null,
-                $request_data['user_id'] ?? null,
+            $providerUpdatedAt = $this->parseDateTime($requestData['provider_updated_at'] ?? null);
+
+            return new CreateOrUpdateFountainRequest(
+                $requestData['id'] ?? null,
+                $requestData['lat'],
+                $requestData['long'],
+                $requestData['name'] ?? null,
+                $requestData['type'] ?? null,
+                $requestData['picture'] ?? null,
+                $requestData['description'] ?? null,
+                $requestData['operational_status'] ?? null,
+                $requestData['safe_water'] ?? null,
+                $requestData['legal_water'] ?? null,
+                $requestData['access_bottles'] ?? null,
+                $requestData['access_pets'] ?? null,
+                $requestData['access_wheelchair'] ?? null,
+                $requestData['provider_name'] ?? null,
+                $requestData['provider_id'] ?? null,
+                $requestData['user_id'] ?? null,
                 $providerUpdatedAt
             );
+        }, $requestBatch);
 
-            $fountainCreateOrUpdate->__invoke($fountain_request);
-        }
+        $this->fountainCreateOrUpdate->many($fountainRequests);
 
         return new Response('', Response::HTTP_OK);
     }

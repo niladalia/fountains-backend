@@ -9,16 +9,34 @@ use App\Fountains\Application\Update\UpdateFountainRequest;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
 use App\Fountains\Domain\Fountain;
+use App\Fountains\Domain\FountainRepository;
 
 class FountainCreateOrUpdate
 {
     public function __construct(
         private FountainFinderByLocation $fountainFinderByLocation,
         private FountainCreator          $fountainCreator,
-        private FountainUpdater          $fountainUpdater
+        private FountainUpdater          $fountainUpdater,
+        private FountainRepository       $fountainRepository
     ) {}
 
+    /**
+     * @param CreateOrUpdateFountainRequest[] $fountainRequests
+     */
+    public function many(array $fountainRequests): void
+    {
+        $this->fountainRepository->processInBatches($fountainRequests, function($fountainRequest) {
+            $this->queue($fountainRequest);
+        });
+    }
+
     public function __invoke(CreateOrUpdateFountainRequest $fountainRequest)
+    {
+        $this->queue($fountainRequest);
+        $this->fountainRepository->apply();
+    }
+
+    public function queue(CreateOrUpdateFountainRequest $fountainRequest)
     {
         $fountain = $this->fountainFinderByLocation->__invoke(
             new FountainLat($fountainRequest->lat()),
@@ -34,10 +52,7 @@ class FountainCreateOrUpdate
 
     private function createFountain(CreateOrUpdateFountainRequest $fountainRequest)
     {
-        $createFountainRequest = CreateOrUpdateFountainRequestFactory::toCreateFountainRequest(
-            $fountainRequest
-        );
-        $this->fountainCreator->__invoke($createFountainRequest);
+        $this->fountainCreator->queue($fountainRequest);
     }
 
     private function mergeFountain(CreateOrUpdateFountainRequest $fountainRequest, Fountain $fountain)
@@ -67,7 +82,7 @@ class FountainCreateOrUpdate
     {
         $isRequestNewer = self::isRequestNewer($fountainRequest, $fountain);
 
-        $existingFountainRequest = $this->fountainToRequest($fountain);
+        $existingFountainRequest = $this->fountainToUpdateRequest($fountain);
 
         $recent = $isRequestNewer ? $fountainRequest : $existingFountainRequest;
         $other = $isRequestNewer ? $existingFountainRequest : $fountainRequest;
@@ -93,7 +108,7 @@ class FountainCreateOrUpdate
         );
     }
 
-    private function fountainToRequest(Fountain $fountain): UpdateFountainRequest
+    private function fountainToUpdateRequest(Fountain $fountain): UpdateFountainRequest
     {
         return new UpdateFountainRequest(
             $fountain->id()->getValue(),
@@ -118,15 +133,12 @@ class FountainCreateOrUpdate
 
     private function updateFountain(CreateOrUpdateFountainRequest $fountainRequest, Fountain $fountain)
     {
-        $updateFountainRequest = CreateOrUpdateFountainRequestFactory::toUpdateFountainRequest(
-            $fountainRequest,
-            $fountain->id()->getValue()
-        );
+        $updateFountainRequest = $fountainRequest->toUpdateFountainRequest($fountain->id()->getValue());
         $this->updateFountainFromRequest($updateFountainRequest, $fountain);
     }
 
     private function updateFountainFromRequest(UpdateFountainRequest $updateFountainRequest, Fountain $fountain)
     {
-        $this->fountainUpdater->__invoke($updateFountainRequest, $fountain);
+        $this->fountainUpdater->queue($updateFountainRequest, $fountain);
     }
 }
