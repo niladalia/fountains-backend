@@ -2,6 +2,7 @@
 
 namespace App\Shared\Infrastructure\Persistence\Doctrine\Repository;
 
+use App\Shared\Domain\Entity;
 use App\Shared\Domain\Repository\DatabaseRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -13,13 +14,13 @@ abstract class DoctrineDatabaseRepository extends ServiceEntityRepository implem
         parent::__construct($registry, $entityClass);
     }
 
-    public function save(object $object): void
+    public function save(Entity $object): void
     {
         $this->persist($object);
         $this->apply();
     }
 
-    public function persist(object $object): void
+    public function persist(Entity $object): void
     {
         $this->getEntityManager()->persist($object);
     }
