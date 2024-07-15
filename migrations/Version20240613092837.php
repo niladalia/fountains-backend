@@ -14,7 +14,7 @@ final class Version20240613092837 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Fountains';
     }
 
     public function up(Schema $schema): void
@@ -52,7 +52,7 @@ final class Version20240613092837 extends AbstractMigration
             );
         ');
 
-        $this->addSql("CREATE INDEX idx_fountains_geom ON fountains USING GIST(geo_point::geometry);");
+        $this->addSql("CREATE INDEX idx_fountains_geom ON fountains USING GIST((geo_point::geometry));");
     }
 
     public function down(Schema $schema): void
