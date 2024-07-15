@@ -11,7 +11,7 @@ class Validator
 {
     public static function validate(mixed $data, Assert\Collection $constraint): void
     {
-        $validationErrors =  Validation::createValidator()->validate($data, $constraint);
+        $validationErrors = Validation::createValidator()->validate($data, $constraint);
 
         if ($validationErrors->count() == 0) {
             return;
