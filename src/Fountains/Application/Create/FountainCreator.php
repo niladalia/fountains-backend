@@ -31,9 +31,11 @@ class FountainCreator
         $this->fountainRepository->save($this->create($fountainRequest));
     }
 
-    public function queue(CreateFountainRequest $fountainRequest)
+    public function queue(CreateFountainRequest $fountainRequest): Fountain
     {
-        $this->fountainRepository->persist($this->create($fountainRequest));
+        $fountain = $this->create($fountainRequest);
+        $this->fountainRepository->persist($fountain);
+        return $fountain;
     }
 
     protected function create(CreateFountainRequest $fountainRequest): Fountain

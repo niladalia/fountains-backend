@@ -32,9 +32,11 @@ class FountainUpdater
         $this->fountainRepository->save($this->update($fountainRequest, $fountain));
     }
 
-    public function queue(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
+    public function queue(UpdateFountainRequest $fountainRequest, Fountain $fountain = null): Fountain
     {
-        $this->fountainRepository->persist($this->update($fountainRequest, $fountain));
+        $fountain = $this->update($fountainRequest, $fountain);
+        $this->fountainRepository->persist($fountain);
+        return $fountain;
     }
 
     protected function update(UpdateFountainRequest $fountainRequest, Fountain $fountain = null): Fountain

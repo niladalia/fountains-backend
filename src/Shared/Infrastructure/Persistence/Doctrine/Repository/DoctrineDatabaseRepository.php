@@ -52,9 +52,17 @@ abstract class DoctrineDatabaseRepository extends ServiceEntityRepository implem
         $this->getEntityManager()->wrapInTransaction($f);
     }
 
-    public function processInBatches(array $items, callable $process, int $batchSize = 100): void
+    public function processInBatches(array $items, callable $process, int $batchSize = 100, ?callable $onApply = null): void
     {
-        $this->runInTransaction(function() use ($items, $process, $batchSize) {
+        $apply = function() use ($onApply) {
+            $this->apply();
+
+            if ($onApply !== null) {
+                $onApply();
+            }
+        };
+
+        $this->runInTransaction(function() use ($items, $process, $batchSize, $apply) {
             $count = 0;
 
             foreach ($items as $item) {
@@ -64,11 +72,11 @@ abstract class DoctrineDatabaseRepository extends ServiceEntityRepository implem
 
                 if ($count % $batchSize === 0) {
                     // Apply changes to the database periodically
-                    $this->apply();
+                    $apply();
                 }
             }
 
-            $this->apply(); // Apply remaining changes
+            $apply(); // Apply remaining changes
         });
     }
 }

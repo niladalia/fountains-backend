@@ -63,6 +63,7 @@ interface DatabaseRepository
      * @param array $items The items to process.
      * @param callable $process The function to process each item.
      * @param int $batchSize The number of items to process before applying changes.
+     * @param ?callable $onApply An optional function to call after applying changes.
      */
-    public function processInBatches(array $items, callable $process, int $batchSize = 100): void;
+    public function processInBatches(array $items, callable $process, int $batchSize = 100, ?callable $onApply = null): void;
 }
