@@ -2,14 +2,15 @@
 
 namespace App\Fountains\Infrastructure\Persistence\Repository;
 
+use App\Fountains\Domain\ArrayToFountainFactory;
 use App\Fountains\Domain\Fountain;
+use App\Fountains\Domain\FountainFilter;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\Fountains;
 use App\Fountains\Domain\ValueObject\FountainId;
-use App\Fountains\Domain\ValueObject\FountainLat;
-use App\Fountains\Domain\ValueObject\FountainLong;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
+use App\Fountains\Infrastructure\Persistence\Doctrine\DoctrineFindFountainByFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -35,7 +36,7 @@ class DoctrineFountainRepository extends ServiceEntityRepository implements Foun
     {
         $fountains = $this->findBy([]);
 
-        return new Fountains($fountains);
+        return new Fountains(...$fountains);
     }
 
     public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain
@@ -48,13 +49,16 @@ class DoctrineFountainRepository extends ServiceEntityRepository implements Foun
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function findByLocation(FountainLat $lat, FountainLong $long): ?Fountain
+    public function findByFilter(?FountainFilter $filter): ?Fountains
     {
-        $qb = $this->createQueryBuilder('fountains')
-            ->where('fountains.lat.value = :lat AND fountains.long.value = :long')
-            ->setParameter("lat", $lat->getValue())
-            ->setParameter("long", $long->getValue());
 
-        return $qb->getQuery()->getOneOrNullResult();
+        $factory = new ArrayToFountainFactory();
+
+        $qb = DoctrineFindFountainByFilter::filter($this->getEntityManager()->getConnection(), $filter);
+        $fountains_array = $qb->execute()->fetchAllAssociative();
+
+        $fountains = array_map($factory, $fountains_array);
+
+        return new Fountains(...$fountains);
     }
 }

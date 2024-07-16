@@ -4,15 +4,8 @@ namespace App\Fountains\Domain;
 
 final class Fountains
 {
-    /**
-     * @var Fountain[]
-     */
     private $fountains;
-
-    /**
-     * @param Fountain[] $fountains
-     */
-    public function __construct(array $fountains)
+    public function __construct(Fountain ...$fountains)
     {
         $this->fountains = $fountains;
     }
