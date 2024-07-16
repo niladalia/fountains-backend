@@ -22,33 +22,29 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
 
     public function findById(FountainId $id): ?Fountain
     {
-        return $this->getEntityManager()->find(Fountain::class, $id);
+        return $this->find($id);
     }
 
     public function search(): ?Fountains
     {
-        $fountains = $this->findBy([]);
+        $fountains = $this->findAll();
 
         return new Fountains($fountains);
     }
 
-    public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain
-    {
-        $qb = $this->createQueryBuilder('fountains')
-            ->where('fountains.provider_name.value = :provider_name AND fountains.provider_id.value = :provider_id')
-            ->setParameter("provider_name", $providerName->getValue())
-            ->setParameter("provider_id", $provider_id->getValue());
-
-        return $qb->getQuery()->getOneOrNullResult();
-    }
-
     public function findByLocation(FountainLat $lat, FountainLong $long): ?Fountain
     {
-        $qb = $this->createQueryBuilder('fountains')
-            ->where('fountains.lat.value = :lat AND fountains.long.value = :long')
-            ->setParameter("lat", $lat->getValue())
-            ->setParameter("long", $long->getValue());
+        return $this->findOneBy([
+            'lat.value' => $lat->getValue(),
+            'long.value' => $long->getValue()
+        ]);
+    }
 
-        return $qb->getQuery()->getOneOrNullResult();
+    public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain
+    {
+        return $this->findOneBy([
+            'provider_name.value' => $providerName->getValue(),
+            'provider_id.value' => $provider_id->getValue()
+        ]);
     }
 }

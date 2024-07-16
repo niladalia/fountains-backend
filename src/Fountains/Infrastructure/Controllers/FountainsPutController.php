@@ -11,11 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class FountainsPutController extends ApiController
 {
-    public function __construct(
-        private FountainCreateOrUpdate $fountainCreateOrUpdate
-    ) {}
-
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, FountainCreateOrUpdate $fountainCreateOrUpdate): Response
     {
         $requestBatch = json_decode($request->getContent(), true);
 
@@ -47,7 +43,7 @@ class FountainsPutController extends ApiController
             );
         }, $requestBatch);
 
-        $this->fountainCreateOrUpdate->many($fountainRequests);
+        $fountainCreateOrUpdate->many($fountainRequests);
 
         return new Response('', Response::HTTP_OK);
     }
