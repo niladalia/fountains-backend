@@ -8,7 +8,8 @@ class FindFountainByFilter
     private const DEFAULT_OFFSET = 0;
 
     public function __construct(
-        private ?string $provider_id = null,
+        private ?float $lat = null,
+        private ?float $long = null,
         private ?int $limit = null,
         private ?int $offset = null
     ) {
@@ -16,10 +17,16 @@ class FindFountainByFilter
         $this->offset = $offset ?? self::DEFAULT_OFFSET;
     }
 
-    public function provider_id(): ?string
+    public function lat(): ?float
     {
-        return $this->provider_id;
+        return $this->lat;
     }
+
+    public function long(): ?float
+    {
+        return $this->long;
+    }
+
 
     public function limit(): int
     {

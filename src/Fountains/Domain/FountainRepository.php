@@ -13,6 +13,6 @@ interface FountainRepository
     public function save(Fountain $fountain): void;
     public function findById(FountainId $id): ?Fountain;
     public function search(): ?Fountains;
-    public function findByLocation(FountainLat $lat, FountainLong $long): ?Fountain;
+    public function findByFilter(?FountainFilter $filter): ?Fountains;
     public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain;
 }
