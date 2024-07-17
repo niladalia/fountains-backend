@@ -11,8 +11,9 @@ class DoctrineFindFountainByFilter
 {
     public static function filter(Connection $connection, FountainFilter $filter): Statement
     {
-        $lat = $filter->lat()->getValue();
-        $long = $filter->long()->getValue();
+        $lat = $filter->lat() ? $filter->lat()->getValue() : null;
+        $long = $filter->long() ? $filter->long()->getValue() : null;
+
         $offset = $filter->offset();
         $limit = $filter->limit();
 
