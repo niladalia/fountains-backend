@@ -306,7 +306,7 @@ class Fountain implements Entity
 
     public function toArray(): array
     {
-        return [
+        $result =  [
             'id' => $this->id()->getValue(),
             'lat' => $this->lat()->getValue(),
             'long' => $this->long()->getValue(),
@@ -327,6 +327,10 @@ class Fountain implements Entity
             'updated_at' => $this->updated_at()->formatISO(),
             'created_at' => $this->created_at()->formatISO()
         ];
+
+        return array_filter($result, function($value) {
+            return $value !== null;
+        });
     }
 
 }
