@@ -51,7 +51,6 @@ class DoctrineFountainRepository extends ServiceEntityRepository implements Foun
 
     public function findByFilter(?FountainFilter $filter): ?Fountains
     {
-
         $factory = new ArrayToFountainFactory();
 
         $qb = DoctrineFindFountainByFilter::filter($this->getEntityManager()->getConnection(), $filter);

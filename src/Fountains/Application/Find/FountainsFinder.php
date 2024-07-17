@@ -20,10 +20,13 @@ class FountainsFinder
 
     public function __invoke(FindFountainByFilter $filter): ?Fountains
     {
+        $lat = $filter->lat() !== null ? new FountainLat($filter->lat()) : null;
+        $long = $filter->long() !== null ? new FountainLong($filter->long()) : null;
+
         return $this->fountainRepository->findByFilter(
             new FountainFilter(
-                new FountainLat($filter->lat()),
-                new FountainLong($filter->long()),
+                $lat,
+                $long,
                 $filter->limit(),
                 $filter->offset()
             )

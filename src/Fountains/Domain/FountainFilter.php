@@ -7,7 +7,6 @@ use App\Fountains\Domain\ValueObject\FountainLong;
 
 class FountainFilter
 {
-
     public function __construct(
         private ?FountainLat $lat = null,
         private ?FountainLong $long = null,
@@ -24,7 +23,6 @@ class FountainFilter
     {
         return $this->long;
     }
-
 
     public function limit(): int
     {
