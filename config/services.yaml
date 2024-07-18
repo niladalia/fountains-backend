@@ -1,5 +1,6 @@
 parameters:
   app.api_token: '%env(resolve:APP_API_TOKEN)%'
+  app.env: '%env(resolve:APP_ENV)%'
 
 services:
     # default configuration for services in *this* file
@@ -16,9 +17,11 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
     App\Security\ApiKeyAuthenticator:
-      arguments:
-        $appApiToken: '%app.api_token%'
+        arguments:
+            $appApiToken: '%app.api_token%'
     App\Shared\Infrastructure\Symfony\ApiExceptionListener:
+        arguments:
+            $appEnv: '%app.env%'
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
