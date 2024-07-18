@@ -20,13 +20,13 @@ class ProvidersPostController extends ApiController
 
         $this->validateRequest($requestData, $this->constraints());
 
-        $provider_request = new CreateProviderRequest(
+        $providerRequest = new CreateProviderRequest(
             $requestData['name']
         );
 
-        $providerCreator->__invoke($provider_request);
+        $created = $providerCreator->createIfNotExists($providerRequest);
 
-        return new Response('', Response::HTTP_CREATED);
+        return new Response('', $created ? Response::HTTP_CREATED : Response::HTTP_OK);
     }
 
     protected function constraints(): Assert\Collection

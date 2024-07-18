@@ -8,14 +8,32 @@ use App\Providers\Domain\ValueObject\ProviderName;
 
 class ProviderCreator
 {
-    public function __construct(private ProviderRepository $repository) { }
+    public function __construct(private ProviderRepository $providerRepository) { }
 
     public function __invoke(CreateProviderRequest $providerRequest): void
     {
-        $provider = Provider::create(
-            new ProviderName($providerRequest->name())
-        );
+        $this->createWithName(new ProviderName($providerRequest->name()));
+    }
 
-        $this->repository->save($provider);
+    public function createIfNotExists(CreateProviderRequest $providerRequest): bool
+    {
+        $providerName = new ProviderName($providerRequest->name());
+
+        $provider = $this->providerRepository->findByName($providerName);
+
+        if ($provider) {
+            return false;
+        }
+
+        $this->createWithName($providerName);
+
+        return true;
+    }
+
+    private function createWithName(ProviderName $providerName)
+    {
+        $provider = Provider::create($providerName);
+
+        $this->providerRepository->save($provider);
     }
 }
