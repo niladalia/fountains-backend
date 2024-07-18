@@ -35,13 +35,16 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
     public function authenticate(Request $request): Passport
     {
         $apiToken = $request->headers->get('X-AUTH-TOKEN');
-        if ($this->appApiToken !== $apiToken) {
-            throw new CustomUserMessageAuthenticationException('Api token is invalid');
-        }
-        #return new User();
-        $user = new User();
 
-        return new SelfValidatingPassport(new UserBadge($apiToken));
+        if ($this->appApiToken !== $apiToken) {
+            throw new CustomUserMessageAuthenticationException('Invalid API token');
+        }
+
+        $adminUser = new Admin();
+
+        return new SelfValidatingPassport(new UserBadge($apiToken, function() use ($adminUser) {
+            return $adminUser;
+        }));
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
@@ -54,7 +57,7 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
     {
         $data = [
             // you may want to customize or obfuscate the message first
-            'message' => "Invalid API token"
+            'message' => 'Invalid API token'
 
             // or to translate this message
             // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
