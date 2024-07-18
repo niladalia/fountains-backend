@@ -4,10 +4,13 @@ namespace App\Fountains\Infrastructure\Controllers;
 
 use App\Fountains\Application\CreateOrUpdate\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\CreateOrUpdate\FountainCreateOrUpdate;
+
 use App\Shared\Infrastructure\Symfony\ApiController;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Shared\Infrastructure\Symfony\Validation\UpdateFountainConstraints;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class FountainsPutController extends ApiController
 {
@@ -48,17 +51,9 @@ class FountainsPutController extends ApiController
         return new Response('', Response::HTTP_OK);
     }
 
-    private function constraints(): Assert\Collection
+    protected function constraints(): Assert\Collection
     {
-        return new Assert\Collection(
-            [
-                'fields' => [
-                    'lat' => new Assert\Type('float'),
-                    'long' => new Assert\Type('float')
-                ],
-                'allowExtraFields' => true
-            ]
-        );
+        return UpdateFountainConstraints::constraintsAllowExtraFields();
     }
 
 }
