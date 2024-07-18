@@ -26,9 +26,6 @@ use App\Shared\Domain\Entity;
 
 class Fountain implements Entity
 {
-    private ?FountainCreatedAt $created_at = null;
-    private ?FountainUpdatedAt  $updated_at = null;
-
     public function __construct(
         private FountainId                 $id,
         private FountainLat                $lat,
@@ -46,11 +43,11 @@ class Fountain implements Entity
         private ?FountainProviderName      $provider_name,
         private ?FountainProviderId        $provider_id,
         private ?FountainUserId            $user_id,
-        private ?FountainProviderUpdatedAt $provider_updated_at
+        private ?FountainProviderUpdatedAt $provider_updated_at,
+        private ?FountainCreatedAt         $created_at,
+        private ?FountainUpdatedAt         $updated_at
     ) {
-        $now = DateTimeUtils::now();
-        $this->created_at = new FountainCreatedAt($now);
-        $this->updated_at = new FountainUpdatedAt($now);
+
     }
 
     public static function create(
@@ -72,6 +69,11 @@ class Fountain implements Entity
         ?FountainUserId            $user_id,
         ?FountainProviderUpdatedAt $provider_updated_at
     ): self {
+
+        $now = DateTimeUtils::now();
+        $created_at = new FountainCreatedAt($now);
+        $updated_at = new FountainUpdatedAt($now);
+
         return new self(
             $id,
             $lat,
@@ -89,7 +91,9 @@ class Fountain implements Entity
             $provider_name,
             $provider_id,
             $user_id,
-            $provider_updated_at
+            $provider_updated_at,
+            $created_at,
+            $updated_at
         );
     }
 

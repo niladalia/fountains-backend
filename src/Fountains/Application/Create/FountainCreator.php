@@ -44,10 +44,10 @@ class FountainCreator
            We generate the UUID in the application service because since both POST and PUT controller can create new UUIDs,
            we wanted to have a centralized place for the generation of the uuid. Typically we would generate it in the Infrastructure layer
         */
-        $uuid = FountainId::generate();
+        $id = FountainId::generate();
 
         $fountain = Fountain::create(
-            $uuid,
+            $id,
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
             new FountainName($fountainRequest->name()),
