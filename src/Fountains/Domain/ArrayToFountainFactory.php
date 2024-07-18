@@ -26,7 +26,7 @@ use DateTime;
 
 final class ArrayToFountainFactory
 {
-    private static ArrayToFountainFactory $instance;
+    private static ?ArrayToFountainFactory $instance = null;
 
     private function __construct() { }
 

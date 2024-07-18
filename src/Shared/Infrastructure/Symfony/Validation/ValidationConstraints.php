@@ -13,7 +13,7 @@ abstract class ValidationConstraints
         return new Assert\Collection(
             array_merge(
                 [
-                    'fields' => self::fields(),
+                    'fields' => $this->fields(),
                 ],
                 $options
             )
@@ -27,12 +27,12 @@ abstract class ValidationConstraints
 
     public static function constraints(array $options = []): Assert\Collection
     {
-        return (new self())->fieldsConstraints($options);
+        return (new static())->fieldsConstraints($options);
     }
 
     public static function constraintsAllowExtraFields(array $options = []): Assert\Collection
     {
-        return (new self())->fieldsConstraintsAllowExtraFields($options);
+        return (new static())->fieldsConstraintsAllowExtraFields($options);
     }
 
     protected static final function type(string $type): Assert\Type

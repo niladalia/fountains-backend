@@ -10,7 +10,7 @@ class DoctrineFindFountainsByBoundingBox
 {
     const BOUNDING_BOX_FILTER = 'geo_point::geometry && ST_MakeEnvelope(:west_long, :south_lat, :east_long, :north_lat, 4326)';
 
-    private Statement $filterByBoundingBoxStatement;
+    private ?Statement $filterByBoundingBoxStatement = null;
 
     public function __construct(private Connection $connection) { }
 
