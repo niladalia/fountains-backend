@@ -26,7 +26,7 @@ services:
 
     # FountainRepository service definition
     App\Fountains\Domain\FountainRepository:
-        class: App\Fountains\Infrastructure\Persistence\Repository\DoctrineFountainRepository
+        class: App\Fountains\Infrastructure\Persistence\Doctrine\Repository\DoctrineFountainRepository
         arguments:
             $registry: '@doctrine'
         public: false # injectable but not directly accessible in the dependencies container

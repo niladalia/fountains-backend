@@ -12,9 +12,9 @@ abstract class ApiController extends AbstractController
 {
     public function __construct() {}
 
-    protected function validateRequest(mixed $request, Assert\Collection $constraints): void
+    protected function validateRequest(mixed $data, Assert\Collection $constraints): void
     {
-        Validator::validate($request, $constraints);
+        Validator::validate($data, $constraints);
     }
 
     protected function parseDateTime(?string $dateString): ?DateTime
