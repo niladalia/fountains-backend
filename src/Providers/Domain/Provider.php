@@ -8,10 +8,7 @@ use App\Shared\Domain\Entity;
 class Provider implements Entity
 {
 
-    public function __construct(
-        private ProviderName $name
-    )
-    { }
+    public function __construct(private ProviderName $name) { }
 
     public static function create(
         ProviderName $name
@@ -23,7 +20,7 @@ class Provider implements Entity
         return $product;
     }
 
-    public function getName(): ProviderName
+    public function name(): ProviderName
     {
         return $this->name;
     }
@@ -38,7 +35,7 @@ class Provider implements Entity
     public function toArray(): array
     {
         return [
-            "name" => $this->getName()->getValue()
+            "name" => $this->name()->getValue()
         ];
     }
 

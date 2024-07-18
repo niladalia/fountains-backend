@@ -26,7 +26,7 @@ class Uuid implements Stringable
         return $uuid;
     }
 
-    public static final function generate(): self
+    public static function generate(): self
     {
         // RamseyUuid::uuid4 is a valid Uuid, so call constructor without validation
         return new static(RamseyUuid::uuid4()->toString());
