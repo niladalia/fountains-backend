@@ -1,5 +1,6 @@
 parameters:
   app.api_token: '%env(resolve:APP_API_TOKEN)%'
+
 services:
     # default configuration for services in *this* file
     _defaults:
