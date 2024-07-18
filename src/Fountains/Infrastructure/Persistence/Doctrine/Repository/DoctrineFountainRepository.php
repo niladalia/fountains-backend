@@ -21,8 +21,8 @@ use Doctrine\DBAL\Statement;
 
 class DoctrineFountainRepository extends DoctrineDatabaseRepository implements FountainRepository
 {
-    private ?DoctrineFindFountainsByFilter $findFountainsByFilter;
-    private ?DoctrineFindFountainsByBoundingBox $findFountainsByBoundingBox;
+    private ?DoctrineFindFountainsByFilter $findFountainsByFilter = null;
+    private ?DoctrineFindFountainsByBoundingBox $findFountainsByBoundingBox = null;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -60,14 +60,14 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
     public function findByFilter(FountainsFilter $filter): Fountains
     {
         return $this->executeFountainsQuery(
-            $this->findFountainsByFilter()->filter($filter)
+            $this->getFindFountainsByFilter()->filter($filter)
         );
     }
 
     public function findByBoundingBox(BoundingBox $boundingBox): Fountains
     {
         return $this->executeFountainsQuery(
-            $this->findFountainsByBoundingBox()->filterByBoundingBox($boundingBox)
+            $this->getFindFountainsByBoundingBox()->filterByBoundingBox($boundingBox)
         );
     }
 
@@ -80,7 +80,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         return new Fountains($fountains);
     }
 
-    private function findFountainsByFilter(): DoctrineFindFountainsByFilter
+    private function getFindFountainsByFilter(): DoctrineFindFountainsByFilter
     {
         if ($this->findFountainsByFilter === null) {
             $this->findFountainsByFilter = new DoctrineFindFountainsByFilter(
@@ -90,7 +90,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         return $this->findFountainsByFilter;
     }
 
-    private function findFountainsByBoundingBox(): DoctrineFindFountainsByBoundingBox
+    private function getFindFountainsByBoundingBox(): DoctrineFindFountainsByBoundingBox
     {
         if ($this->findFountainsByBoundingBox === null) {
             $this->findFountainsByBoundingBox = new DoctrineFindFountainsByBoundingBox(

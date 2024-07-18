@@ -22,8 +22,11 @@ class Validator
         $errorsArray = [];
 
         foreach ($validationErrors as $violation) {
-            $errorsArray[] = $violation->getPropertyPath() . " : " . $violation->getMessage();
+            $errorsArray[] = [
+                $violation->getPropertyPath() => $violation->getMessage()
+            ];
         }
+        
         throw new HttpException(Response::HTTP_BAD_REQUEST, json_encode($errorsArray));
     }
 }

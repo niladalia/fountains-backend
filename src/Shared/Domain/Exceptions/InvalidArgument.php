@@ -6,7 +6,7 @@ use DomainException;
 
 class InvalidArgument extends DomainException
 {
-    public static function throw(?string $message = "Invalid arguments")
+    public static function throw(?string $message = "Invalid argument")
     {
         throw new self($message);
     }
