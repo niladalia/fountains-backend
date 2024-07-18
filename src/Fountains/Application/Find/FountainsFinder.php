@@ -13,7 +13,7 @@ class FountainsFinder
 
     public function findAll(): Fountains
     {
-        return $this->fountainRepository->findAll();
+        return $this->fountainRepository->getAll();
     }
 
     public function findByFilter(FountainsFilterBuilder $filter): Fountains
