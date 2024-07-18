@@ -13,11 +13,11 @@ class Provider implements Entity
     public static function create(
         ProviderName $name
     ): self {
-        $product = new self(
+        $provider = new self(
             $name
         );
 
-        return $product;
+        return $provider;
     }
 
     public function name(): ProviderName
