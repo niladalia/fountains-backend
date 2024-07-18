@@ -2,6 +2,7 @@
 
 namespace App\Fountains\Domain;
 
+use App\Fountains\Domain\Fountains;
 use App\Fountains\Domain\FountainsFilter;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainLat;
@@ -15,7 +16,7 @@ use App\Shared\Domain\Repository\DatabaseRepository;
  */
 interface FountainRepository extends DatabaseRepository
 {   
-    public function findAll(): Fountains;
+    public function getAll(): Fountains;
     public function findById(FountainId $id): ?Fountain;
     public function findByFilter(FountainsFilter $filter): Fountains;
     public function findByBoundingBox(BoundingBox $boundingBox): Fountains;
