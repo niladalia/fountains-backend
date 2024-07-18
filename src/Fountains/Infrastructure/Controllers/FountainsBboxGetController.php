@@ -4,11 +4,14 @@ namespace App\Fountains\Infrastructure\Controllers;
 
 use App\Fountains\Application\Find\FountainsFinder;
 use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
+
 use App\Shared\Infrastructure\Symfony\ApiController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Shared\Infrastructure\Symfony\Validation\BoundingBoxConstraints;
+
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class FountainsBboxGetController extends ApiController
 {
@@ -30,17 +33,8 @@ class FountainsBboxGetController extends ApiController
         return new JsonResponse($fountains->toArray(), Response::HTTP_OK);
     }
 
-    private function constraints(): Assert\Collection
+    protected function constraints(): Assert\Collection
     {
-        return new Assert\Collection(
-            [
-                'fields' => [
-                    'south_lat' => new Assert\Type('float'),
-                    'west_long' => new Assert\Type('float'),
-                    'north_lat' => new Assert\Type('float'),
-                    'east_long' => new Assert\Type('float'),
-                ]
-            ]
-        );
+        return BoundingBoxConstraints::constraints();
     }
 }

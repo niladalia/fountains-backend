@@ -2,23 +2,26 @@
 
 namespace App\Providers\Infrastructure\Controllers;
 
-use App\Providers\Application\Create\CreateProviderRequest;
 use App\Providers\Application\Create\ProviderCreator;
+use App\Providers\Application\Create\CreateProviderRequest;
+
 use App\Shared\Infrastructure\Symfony\ApiController;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Shared\Infrastructure\Symfony\Validation\ProviderConstraints;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ProvidersPostController extends ApiController
 {
     public function __invoke(Request $request, ProviderCreator $providerCreator): Response
     {
-        $request_data = json_decode($request->getContent(), true);
+        $requestData = json_decode($request->getContent(), true);
 
-        $this->validateRequest($request_data, $this->constraints());
+        $this->validateRequest($requestData, $this->constraints());
 
         $provider_request = new CreateProviderRequest(
-            $request_data['name']
+            $requestData['name']
         );
 
         $providerCreator->__invoke($provider_request);
@@ -26,15 +29,9 @@ class ProvidersPostController extends ApiController
         return new Response('', Response::HTTP_CREATED);
     }
 
-    private function constraints(): Assert\Collection
+    protected function constraints(): Assert\Collection
     {
-        return new Assert\Collection(
-            [
-                'fields' => [
-                    'name' => new Assert\Type('string')
-                ]
-            ]
-        );
+        return ProviderConstraints::constraints();
     }
 
 }

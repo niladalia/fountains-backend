@@ -4,56 +4,51 @@ namespace App\Fountains\Infrastructure\Controllers;
 
 use App\Fountains\Application\Create\CreateFountainRequest;
 use App\Fountains\Application\Create\FountainCreator;
+
 use App\Shared\Infrastructure\Symfony\ApiController;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Shared\Infrastructure\Symfony\Validation\CreateFountainConstraints;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class FountainsPostController extends ApiController
 {
     public function __invoke(Request $request, FountainCreator $fountainCreator): Response
     {
-        $request_data = json_decode($request->getContent(), true);
+        $requestData = json_decode($request->getContent(), true);
 
-        $this->validateRequest($request_data, $this->constraints());
+        $this->validateRequest($requestData, $this->constraints());
 
-        $providerUpdatedAt = $this->parseDateTime($request_data['provider_updated_at'] ?? null);
+        $providerUpdatedAt = $this->parseDateTime($requestData['provider_updated_at'] ?? null);
 
-        $fountain_request = new CreateFountainRequest(
-            $request_data['lat'],
-            $request_data['long'],
-            $request_data['name'] ?? null,
-            $request_data['type'] ?? null,
-            $request_data['picture'] ?? null,
-            $request_data['description'] ?? null,
-            $request_data['operational_status'] ?? null,
-            $request_data['safe_water'] ?? null,
-            $request_data['legal_water'] ?? null,
-            $request_data['access_bottles'] ?? null,
-            $request_data['access_pets'] ?? null,
-            $request_data['access_wheelchair'] ?? null,
-            $request_data['provider_name'] ?? null,
-            $request_data['provider_id'] ?? null,
-            $request_data['user_id'] ?? null,
+        $createFountainRequest = new CreateFountainRequest(
+            $requestData['lat'],
+            $requestData['long'],
+            $requestData['name'] ?? null,
+            $requestData['type'] ?? null,
+            $requestData['picture'] ?? null,
+            $requestData['description'] ?? null,
+            $requestData['operational_status'] ?? null,
+            $requestData['safe_water'] ?? null,
+            $requestData['legal_water'] ?? null,
+            $requestData['access_bottles'] ?? null,
+            $requestData['access_pets'] ?? null,
+            $requestData['access_wheelchair'] ?? null,
+            $requestData['provider_name'] ?? null,
+            $requestData['provider_id'] ?? null,
+            $requestData['user_id'] ?? null,
             $providerUpdatedAt
         );
 
-        $fountainCreator->__invoke($fountain_request);
+        $fountainCreator->__invoke($createFountainRequest);
 
         return new Response('', Response::HTTP_CREATED);
     }
 
-    private function constraints(): Assert\Collection
+    protected function constraints(): Assert\Collection
     {
-        return new Assert\Collection(
-            [
-                'fields' => [
-                    'lat' => new Assert\Type('float'),
-                    'long' => new Assert\Type('float')
-                ],
-                'allowExtraFields' => true
-            ]
-        );
+        return CreateFountainConstraints::constraints();
     }
 
 }
