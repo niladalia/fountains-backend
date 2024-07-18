@@ -26,6 +26,6 @@ final class Version20240613075700 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE providers');
+        $this->addSql('DROP TABLE IF EXISTS providers');
     }
 }
