@@ -38,7 +38,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
 
     public function findById(FountainId $id): ?Fountain
     {
-        return $this->find($id);
+        return $this->find($id->getValue());
     }
 
     public function findByLocation(FountainLat $lat, FountainLong $long): ?Fountain
