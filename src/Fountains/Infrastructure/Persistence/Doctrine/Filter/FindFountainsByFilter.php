@@ -8,7 +8,7 @@ use Doctrine\DBAL\Statement;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 
-class DoctrineFindFountainsByFilter
+class FindFountainsByFilter
 {
     const SELECT_FOUNTAINS = 'SELECT * FROM fountains';
 
@@ -23,7 +23,7 @@ class DoctrineFindFountainsByFilter
         $boundingBox = $filter->boundingBox();
 
         if ($boundingBox !== null) {
-            $conditions[] = DoctrineFindFountainsByBoundingBox::BOUNDING_BOX_FILTER;
+            $conditions[] = FindFountainsByBoundingBox::BOUNDING_BOX_FILTER;
         }
 
         $where = empty($conditions) ? '' : ' WHERE ' . join(' AND ', $conditions);
@@ -45,7 +45,7 @@ class DoctrineFindFountainsByFilter
         $stmt = $this->connection->prepare($query);
 
         if ($boundingBox !== null) {
-            DoctrineFindFountainsByBoundingBox::bindBoundingBox($stmt, $boundingBox);
+            FindFountainsByBoundingBox::bindBoundingBox($stmt, $boundingBox);
         }
 
         if ($limit !== null) {

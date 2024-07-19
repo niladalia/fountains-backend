@@ -13,17 +13,14 @@ use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
-use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\DoctrineFindFountainsByFilter;
-use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\DoctrineFindFountainsByBoundingBox;
+use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\FindFountainsByFilter;
+use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\FindFountainsByBoundingBox;
 use App\Shared\Infrastructure\Persistence\Doctrine\Repository\DoctrineDatabaseRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Statement;
 
 class DoctrineFountainRepository extends DoctrineDatabaseRepository implements FountainRepository
 {
-    private ?DoctrineFindFountainsByFilter $findFountainsByFilter = null;
-    private ?DoctrineFindFountainsByBoundingBox $findFountainsByBoundingBox = null;
-
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Fountain::class);
@@ -59,15 +56,19 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
 
     public function findByFilter(FountainsFilter $filter): Fountains
     {
+        $findFountainsByFilter = new FindFountainsByFilter($this->getConnection());
+
         return $this->executeFountainsQuery(
-            $this->getFindFountainsByFilter()->filter($filter)
+            $findFountainsByFilter->filter($filter)
         );
     }
 
     public function findByBoundingBox(BoundingBox $boundingBox): Fountains
     {
+        $findFountainsByBoundingBox = new FindFountainsByBoundingBox($this->getConnection());
+
         return $this->executeFountainsQuery(
-            $this->getFindFountainsByBoundingBox()->filterByBoundingBox($boundingBox)
+            $findFountainsByBoundingBox->filterByBoundingBox($boundingBox)
         );
     }
 
@@ -80,23 +81,4 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         return new Fountains($fountains);
     }
 
-    private function getFindFountainsByFilter(): DoctrineFindFountainsByFilter
-    {
-        if ($this->findFountainsByFilter === null) {
-            $this->findFountainsByFilter = new DoctrineFindFountainsByFilter(
-                $this->getEntityManager()->getConnection()
-            );
-        }
-        return $this->findFountainsByFilter;
-    }
-
-    private function getFindFountainsByBoundingBox(): DoctrineFindFountainsByBoundingBox
-    {
-        if ($this->findFountainsByBoundingBox === null) {
-            $this->findFountainsByBoundingBox = new DoctrineFindFountainsByBoundingBox(
-                $this->getEntityManager()->getConnection()
-            );
-        }
-        return $this->findFountainsByBoundingBox;
-    }
 }

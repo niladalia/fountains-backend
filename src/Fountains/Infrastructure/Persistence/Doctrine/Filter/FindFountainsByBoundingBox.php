@@ -6,7 +6,7 @@ use App\Fountains\Domain\BoundingBox;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Statement;
 
-class DoctrineFindFountainsByBoundingBox
+class FindFountainsByBoundingBox
 {
     const BOUNDING_BOX_FILTER = 'geo_point::geometry && ST_MakeEnvelope(:west_long, :south_lat, :east_long, :north_lat, 4326)';
 
@@ -24,7 +24,7 @@ class DoctrineFindFountainsByBoundingBox
 
     private function prepareFilterByBoundingBoxStatement(): void
     {
-        $query = DoctrineFindFountainsByFilter::SELECT_FOUNTAINS . ' WHERE ' . self::BOUNDING_BOX_FILTER;
+        $query = FindFountainsByFilter::SELECT_FOUNTAINS . ' WHERE ' . self::BOUNDING_BOX_FILTER;
         
         $this->filterByBoundingBoxStatement = $this->connection->prepare($query);
     }
