@@ -5,6 +5,7 @@ namespace App\Shared\Infrastructure\Persistence\Doctrine\Repository;
 use App\Shared\Domain\Entity;
 use App\Shared\Domain\Repository\DatabaseRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ManagerRegistry;
 
 abstract class DoctrineDatabaseRepository extends ServiceEntityRepository implements DatabaseRepository
@@ -78,5 +79,10 @@ abstract class DoctrineDatabaseRepository extends ServiceEntityRepository implem
 
             $apply(); // Apply remaining changes
         });
+    }
+
+    protected function getConnection(): Connection
+    {
+        return $this->getEntityManager()->getConnection();
     }
 }
