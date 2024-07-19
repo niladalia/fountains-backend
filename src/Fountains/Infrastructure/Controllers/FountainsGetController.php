@@ -22,13 +22,12 @@ class FountainsGetController extends ApiController
         $queryParameters = $request->query->all();
 
         $this->validateRequest($queryParameters, $this->constraints());
-
-        $limit = (int) $queryParameters['limit'] ?? null;
-        $offset = (int) $queryParameters['offset'] ?? null;
+        $limit = $request->query->get('limit');
+        $offset = $request->query->get('offset');
 
         $fountainsFilterBuilder = (new FountainsFilterBuilder())
-            ->setLimit($limit)
-            ->setOffset($offset);
+           ->setLimit($limit)
+           ->setOffset($offset);
 
         $this->setBoundingBoxFilter($fountainsFilterBuilder, $queryParameters);
 
