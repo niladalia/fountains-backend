@@ -23,20 +23,16 @@ class FountainsGetController extends ApiController
 
         $this->validateRequest($queryParameters, $this->constraints());
 
-        if (empty($queryParameters)) {
-            $fountains = $fountainsFinder->findAll();
-        } else {
-            $limit = (int) $queryParameters['limit'] ?? null;
-            $offset = (int) $queryParameters['offset'] ?? null;
+        $limit = (int) $queryParameters['limit'] ?? null;
+        $offset = (int) $queryParameters['offset'] ?? null;
 
-            $fountainsFilter = (new FountainsFilterBuilder())
-                ->setLimit($limit)
-                ->setOffset($offset);
-            
-            $this->setBoundingBoxFilter($fountainsFilter, $queryParameters);
+        $fountainsFilterBuilder = (new FountainsFilterBuilder())
+            ->setLimit($limit)
+            ->setOffset($offset);
 
-            $fountains = $fountainsFinder->findByFilter($fountainsFilter);
-        }
+        $this->setBoundingBoxFilter($fountainsFilterBuilder, $queryParameters);
+
+        $fountains = $fountainsFinder->findByFilter($fountainsFilterBuilder);
 
         return new JsonResponse($fountains->toArray(), Response::HTTP_OK);
     }
