@@ -2,10 +2,6 @@
 
 namespace App\Fountains\Application\Find\Filter;
 
-use App\Fountains\Domain\BoundingBox;
-use App\Fountains\Domain\ValueObject\FountainLat;
-use App\Fountains\Domain\ValueObject\FountainLong;
-
 class BoundingBoxFilter
 {
     public function __construct(
