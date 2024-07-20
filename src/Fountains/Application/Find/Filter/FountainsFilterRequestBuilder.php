@@ -4,7 +4,7 @@ namespace App\Fountains\Application\Find\Filter;
 
 use App\Fountains\Domain\FountainsFilter;
 
-class FountainsFilterBuilder
+class FountainsFilterRequestBuilder
 {
     private ?int $limit = null;
     private ?int $offset = null;
@@ -26,19 +26,19 @@ class FountainsFilterBuilder
         return $this->boundingBoxFilter;
     }
 
-    public function setLimit(?int $limit): FountainsFilterBuilder
+    public function setLimit(?int $limit): FountainsFilterRequestBuilder
     {
         $this->limit = $limit;
         return $this;
     }
 
-    public function setOffset(?int $offset): FountainsFilterBuilder
+    public function setOffset(?int $offset): FountainsFilterRequestBuilder
     {
         $this->offset = $offset;
         return $this;
     }
 
-    public function setBoundingBoxFilter(?BoundingBoxFilter $boundingBoxFilter): FountainsFilterBuilder
+    public function setBoundingBoxFilter(?BoundingBoxFilter $boundingBoxFilter): FountainsFilterRequestBuilder
     {
         $this->boundingBoxFilter = $boundingBoxFilter;
         return $this;
@@ -50,6 +50,16 @@ class FountainsFilterBuilder
             $this->limit,
             $this->offset,
             $this->boundingBoxFilter?->toBoundingBox()
+        );
+    }
+
+    public function build(): FountainsFilterRequest
+    {
+        return new FountainsFilterRequest
+        (
+            $this->limit,
+            $this->offset,
+            $this->boundingBoxFilter
         );
     }
 }

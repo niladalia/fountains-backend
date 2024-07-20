@@ -9,10 +9,7 @@ use App\Fountains\Domain\ValueObject\FountainLong;
 
 class FountainFinderByLocation
 {
-    public function __construct(private FountainRepository $fountainRepository)
-    {
-        $this->fountainRepository = $fountainRepository;
-    }
+    public function __construct(private FountainRepository $fountainRepository) { }
 
     public function __invoke(FountainLat $lat, FountainLong $long): ?Fountain
     {

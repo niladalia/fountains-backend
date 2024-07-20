@@ -2,9 +2,10 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
+use App\Fountains\Application\Find\Filter\FountainsFilterRequest;
 use App\Fountains\Application\Find\FountainsFinder;
 use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
-use App\Fountains\Application\Find\Filter\FountainsFilterBuilder;
+use App\Fountains\Application\Find\Filter\FountainsFilterRequestBuilder;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Shared\Infrastructure\Symfony\Validation\PaginateConstraints;
@@ -22,21 +23,27 @@ class FountainsGetController extends ApiController
         $queryParameters = $request->query->all();
 
         $this->validateRequest($queryParameters, $this->constraints());
+
         $limit = $request->query->get('limit');
         $offset = $request->query->get('offset');
 
-        $fountainsFilterBuilder = (new FountainsFilterBuilder())
+        // We create the builder in order to handle multiple optional filters
+        $fountainsFilterBuilder = (new FountainsFilterRequestBuilder())
            ->setLimit($limit)
            ->setOffset($offset);
 
+        // We add the optional bbox filter into the builder
         $this->setBoundingBoxFilter($fountainsFilterBuilder, $queryParameters);
 
-        $fountains = $fountainsFinder->findByFilter($fountainsFilterBuilder);
+        // Here we build the FountainsFilterRequest DTO that we will send to the application service.
+        $fountainsFinderRequest = $fountainsFilterBuilder->build();
+
+        $fountains = ($fountainsFinder)($fountainsFinderRequest);
 
         return new JsonResponse($fountains->toArray(), Response::HTTP_OK);
     }
 
-    private function setBoundingBoxFilter(FountainsFilterBuilder $fountainsFilter, array $queryParameters)
+    private function setBoundingBoxFilter(FountainsFilterRequestBuilder $fountainsFilter, array $queryParameters)
     {
         if ($this->withBoundingBoxParameters($queryParameters)) {
             $this->validateRequest(

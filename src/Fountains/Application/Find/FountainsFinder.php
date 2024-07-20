@@ -2,27 +2,27 @@
 
 namespace App\Fountains\Application\Find;
 
+use App\Fountains\Application\Find\Filter\BoundingBoxFactory;
+use App\Fountains\Application\Find\Filter\FountainsFilterRequest;
 use App\Fountains\Domain\Fountains;
 use App\Fountains\Domain\FountainRepository;
-use App\Fountains\Application\Find\Filter\FountainsFilterBuilder;
-use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
+use App\Fountains\Domain\FountainsFilter;
 
 class FountainsFinder
 {
     public function __construct(private FountainRepository $fountainRepository) { }
 
-    public function findAll(): Fountains
+    public function __invoke(FountainsFilterRequest $filterRequest): Fountains
     {
-        return $this->fountainRepository->getAll();
-    }
+        $bboxFilter = $filterRequest->getBoundingBoxFilter();
 
-    public function findByFilter(FountainsFilterBuilder $filter): Fountains
-    {
-        return $this->fountainRepository->findByFilter($filter->get());
-    }
+        $boundingBox = $bboxFilter ? BoundingBoxFactory::fromBoundingBoxFilter($bboxFilter) : null;
 
-    public function findByBoundingBox(BoundingBoxFilter $filter): Fountains
-    {
-        return $this->fountainRepository->findByBoundingBox($filter->toBoundingBox());
+        $filter = new FountainsFilter(
+            $filterRequest->limit(),
+            $filterRequest->offset(),
+            $boundingBox
+        );
+        return $this->fountainRepository->findByFilter($filter);
     }
 }
