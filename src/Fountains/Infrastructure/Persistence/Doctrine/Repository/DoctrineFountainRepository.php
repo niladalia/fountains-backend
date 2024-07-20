@@ -26,13 +26,6 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         parent::__construct($registry, Fountain::class);
     }
 
-    public function getAll(): Fountains
-    {
-        $fountains = $this->findAll();
-
-        return new Fountains($fountains);
-    }
-
     public function findById(FountainId $id): ?Fountain
     {
         return $this->find($id->getValue());

@@ -9,10 +9,7 @@ use App\Fountains\Domain\ValueObject\FountainProviderName;
 
 class FountainFinderByProvider
 {
-    public function __construct(private FountainRepository $fountainRepository)
-    {
-        $this->fountainRepository = $fountainRepository;
-    }
+    public function __construct(private FountainRepository $fountainRepository) { }
 
     public function __invoke(FountainProviderName $providerName, FountainProviderId $providerId): ?Fountain
     {

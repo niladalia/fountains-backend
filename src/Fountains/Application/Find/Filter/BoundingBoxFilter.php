@@ -34,14 +34,4 @@ class BoundingBoxFilter
     {
         return $this->eastLong;
     }
-
-    public function toBoundingBox(): BoundingBox
-    {
-        return new BoundingBox(
-            new FountainLat($this->southLat),
-            new FountainLong($this->westLong),
-            new FountainLat($this->northLat),
-            new FountainLong($this->eastLong)
-        );
-    }
 }
