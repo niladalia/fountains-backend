@@ -43,16 +43,7 @@ class FountainsFilterRequestBuilder
         $this->boundingBoxFilter = $boundingBoxFilter;
         return $this;
     }
-
-    public function get(): FountainsFilter
-    {
-        return new FountainsFilter(
-            $this->limit,
-            $this->offset,
-            $this->boundingBoxFilter?->toBoundingBox()
-        );
-    }
-
+    
     public function build(): FountainsFilterRequest
     {
         return new FountainsFilterRequest
