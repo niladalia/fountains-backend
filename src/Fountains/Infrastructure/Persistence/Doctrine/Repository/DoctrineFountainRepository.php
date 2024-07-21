@@ -50,21 +50,21 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         );
     }
 
-    public function findByBoundingBox(BoundingBox $boundingBox): Fountains
-    {
-        $findFountainsByBoundingBox = new FindFountainsByBoundingBox($this->getConnection());
-
-        return $this->executeFountainsQuery(
-            $findFountainsByBoundingBox->filter($boundingBox)
-        );
-    }
-
     public function findByRadius(RadiusFilter $radiusFilter): Fountains
     {
         $findFountainsByRadius = new FindFountainsByRadius($this->getConnection());
 
         return $this->executeFountainsQuery(
             $findFountainsByRadius->filter($radiusFilter)
+        );
+    }
+
+    public function findByBoundingBox(BoundingBox $boundingBox): Fountains
+    {
+        $findFountainsByBoundingBox = new FindFountainsByBoundingBox($this->getConnection());
+
+        return $this->executeFountainsQuery(
+            $findFountainsByBoundingBox->filter($boundingBox)
         );
     }
 
