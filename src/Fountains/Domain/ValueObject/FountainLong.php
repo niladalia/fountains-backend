@@ -2,15 +2,9 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-use App\Shared\Domain\Exceptions\InvalidArgument;
-use App\Shared\Domain\ValueObject\FloatValueObject;
+use App\Shared\Domain\ValueObject\CoordinatesLong;
 
-class FountainLong extends FloatValueObject
+class FountainLong extends CoordinatesLong
 {
-    protected function validate()
-    {
-        if ($this->value === null) {
-            InvalidArgument::throw('La longitud no puede estar vacía.');
-        }
-    }
+
 }
