@@ -21,5 +21,4 @@ final class Fountains
     {
         return array_map(fn($fountain) => $fountain->toArray(), $this->fountains);
     }
-
 }

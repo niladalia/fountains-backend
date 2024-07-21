@@ -1,9 +1,6 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+  app.api_token: '%env(resolve:APP_API_TOKEN)%'
+  app.env: '%env(resolve:APP_ENV)%'
 
 services:
     # default configuration for services in *this* file
@@ -19,9 +16,22 @@ services:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
             - '../src/Kernel.php'
+    App\Security\ApiKeyAuthenticator:
+        arguments:
+            $appApiToken: '%app.api_token%'
     App\Shared\Infrastructure\Symfony\ApiExceptionListener:
+        arguments:
+            $appEnv: '%app.env%'
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    # FountainRepository service definition
+    App\Fountains\Domain\FountainRepository:
+        class: App\Fountains\Infrastructure\Persistence\Doctrine\Repository\DoctrineFountainRepository
+        arguments:
+            $registry: '@doctrine'
+        public: false # injectable but not directly accessible in the dependencies container
+        shared: true # singleton in the context of a single request (different requests have different instances)

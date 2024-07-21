@@ -12,3 +12,9 @@ restart-project: stop-project start-project
 
 run-migrations:
 	docker exec -it fountains_php php bin/console doctrine:migrations:migrate
+
+list-migrations:
+	docker exec -it fountains_php php bin/console doctrine:migrations:list
+
+status-migrations:
+	docker exec -it fountains_php php bin/console doctrine:migrations:status

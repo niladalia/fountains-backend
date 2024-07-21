@@ -10,30 +10,32 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ApiExceptionListener
 {
+    public function __construct(private string $appEnv) { }
+
     public function onKernelException(ExceptionEvent $event)
     {
         $exception = $event->getThrowable();
 
-        if (!$exception instanceof HttpExceptionInterface) {
-            Response::HTTP_INTERNAL_SERVER_ERROR;
-        }
-
-        $code = null;
-
         if ($exception instanceof HttpExceptionInterface || $exception instanceof DomainException) {
-            $code = $exception->getStatusCode();
+            $status = $exception->getStatusCode();
         } else {
-            $code = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
+
+        $message = $exception->getMessage();
+        $decodedMessage = json_decode($message, true);
 
         $responseData = [
             'error' => [
-                'code' => $code,
-                'message' => $exception->getMessage(),
-                'trace' => $exception->getTrace()
+                'status' => $status,
+                'message' => is_array($decodedMessage) ? $decodedMessage : $message,
             ]
         ];
 
-        $event->setResponse(new JsonResponse($responseData, $code));
+        if ($this->appEnv === 'dev') {
+            $responseData['error']['trace'] = $exception->getTrace();
+        }
+
+        $event->setResponse(new JsonResponse($responseData, $status));
     }
 }

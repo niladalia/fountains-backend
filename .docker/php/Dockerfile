@@ -7,6 +7,8 @@ COPY .docker/php/php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
 
 COPY .docker/xdebug-config.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
+COPY .docker/php-fpm-www.conf /usr/local/etc/php-fpm.d/www.conf
+
 RUN apk add --no-cache postgresql-dev
 
 RUN docker-php-ext-install pdo_pgsql
@@ -22,7 +24,7 @@ RUN ln -snf /usr/share/zoneinfo/Europe/Madrid /etc/localtime && echo Europe/Madr
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && composer --version
 
-WORKDIR /var/www/project
+WORKDIR /var/www/fountains
 
 COPY . .
 
@@ -30,5 +32,6 @@ RUN mkdir -p /etc/supervisor
 RUN mkdir -p /etc/conf.d
 RUN mkdir -p /var/log/supervisor
 RUN touch /var/www/xdebug.logs
+
 COPY .docker/supervisord.conf /etc/supervisor/supervisord.conf
 COPY .docker/messenger-worker.conf /etc/supervisor/conf.d/messenger-worker.conf

@@ -3,6 +3,7 @@
 namespace App\Fountains\Application\Update;
 
 use App\Fountains\Application\Find\FountainFinder;
+
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
@@ -25,13 +26,24 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 
 class FountainUpdater
 {
-    public function __construct(private FountainRepository $fountainRepository, private FountainFinder $fountainFinder)
-    { }
+    public function __construct(private FountainRepository $fountainRepository, private FountainFinder $fountainFinder) { }
 
     public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
     {
+        $this->fountainRepository->save($this->update($fountainRequest, $fountain));
+    }
+
+    public function queue(UpdateFountainRequest $fountainRequest, Fountain $fountain = null): Fountain
+    {
+        $fountain = $this->update($fountainRequest, $fountain);
+        $this->fountainRepository->persist($fountain);
+        return $fountain;
+    }
+
+    protected function update(UpdateFountainRequest $fountainRequest, Fountain $fountain = null): Fountain
+    {
         if (!$fountain) {
-           $fountain = $this->fountainFinder->__invoke(new FountainId($fountainRequest->id()));
+            $fountain = $this->fountainFinder->__invoke(FountainId::fromString($fountainRequest->id()));
         }
 
         $fountain->update(
@@ -53,6 +65,6 @@ class FountainUpdater
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
         );
 
-        $this->fountainRepository->save($fountain);
+        return $fountain;
     }
 }
