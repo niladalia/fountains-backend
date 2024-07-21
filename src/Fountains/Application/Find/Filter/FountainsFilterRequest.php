@@ -7,8 +7,8 @@ class FountainsFilterRequest
     public function __construct(
         private ?int $limit = null,
         private ?int $offset = null,
-        private ?BoundingBoxFilter $boundingBoxFilter = null
-    ) { }
+        private ?FindFountainsByBoundingBoxFilter $boundingBoxFilter = null
+    ){ }
 
     public function limit(): ?int
     {
@@ -20,8 +20,9 @@ class FountainsFilterRequest
         return $this->offset;
     }
 
-    public function getBoundingBoxFilter(): ?BoundingBoxFilter
+    public function getBoundingBoxFilter(): ?FindFountainsByBoundingBoxFilter
     {
         return $this->boundingBoxFilter;
     }
+
 }

@@ -17,3 +17,8 @@ fountains_bbox_controller_get:
   path: /api/fountains/bbox
   controller: App\Fountains\Infrastructure\Controllers\FountainsBboxGetController
   methods: [GET]
+
+fountains_radius_controller_get:
+  path: /api/fountains/radius
+  controller: App\Fountains\Infrastructure\Controllers\FountainsRadiusGetController
+  methods: [GET]
