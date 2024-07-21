@@ -2,7 +2,6 @@
 
 namespace App\Fountains\Application\Create\DTO;
 
-use App\Shared\Domain\Utils\Uuid;
 use DateTime;
 
 class CreateFountainRequest extends FountainRequest
