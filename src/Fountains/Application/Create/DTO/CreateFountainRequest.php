@@ -8,7 +8,7 @@ use DateTime;
 class CreateFountainRequest extends FountainRequest
 {
     public function __construct(
-        private Uuid $id,
+        private string $id,
         float $lat,
         float $long,
         ?string $name = null,
@@ -46,7 +46,7 @@ class CreateFountainRequest extends FountainRequest
         );
     }
 
-    public function id(): Uuid
+    public function id(): string
     {
         return $this->id;
     }
