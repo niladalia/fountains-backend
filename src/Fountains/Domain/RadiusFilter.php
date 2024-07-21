@@ -1,26 +1,29 @@
 <?php
 
-namespace App\Fountains\Application\Find\Filter;
+namespace App\Fountains\Domain;
 
-class RadiusFilterRequest
+use App\Fountains\Domain\ValueObject\FountainLat;
+use App\Fountains\Domain\ValueObject\FountainLong;
+
+class RadiusFilter
 {
     public function __construct(
-      private float $lat,
-      private float $long,
-      private float $radius
+      private FountainLat $lat,
+      private FountainLong $long,
+      private int $radius
     ) { }
 
-    public function lat(): float
+    public function lat(): FountainLat
     {
         return $this->lat;
     }
 
-    public function long(): float
+    public function long(): FountainLong
     {
         return $this->long;
     }
 
-    public function radius(): float
+    public function radius(): int
     {
         return $this->radius;
     }

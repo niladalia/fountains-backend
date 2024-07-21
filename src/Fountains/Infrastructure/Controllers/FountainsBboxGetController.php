@@ -3,7 +3,7 @@
 namespace App\Fountains\Infrastructure\Controllers;
 
 use App\Fountains\Application\Find\FountainsFinder;
-use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
+use App\Fountains\Application\Find\Filter\FindFountainsByBoundingBoxFilter;
 
 use App\Fountains\Application\Find\FountainsFinderByBbox;
 use App\Shared\Infrastructure\Symfony\ApiController;
@@ -22,7 +22,7 @@ class FountainsBboxGetController extends ApiController
 
         $this->validateRequest($queryParameters, $this->constraints());
 
-        $fountainsBboxFilter = new BoundingBoxFilter(
+        $fountainsBboxFilter = new FindFountainsByBoundingBoxFilter(
             $queryParameters['south_lat'],
             $queryParameters['west_long'],
             $queryParameters['north_lat'],
