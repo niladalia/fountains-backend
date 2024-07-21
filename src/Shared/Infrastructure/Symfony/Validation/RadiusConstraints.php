@@ -19,7 +19,8 @@ class RadiusConstraints extends ValidationConstraints
     {
         return [
             new Assert\NotBlank(),
-            new Assert\Type('numeric')
+            new Assert\Type('numeric'),
+            new Assert\Range(['min' => 0])
         ];
     }
 }
