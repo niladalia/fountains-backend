@@ -9,7 +9,7 @@ use App\Fountains\Domain\ValueObject\FountainLong;
 class BoundingBoxFactory
 {
 
-    public static function fromBoundingBoxFilter(BoundingBoxFilter $bboxFilter ){
+    public static function fromBoundingBoxFilter(FindFountainsByBoundingBoxFilter $bboxFilter ){
         return new BoundingBox(
             new FountainLat($bboxFilter->southLat()),
             new FountainLong($bboxFilter->westLong()),

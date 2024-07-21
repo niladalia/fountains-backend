@@ -9,7 +9,7 @@ class FountainsFilterRequestBuilder
     private ?int $limit = null;
     private ?int $offset = null;
 
-    private ?BoundingBoxFilter $boundingBoxFilter = null;
+    private ?FindFountainsByBoundingBoxFilter $boundingBoxFilter = null;
 
     public function limit(): ?int
     {
@@ -21,7 +21,7 @@ class FountainsFilterRequestBuilder
         return $this->offset;
     }
 
-    public function boundingBoxFilter(): ?BoundingBoxFilter
+    public function boundingBoxFilter(): ?FindFountainsByBoundingBoxFilter
     {
         return $this->boundingBoxFilter;
     }
@@ -38,12 +38,12 @@ class FountainsFilterRequestBuilder
         return $this;
     }
 
-    public function setBoundingBoxFilter(?BoundingBoxFilter $boundingBoxFilter): FountainsFilterRequestBuilder
+    public function setBoundingBoxFilter(?FindFountainsByBoundingBoxFilter $boundingBoxFilter): FountainsFilterRequestBuilder
     {
         $this->boundingBoxFilter = $boundingBoxFilter;
         return $this;
     }
-    
+
     public function build(): FountainsFilterRequest
     {
         return new FountainsFilterRequest

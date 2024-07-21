@@ -4,7 +4,7 @@ namespace App\Fountains\Infrastructure\Controllers;
 
 use App\Fountains\Application\Find\Filter\FountainsFilterRequest;
 use App\Fountains\Application\Find\FountainsFinder;
-use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
+use App\Fountains\Application\Find\Filter\FindFountainsByBoundingBoxFilter;
 use App\Fountains\Application\Find\Filter\FountainsFilterRequestBuilder;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
@@ -32,7 +32,7 @@ class FountainsGetController extends ApiController
            ->setLimit($limit)
            ->setOffset($offset);
 
-        // We add the optional bbox filter into the builder
+        // We add the optional bbox and other filters into the builder
         $this->setBoundingBoxFilter($fountainsFilterBuilder, $queryParameters);
 
         // Here we build the FountainsFilterRequest DTO that we will send to the application service.
@@ -52,7 +52,7 @@ class FountainsGetController extends ApiController
             );
 
             $fountainsFilter->setBoundingBoxFilter(
-                new BoundingBoxFilter(
+                new FindFountainsByBoundingBoxFilter(
                     (float) $queryParameters['south_lat'],
                     (float) $queryParameters['west_long'],
                     (float) $queryParameters['north_lat'],
