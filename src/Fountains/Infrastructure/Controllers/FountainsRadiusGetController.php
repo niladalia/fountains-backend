@@ -6,6 +6,7 @@ use App\Fountains\Application\Find\Filter\FindFountainsByRadiusRequest;
 use App\Fountains\Application\Find\FountainsFinderByRadius;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Shared\Infrastructure\Symfony\Validation\RadiusConstraints;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;

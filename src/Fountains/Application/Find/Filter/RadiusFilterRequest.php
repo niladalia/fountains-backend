@@ -7,7 +7,7 @@ class FindFountainsByRadiusRequest
     public function __construct(
       private float $lat,
       private float $long,
-      private int $radius
+      private float $radius
     ) { }
 
     public function lat(): float
@@ -20,9 +20,8 @@ class FindFountainsByRadiusRequest
         return $this->long;
     }
 
-    public function radius(): int
+    public function radius(): float
     {
         return $this->radius;
     }
-
 }
