@@ -35,7 +35,7 @@ class FountainCreator
     protected function create(CreateFountainRequest $fountainRequest): Fountain
     {
         $fountain = Fountain::create(
-            new FountainId($fountainRequest->id()),
+            FountainId::fromString($fountainRequest->id()),
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
             new FountainName($fountainRequest->name()),
