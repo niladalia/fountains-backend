@@ -21,8 +21,9 @@ use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainUserId;
-use App\Shared\Domain\Utils\DateTimeUtils;
+
 use App\Shared\Domain\Entity;
+use App\Shared\Domain\Utils\DateTimeUtils;
 
 class Fountain implements Entity
 {
@@ -46,9 +47,7 @@ class Fountain implements Entity
         private ?FountainProviderUpdatedAt $provider_updated_at,
         private ?FountainCreatedAt         $created_at,
         private ?FountainUpdatedAt         $updated_at
-    ) {
-
-    }
+    ) { }
 
     public static function create(
         FountainId                 $id,
@@ -68,8 +67,8 @@ class Fountain implements Entity
         ?FountainProviderId        $provider_id,
         ?FountainUserId            $user_id,
         ?FountainProviderUpdatedAt $provider_updated_at
-    ): self {
-
+    ): self
+    {
         $now = DateTimeUtils::now();
         $created_at = new FountainCreatedAt($now);
         $updated_at = new FountainUpdatedAt($now);

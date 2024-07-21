@@ -37,7 +37,7 @@ class FountainsGetController extends ApiController
         // Here we build the FountainsFilterRequest DTO that we will send to the application service.
         $fountainsFinderRequest = $fountainsFilterBuilder->build();
 
-        $fountains = ($fountainsFinder)($fountainsFinderRequest);
+        $fountains = $fountainsFinder->__invoke($fountainsFinderRequest);
 
         return new JsonResponse($fountains->toArray(), Response::HTTP_OK);
     }
