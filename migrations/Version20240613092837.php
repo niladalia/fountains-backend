@@ -14,7 +14,7 @@ final class Version20240613092837 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Fountains';
     }
 
     public function up(Schema $schema): void
@@ -48,11 +48,12 @@ final class Version20240613092837 extends AbstractMigration
                 PRIMARY KEY(id),
                 UNIQUE(lat, long),
                 UNIQUE(provider_name, provider_id),
+                CONSTRAINT fk_provider_name FOREIGN KEY (provider_name) REFERENCES providers(name) ON DELETE RESTRICT,
                 CHECK ((provider_name IS NOT NULL AND provider_id IS NOT NULL AND provider_updated_at IS NOT NULL AND user_id IS NULL) OR (provider_name IS NULL AND provider_id IS NULL AND provider_updated_at IS NULL))
             );
         ');
 
-        $this->addSql("CREATE INDEX idx_fountains_geo_point ON fountains USING GIST(geo_point);");
+        $this->addSql("CREATE INDEX idx_fountains_geom ON fountains USING GIST((geo_point::geometry));");
     }
 
     public function down(Schema $schema): void

@@ -3,26 +3,24 @@
 namespace App\Providers\Domain;
 
 use App\Providers\Domain\ValueObject\ProviderName;
+use App\Shared\Domain\Entity;
 
-class Provider
+class Provider implements Entity
 {
 
-    public function __construct(
-        private ProviderName $name
-    )
-    { }
+    public function __construct(private ProviderName $name) { }
 
     public static function create(
         ProviderName $name
     ): self {
-        $product = new self(
+        $provider = new self(
             $name
         );
 
-        return $product;
+        return $provider;
     }
 
-    public function getName(): ProviderName
+    public function name(): ProviderName
     {
         return $this->name;
     }
@@ -37,7 +35,7 @@ class Provider
     public function toArray(): array
     {
         return [
-            "name" => $this->getName()->getValue()
+            "name" => $this->name()->getValue()
         ];
     }
 

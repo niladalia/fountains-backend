@@ -2,54 +2,100 @@
 
 namespace App\Fountains\Application\CreateOrUpdate;
 
-use App\Fountains\Application\Find\FountainFinderByLocation;
 use App\Fountains\Application\Create\FountainCreator;
 use App\Fountains\Application\Update\FountainUpdater;
 use App\Fountains\Application\Update\UpdateFountainRequest;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
 use App\Fountains\Domain\Fountain;
+use App\Fountains\Domain\FountainsCache;
+use App\Fountains\Domain\FountainRepository;
 
 class FountainCreateOrUpdate
 {
+    private const int QUEUE_BATCH_SIZE = 1000;
+
     public function __construct(
-        private FountainFinderByLocation $fountainFinderByLocation,
         private FountainCreator          $fountainCreator,
-        private FountainUpdater          $fountainUpdater
+        private FountainUpdater          $fountainUpdater,
+        private FountainRepository       $fountainRepository,
+        private FountainsCache           $fountainsCache
     ) {}
 
     public function __invoke(CreateOrUpdateFountainRequest $fountainRequest)
     {
-        $fountain = $this->fountainFinderByLocation->__invoke(
-            new FountainLat($fountainRequest->lat()),
-            new FountainLong($fountainRequest->long())
+        $this->queue($fountainRequest);
+        $this->fountainRepository->apply();
+    }
+
+    /**
+     * @param CreateOrUpdateFountainRequest[] $fountainRequests
+     */
+    public function many(array $fountainRequests): void
+    {
+        $process = function(CreateOrUpdateFountainRequest $fountainRequest) {
+            $fountain = $this->queue($fountainRequest);
+            $this->fountainsCache->add($fountain);
+        };
+        $onApply = function() {
+            $this->fountainsCache->reset();
+        };
+        $this->fountainRepository->processInBatches(
+            $fountainRequests, $process, self::QUEUE_BATCH_SIZE, $onApply
         );
+    }
+
+    public function queue(CreateOrUpdateFountainRequest $fountainRequest): Fountain
+    {
+        $fountain = $this->findByCacheOrLocation($fountainRequest->lat(), $fountainRequest->long());
 
         if ($fountain) {
-            $this->mergeFountain($fountainRequest, $fountain);
+            $fountain = $this->mergeFountain($fountainRequest, $fountain);
         } else {
-            $this->createFountain($fountainRequest);
+            $fountain = $this->createFountain($fountainRequest);
         }
+
+        return $fountain;
     }
 
-    private function createFountain(CreateOrUpdateFountainRequest $fountainRequest)
+    private function findByCacheOrLocation(float $lat, float $long): ?Fountain
     {
-        $createFountainRequest = CreateOrUpdateFountainRequestFactory::toCreateFountainRequest(
-            $fountainRequest
-        );
-        $this->fountainCreator->__invoke($createFountainRequest);
+        $fountainLat = new FountainLat($lat);
+        $fountainLong = new FountainLong($long);
+
+        // Look if a fountain is already queued
+        // Otherwise look if the fountain exists in the database
+        return $this->fountainsCache->find($fountainLat, $fountainLong)
+            ?: $this->fountainRepository->findByLocation($fountainLat, $fountainLong);
     }
 
-    private function mergeFountain(CreateOrUpdateFountainRequest $fountainRequest, Fountain $fountain)
+    private function createFountain(CreateOrUpdateFountainRequest $fountainRequest): Fountain
+    {
+        return $this->fountainCreator->queue($fountainRequest);
+    }
+
+    private function mergeFountain(CreateOrUpdateFountainRequest $fountainRequest, Fountain $fountain): Fountain
     {
         if (self::isSameProviderFountain($fountainRequest, $fountain)) {
             if (self::isRequestNewer($fountainRequest, $fountain)) {
-                $this->updateFountain($fountainRequest, $fountain);
+                $fountain = $this->updateFountain($fountainRequest, $fountain);
             }
         } else {
             $updateFountainRequest = $this->mergeRequest($fountainRequest, $fountain);
-            $this->updateFountainFromRequest($updateFountainRequest, $fountain);
+            $fountain = $this->updateFountainFromRequest($updateFountainRequest, $fountain);
         }
+        return $fountain;
+    }
+
+    private function updateFountain(CreateOrUpdateFountainRequest $fountainRequest, Fountain $fountain): Fountain
+    {
+        $updateFountainRequest = $fountainRequest->toUpdateFountainRequest($fountain->id()->getValue());
+        return $this->updateFountainFromRequest($updateFountainRequest, $fountain);
+    }
+
+    private function updateFountainFromRequest(UpdateFountainRequest $updateFountainRequest, Fountain $fountain): Fountain
+    {
+        return $this->fountainUpdater->queue($updateFountainRequest, $fountain);
     }
 
     private static function isSameProviderFountain(CreateOrUpdateFountainRequest $fountainRequest, Fountain $fountain): bool
@@ -67,7 +113,7 @@ class FountainCreateOrUpdate
     {
         $isRequestNewer = self::isRequestNewer($fountainRequest, $fountain);
 
-        $existingFountainRequest = $this->fountainToRequest($fountain);
+        $existingFountainRequest = $this->fountainToUpdateRequest($fountain);
 
         $recent = $isRequestNewer ? $fountainRequest : $existingFountainRequest;
         $other = $isRequestNewer ? $existingFountainRequest : $fountainRequest;
@@ -93,7 +139,7 @@ class FountainCreateOrUpdate
         );
     }
 
-    private function fountainToRequest(Fountain $fountain): UpdateFountainRequest
+    private function fountainToUpdateRequest(Fountain $fountain): UpdateFountainRequest
     {
         return new UpdateFountainRequest(
             $fountain->id()->getValue(),
@@ -114,19 +160,5 @@ class FountainCreateOrUpdate
             $fountain->user_id()?->getValue(),
             $fountain->provider_updated_at()?->getValue()
         );
-    }
-
-    private function updateFountain(CreateOrUpdateFountainRequest $fountainRequest, Fountain $fountain)
-    {
-        $updateFountainRequest = CreateOrUpdateFountainRequestFactory::toUpdateFountainRequest(
-            $fountainRequest,
-            $fountain->id()->getValue()
-        );
-        $this->updateFountainFromRequest($updateFountainRequest, $fountain);
-    }
-
-    private function updateFountainFromRequest(UpdateFountainRequest $updateFountainRequest, Fountain $fountain)
-    {
-        $this->fountainUpdater->__invoke($updateFountainRequest, $fountain);
     }
 }

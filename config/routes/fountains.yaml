@@ -1,0 +1,24 @@
+fountains_controller_post:
+  path: /api/fountains
+  controller: App\Fountains\Infrastructure\Controllers\FountainsPostController
+  methods: [POST]
+
+fountains_controller_put:
+   path: /api/fountains
+   controller: App\Fountains\Infrastructure\Controllers\FountainsPutController
+   methods: [PUT]
+
+fountains_controller_get:
+  path: /api/fountains
+  controller: App\Fountains\Infrastructure\Controllers\FountainsGetController
+  methods: [GET]
+
+fountains_bbox_controller_get:
+  path: /api/fountains/bbox
+  controller: App\Fountains\Infrastructure\Controllers\FountainsBboxGetController
+  methods: [GET]
+
+fountains_radius_controller_get:
+  path: /api/fountains/radius
+  controller: App\Fountains\Infrastructure\Controllers\FountainsRadiusGetController
+  methods: [GET]

@@ -1,17 +1,4 @@
 services:
-    rabbitmq:
-        container_name: rabbitmq
-        image: 'rabbitmq:3.10.5-management'
-        restart: unless-stopped
-        ports:
-            - 5672:15672
-        environment:
-            - RABBITMQ_DEFAULT_USER=guest
-            - RABBITMQ_DEFAULT_PASS=guest
-        networks:
-            - shared_network
-            - fountains_network
-            
     php:
         container_name: fountains_php
         build:
@@ -20,7 +7,7 @@ services:
             args:
                 TIMEZONE: Europe/Madrid
         volumes:
-            - ./:/var/www/project/
+            - ./:/var/www/fountains/
         extra_hosts:
             - "host.docker.internal:host-gateway"
         networks:
@@ -32,7 +19,7 @@ services:
             context: .
             dockerfile: .docker/nginx/Dockerfile
         volumes:
-            - ./:/var/www/project/
+            - ./:/var/www/fountains/
         ports:
             - "${NGINX_PORT}:80"
         environment:
@@ -58,6 +45,19 @@ services:
         ports:
             - 5432:5432
         networks:
+            - fountains_network
+    
+    rabbitmq:
+        container_name: rabbitmq
+        image: 'rabbitmq:3.10.5-management'
+        restart: unless-stopped
+        ports:
+            - 5672:15672
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+        networks:
+            - shared_network
             - fountains_network
 
 volumes:

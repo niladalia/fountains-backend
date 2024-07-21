@@ -11,9 +11,14 @@ cp .env .env.local
 - Edit `APP_ENV` to [select active environment](https://symfony.com/doc/current/configuration.html#selecting-the-active-environment) (`dev` or `prod`)
 - Edit [other values](https://symfony.com/doc/current/configuration.html#overriding-environment-values-via-env-local) as needed
 
-Regenerate `APP_SECRET`:
+#### Regenerate `APP_SECRET`
 
-`php bin/console regenerate-app-secret`
+```sh
+php bin/console regenerate-app-secret
+
+# Docker
+docker exec -it fountains_php php bin/console regenerate-app-secret
+```
 
 ## Run
 
@@ -23,7 +28,7 @@ Run docker containers (php server, nginx, database...) with [docker compose](htt
 make build-project
 ```
 
-To make migrations (first time or with new migrations):
+To execute migrations (first time or with new migrations):
 
 ```sh
 make run-migrations # input yes
@@ -77,4 +82,33 @@ docker compose --env-file .env --env-file .env.local config
 # Log in to the database
 docker exec -it fountains_db bash
 PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER -d $POSTGRES_DB
+```
+
+#### Migrations
+
+```sh
+# Show current migrations
+make list-migrations
+make status-migrations
+
+# Revert up to a specific migration
+docker exec -it fountains_php php bin/console doctrine:migrations:migrate DoctrineMigrations\\Version20240613092837
+
+# Undo specific migration only
+docker exec -it fountains_php php bin/console doctrine:migrations:execute --down DoctrineMigrations\\Version20240613092837
+
+# Undo all migrations
+docker exec -it fountains_php php bin/console doctrine:migrations:migrate 0
+```
+
+#### SQL
+
+Useful queries for debugging:
+
+```sql
+-- Count fountains
+SELECT COUNT(*) FROM fountains;
+
+-- Last updated fountains
+SELECT * FROM fountains ORDER BY updated_at DESC LIMIT 5;
 ```
