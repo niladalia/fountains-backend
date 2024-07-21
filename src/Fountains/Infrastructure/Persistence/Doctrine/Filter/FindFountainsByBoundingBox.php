@@ -14,7 +14,7 @@ class FindFountainsByBoundingBox
 
     public function __construct(private Connection $connection) { }
 
-    public function filterByBoundingBox(BoundingBox $boundingBox): Statement
+    public function filter(BoundingBox $boundingBox): Statement
     {
         if ($this->filterByBoundingBoxStatement === null || !$this->connection->isConnected()) {
             $this->prepareFilterByBoundingBoxStatement();

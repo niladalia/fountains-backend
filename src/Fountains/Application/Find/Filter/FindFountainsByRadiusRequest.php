@@ -2,12 +2,12 @@
 
 namespace App\Fountains\Application\Find\Filter;
 
-class RadiusFilterRequest
+class FindFountainsByRadiusRequest
 {
     public function __construct(
       private float $lat,
       private float $long,
-      private float $radius
+      private int $radius
     ) { }
 
     public function lat(): float
@@ -20,7 +20,7 @@ class RadiusFilterRequest
         return $this->long;
     }
 
-    public function radius(): float
+    public function radius(): int
     {
         return $this->radius;
     }

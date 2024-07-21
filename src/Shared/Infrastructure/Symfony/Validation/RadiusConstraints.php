@@ -2,15 +2,24 @@
 
 namespace App\Shared\Infrastructure\Symfony\Validation;
 
-class BoundingBoxConstraints extends ValidationConstraints
+use Symfony\Component\Validator\Constraints as Assert;
+
+class RadiusConstraints extends ValidationConstraints
 {
     protected function fields(): array
     {
         return [
-            'south_lat' => CoordinatesConstraints::latitude(),
-            'west_long' => CoordinatesConstraints::longitude(),
-            'north_lat' => CoordinatesConstraints::latitude(),
-            'east_long' => CoordinatesConstraints::longitude()
+            'lat' => CoordinatesConstraints::latitude(),
+            'long' => CoordinatesConstraints::longitude(),
+            'radius' => $this->radius()
+        ];
+    }
+
+    private function radius(): array
+    {
+        return [
+            new Assert\NotBlank(),
+            new Assert\Type('numeric')
         ];
     }
 }

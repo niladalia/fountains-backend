@@ -2,40 +2,36 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
-use App\Fountains\Application\Find\FountainsFinder;
-use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
-
-use App\Fountains\Application\Find\FountainsFinderByBbox;
+use App\Fountains\Application\Find\Filter\FindFountainsByRadiusRequest;
+use App\Fountains\Application\Find\FountainsFinderByRadius;
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Shared\Infrastructure\Symfony\Validation\BoundingBoxConstraints;
-
+use App\Shared\Infrastructure\Symfony\Validation\RadiusConstraints;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class FountainsBboxGetController extends ApiController
+class FountainsRadiusGetController extends ApiController
 {
-    public function __invoke(Request $request, FountainsFinderByBbox $fountainsBboxFinder): Response
+    public function __invoke(Request $request, FountainsFinderByRadius $fountainsRadiusFinder): Response
     {
         $queryParameters = $request->query->all();
 
         $this->validateRequest($queryParameters, $this->constraints());
 
-        $fountainsBboxFilter = new BoundingBoxFilter(
-            $queryParameters['south_lat'],
-            $queryParameters['west_long'],
-            $queryParameters['north_lat'],
-            $queryParameters['east_long']
+        $fountainsRadiusFilter = new FindFountainsByRadiusRequest(
+            $queryParameters['lat'],
+            $queryParameters['long'],
+            $queryParameters['radius']
         );
 
-        $fountains = $fountainsBboxFinder->__invoke($fountainsBboxFilter);
+        $fountains = $fountainsRadiusFinder->__invoke($fountainsRadiusFilter);
 
         return new JsonResponse($fountains->toArray(), Response::HTTP_OK);
     }
 
     protected function constraints(): Assert\Collection
     {
-        return BoundingBoxConstraints::constraints();
+        return RadiusConstraints::constraints();
     }
 }

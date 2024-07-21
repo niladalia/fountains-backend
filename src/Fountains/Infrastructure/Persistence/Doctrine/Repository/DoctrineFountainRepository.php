@@ -8,6 +8,7 @@ use App\Fountains\Domain\BoundingBox;
 use App\Fountains\Domain\FountainsFilter;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ArrayToFountainFactory;
+use App\Fountains\Domain\RadiusFilter;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
@@ -15,6 +16,7 @@ use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\FindFountainsByFilter;
 use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\FindFountainsByBoundingBox;
+use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\FindFountainsByRadius;
 use App\Shared\Infrastructure\Persistence\Doctrine\Repository\DoctrineDatabaseRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\DBAL\Statement;
@@ -39,14 +41,6 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         ]);
     }
 
-    public function findByProvider(FountainProviderName $providerName, FountainProviderId $provider_id): ?Fountain
-    {
-        return $this->findOneBy([
-            'provider_name.value' => $providerName->getValue(),
-            'provider_id.value' => $provider_id->getValue()
-        ]);
-    }
-
     public function findByFilter(FountainsFilter $filter): Fountains
     {
         $findFountainsByFilter = new FindFountainsByFilter($this->getConnection());
@@ -61,7 +55,16 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         $findFountainsByBoundingBox = new FindFountainsByBoundingBox($this->getConnection());
 
         return $this->executeFountainsQuery(
-            $findFountainsByBoundingBox->filterByBoundingBox($boundingBox)
+            $findFountainsByBoundingBox->filter($boundingBox)
+        );
+    }
+
+    public function findByRadius(RadiusFilter $radiusFilter): Fountains
+    {
+        $findFountainsByRadius = new FindFountainsByRadius($this->getConnection());
+
+        return $this->executeFountainsQuery(
+            $findFountainsByRadius->filter($radiusFilter)
         );
     }
 
