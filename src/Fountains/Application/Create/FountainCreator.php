@@ -3,6 +3,7 @@
 namespace App\Fountains\Application\Create;
 
 use App\Fountains\Application\Create\DTO\CreateFountainRequest;
+
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
@@ -32,7 +33,7 @@ class FountainCreator
         $this->fountainRepository->save($this->create($fountainRequest));
     }
 
-    protected function create(CreateFountainRequest $fountainRequest): Fountain
+    public function create(CreateFountainRequest $fountainRequest): Fountain
     {
         $fountain = Fountain::create(
             FountainId::fromString($fountainRequest->id()),
