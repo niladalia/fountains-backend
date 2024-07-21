@@ -2,8 +2,7 @@
 
 namespace App\Fountains\Application\Update;
 
-use App\Fountains\Application\Create\CreateFountainRequest;
-
+use App\Fountains\Application\Create\DTO\CreateFountainRequest;
 use DateTime;
 
 class UpdateFountainRequest extends CreateFountainRequest

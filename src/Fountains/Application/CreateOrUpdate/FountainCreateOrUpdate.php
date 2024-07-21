@@ -3,6 +3,7 @@
 namespace App\Fountains\Application\CreateOrUpdate;
 
 use App\Fountains\Application\Create\FountainCreator;
+use App\Fountains\Application\Create\FountainCreatorQueue;
 use App\Fountains\Application\Update\FountainUpdater;
 use App\Fountains\Application\Update\UpdateFountainRequest;
 use App\Fountains\Domain\ValueObject\FountainLat;
@@ -16,7 +17,7 @@ class FountainCreateOrUpdate
     private const int QUEUE_BATCH_SIZE = 1000;
 
     public function __construct(
-        private FountainCreator          $fountainCreator,
+        private FountainCreatorQueue     $fountainCreator,
         private FountainUpdater          $fountainUpdater,
         private FountainRepository       $fountainRepository,
         private FountainsCache           $fountainsCache
@@ -71,7 +72,7 @@ class FountainCreateOrUpdate
 
     private function createFountain(CreateOrUpdateFountainRequest $fountainRequest): Fountain
     {
-        return $this->fountainCreator->queue($fountainRequest);
+        return $this->fountainCreator->__invoke($fountainRequest);
     }
 
     private function mergeFountain(CreateOrUpdateFountainRequest $fountainRequest, Fountain $fountain): Fountain
