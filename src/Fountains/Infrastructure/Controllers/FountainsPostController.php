@@ -6,7 +6,7 @@ use App\Fountains\Application\Create\DTO\CreateFountainRequest;
 use App\Fountains\Application\Create\FountainCreator;
 use App\Shared\Domain\Utils\Uuid;
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Shared\Infrastructure\Symfony\Validation\CreateFountainConstraints;
+use App\Shared\Infrastructure\Symfony\Validation\FountainConstraints;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -48,7 +48,7 @@ class FountainsPostController extends ApiController
 
     protected function constraints(): Assert\Collection
     {
-        return CreateFountainConstraints::constraints();
+        return FountainConstraints::constraints();
     }
 
 }
