@@ -2,12 +2,13 @@
 
 namespace App\Fountains\Application\Create\DTO;
 
+use App\Shared\Domain\Utils\Uuid;
 use DateTime;
 
 class CreateFountainRequest extends FountainRequest
 {
     public function __construct(
-        private string $id,
+        private Uuid $id,
         float $lat,
         float $long,
         ?string $name = null,
@@ -45,7 +46,7 @@ class CreateFountainRequest extends FountainRequest
         );
     }
 
-    public function id(): string
+    public function id(): Uuid
     {
         return $this->id;
     }
