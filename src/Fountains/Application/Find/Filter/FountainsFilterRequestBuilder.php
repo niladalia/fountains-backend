@@ -2,8 +2,6 @@
 
 namespace App\Fountains\Application\Find\Filter;
 
-use App\Fountains\Domain\FountainsFilter;
-
 class FountainsFilterRequestBuilder
 {
     private ?int $limit = null;
