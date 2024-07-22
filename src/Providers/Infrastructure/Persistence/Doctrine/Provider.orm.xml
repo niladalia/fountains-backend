@@ -3,7 +3,7 @@
     <entity repository-class="App\Providers\Infrastructure\Persistence\DoctrineProviderRepository" name="App\Providers\Domain\Provider" table="providers">
 
         <embedded name="name" class="App\Providers\Domain\ValueObject\ProviderName" use-column-prefix="false"/>
-        <embedded name="url" class="App\Providers\Domain\ValueObject\ProviderUrl" use-column-prefix="false" nullable="true"/>
+        <embedded name="url" class="App\Providers\Domain\ValueObject\ProviderUrl" use-column-prefix="false"/>
 
     </entity>
 </doctrine-mapping>
