@@ -19,7 +19,7 @@ final class Version20240613092837 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql("CREATE TYPE fountain_type AS ENUM ('natural', 'tap_water', 'watering_place', 'unknown');");
+        $this->addSql("CREATE TYPE fountain_type AS ENUM ('natural', 'tap_water', 'water_point', 'watering_place', 'unknown');");
         $this->addSql("CREATE TYPE safe_water_type AS ENUM ('yes', 'probably', 'no', 'unknown');");
         $this->addSql("CREATE TYPE legal_water_type AS ENUM ('treated', 'untreated', 'unknown');");
 
