@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Application\Find;
 
-use App\Fountains\Application\Find\Filter\FindFountainsByRadiusRequest;
+use App\Fountains\Application\Find\Filter\RadiusFilterRequest;
 
 use App\Fountains\Domain\Fountains;
 use App\Fountains\Domain\FountainRepository;
@@ -15,13 +15,13 @@ class FountainsFinderByRadius
 {
     public function __construct(private FountainRepository $fountainRepository) { }
 
-    public function __invoke(FindFountainsByRadiusRequest $filter): Fountains
+    public function __invoke(RadiusFilterRequest $request): Fountains
     {
         return $this->fountainRepository->findByRadius(
             new RadiusFilter(
-                new CoordinatesLat($filter->lat()),
-                new CoordinatesLong($filter->long()),
-                $filter->radius()
+                new CoordinatesLat($request->lat()),
+                new CoordinatesLong($request->long()),
+                $request->radius()
             )
         );
     }

@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
-use App\Fountains\Application\Find\Filter\FindFountainsByRadiusRequest;
+use App\Fountains\Application\Find\Filter\RadiusFilterRequest;
 use App\Fountains\Application\Find\FountainsFinderByRadius;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Shared\Infrastructure\Symfony\Validation\RadiusConstraints;
@@ -20,7 +20,7 @@ class FountainsRadiusGetController extends ApiController
 
         $this->validateRequest($queryParameters, $this->constraints());
 
-        $fountainsRadiusFilter = new FindFountainsByRadiusRequest(
+        $fountainsRadiusFilter = new RadiusFilterRequest(
             $queryParameters['lat'],
             $queryParameters['long'],
             $queryParameters['radius']
