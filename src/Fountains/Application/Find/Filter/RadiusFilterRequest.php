@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Application\Find\Filter;
 
-class FindFountainsByRadiusRequest
+class RadiusFilterRequest
 {
     public function __construct(
       private float $lat,

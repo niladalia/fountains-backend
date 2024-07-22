@@ -3,7 +3,7 @@
 namespace App\Fountains\Infrastructure\Controllers;
 
 use App\Fountains\Application\Find\FountainsFinder;
-use App\Fountains\Application\Find\Filter\FindFountainsByBoundingBoxFilter;
+use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
 use App\Fountains\Application\Find\Filter\FountainsFilterRequestBuilder;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
@@ -51,7 +51,7 @@ class FountainsGetController extends ApiController
             );
 
             $fountainsFilter->setBoundingBoxFilter(
-                new FindFountainsByBoundingBoxFilter(
+                new BoundingBoxFilter(
                     $queryParameters['south_lat'],
                     $queryParameters['west_long'],
                     $queryParameters['north_lat'],
