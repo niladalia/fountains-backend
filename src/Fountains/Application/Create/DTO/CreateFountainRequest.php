@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Fountains\Application\CreateOrUpdate;
-
-use App\Fountains\Application\Create\CreateFountainRequest;
-use App\Fountains\Application\Update\UpdateFountainRequest;
+namespace App\Fountains\Application\Create\DTO;
 
 use DateTime;
 
-class CreateOrUpdateFountainRequest extends CreateFountainRequest
+class CreateFountainRequest extends FountainRequest
 {
     public function __construct(
-        private ?string $id,
+        private string $id,
         float $lat,
         float $long,
         ?string $name = null,
@@ -27,8 +24,7 @@ class CreateOrUpdateFountainRequest extends CreateFountainRequest
         ?string $provider_id = null,
         ?string $user_id = null,
         ?DateTime $provider_updated_at = null
-    )
-    {
+    ) {
         parent::__construct(
             $lat,
             $long,
@@ -49,32 +45,8 @@ class CreateOrUpdateFountainRequest extends CreateFountainRequest
         );
     }
 
-    public function id(): ?string
+    public function id(): string
     {
         return $this->id;
     }
-
-    public function toUpdateFountainRequest(string $fountainId): UpdateFountainRequest
-    {
-        return new UpdateFountainRequest(
-            $fountainId,
-            $this->lat(),
-            $this->long(),
-            $this->name(),
-            $this->type(),
-            $this->picture(),
-            $this->description(),
-            $this->operational_status(),
-            $this->safe_water(),
-            $this->legal_water(),
-            $this->access_bottles(),
-            $this->access_pets(),
-            $this->access_wheelchair(),
-            $this->provider_name(),
-            $this->provider_id(),
-            $this->user_id(),
-            $this->provider_updated_at()
-        );
-    }
-
 }

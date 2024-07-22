@@ -2,7 +2,7 @@
 
 namespace App\Shared\Infrastructure\Symfony\Validation;
 
-class CreateFountainConstraints extends ValidationConstraints
+class FountainConstraints extends ValidationConstraints
 {
     protected function fields(): array
     {

@@ -3,6 +3,8 @@
 namespace App\Fountains\Application\Update;
 
 use App\Fountains\Application\Find\FountainFinder;
+use App\Fountains\Application\Create\DTO\FountainRequest;
+use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
 
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
@@ -26,26 +28,26 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 
 class FountainUpdater
 {
-    public function __construct(private FountainRepository $fountainRepository, private FountainFinder $fountainFinder) { }
+    public function __construct(
+        private FountainFinder $fountainFinder,
+        private FountainRepository $fountainRepository,
+    ) { }
 
-    public function __invoke(UpdateFountainRequest $fountainRequest, Fountain $fountain = null)
-    {
-        $this->fountainRepository->save($this->update($fountainRequest, $fountain));
-    }
-
-    public function queue(UpdateFountainRequest $fountainRequest, Fountain $fountain = null): Fountain
-    {
-        $fountain = $this->update($fountainRequest, $fountain);
-        $this->fountainRepository->persist($fountain);
-        return $fountain;
-    }
-
-    protected function update(UpdateFountainRequest $fountainRequest, Fountain $fountain = null): Fountain
+    public function __invoke(UpdateFountainRequest $fountainRequest, ?Fountain $fountain = null)
     {
         if (!$fountain) {
-            $fountain = $this->fountainFinder->__invoke(FountainId::fromString($fountainRequest->id()));
+            $fountain = $this->fountainFinder->__invoke(
+                FountainId::fromString($fountainRequest->id())
+            );
         }
 
+        self::update($fountain, $fountainRequest);
+
+        $this->fountainRepository->save($fountain);
+    }
+
+    public static function update(Fountain $fountain, FountainRequest $fountainRequest)
+    {
         $fountain->update(
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
@@ -64,7 +66,5 @@ class FountainUpdater
             new FountainUserId($fountainRequest->user_id()),
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
         );
-
-        return $fountain;
     }
 }

@@ -2,9 +2,8 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
-use App\Fountains\Application\Find\Filter\FountainsFilterRequest;
 use App\Fountains\Application\Find\FountainsFinder;
-use App\Fountains\Application\Find\Filter\FindFountainsByBoundingBoxFilter;
+use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
 use App\Fountains\Application\Find\Filter\FountainsFilterRequestBuilder;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
@@ -27,18 +26,18 @@ class FountainsGetController extends ApiController
         $limit = $request->query->get('limit');
         $offset = $request->query->get('offset');
 
-        // We create the builder in order to handle multiple optional filters
+        // We use a builder in order to handle multiple optional filters
         $fountainsFilterBuilder = (new FountainsFilterRequestBuilder())
            ->setLimit($limit)
            ->setOffset($offset);
 
-        // We add the optional bbox and other filters into the builder
+        // We add the optional bbox filter into the builder
         $this->setBoundingBoxFilter($fountainsFilterBuilder, $queryParameters);
 
         // Here we build the FountainsFilterRequest DTO that we will send to the application service.
         $fountainsFinderRequest = $fountainsFilterBuilder->build();
 
-        $fountains = ($fountainsFinder)($fountainsFinderRequest);
+        $fountains = $fountainsFinder->__invoke($fountainsFinderRequest);
 
         return new JsonResponse($fountains->toArray(), Response::HTTP_OK);
     }
@@ -52,11 +51,11 @@ class FountainsGetController extends ApiController
             );
 
             $fountainsFilter->setBoundingBoxFilter(
-                new FindFountainsByBoundingBoxFilter(
-                    (float) $queryParameters['south_lat'],
-                    (float) $queryParameters['west_long'],
-                    (float) $queryParameters['north_lat'],
-                    (float) $queryParameters['east_long']
+                new BoundingBoxFilter(
+                    $queryParameters['south_lat'],
+                    $queryParameters['west_long'],
+                    $queryParameters['north_lat'],
+                    $queryParameters['east_long']
                 )
             );
         }

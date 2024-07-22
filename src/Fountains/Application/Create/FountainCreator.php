@@ -2,6 +2,9 @@
 
 namespace App\Fountains\Application\Create;
 
+use App\Fountains\Application\Create\DTO\CreateFountainRequest;
+use App\Fountains\Application\Create\DTO\FountainRequest;
+
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
@@ -28,25 +31,17 @@ class FountainCreator
 
     public function __invoke(CreateFountainRequest $fountainRequest)
     {
-        $this->fountainRepository->save($this->create($fountainRequest));
+        $fountain = self::create(
+            FountainId::fromString($fountainRequest->id()),
+            $fountainRequest
+        );
+
+        $this->fountainRepository->save($fountain);
     }
 
-    public function queue(CreateFountainRequest $fountainRequest): Fountain
+    public static function create(FountainId $id, FountainRequest $fountainRequest): Fountain
     {
-        $fountain = $this->create($fountainRequest);
-        $this->fountainRepository->persist($fountain);
-        return $fountain;
-    }
-
-    protected function create(CreateFountainRequest $fountainRequest): Fountain
-    {
-        /*
-           We generate the UUID in the application service because since both POST and PUT controller can create new UUIDs,
-           we wanted to have a centralized place for the generation of the uuid. Typically we would generate it in the Infrastructure layer
-        */
-        $id = FountainId::generate();
-
-        $fountain = Fountain::create(
+        return Fountain::create(
             $id,
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
@@ -65,7 +60,5 @@ class FountainCreator
             new FountainUserId($fountainRequest->user_id()),
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
         );
-
-        return $fountain;
     }
 }
