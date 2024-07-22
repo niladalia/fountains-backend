@@ -2,34 +2,34 @@
 
 namespace App\Fountains\Domain;
 
-use App\Fountains\Domain\ValueObject\FountainLat;
-use App\Fountains\Domain\ValueObject\FountainLong;
+use App\Shared\Domain\ValueObject\CoordinatesLat;
+use App\Shared\Domain\ValueObject\CoordinatesLong;
 
 class BoundingBox
 {
     public function __construct(
-      private FountainLat $southLat,
-      private FountainLong $westLong,
-      private FountainLat $northLat,
-      private FountainLong $eastLong
+      private CoordinatesLat $southLat,
+      private CoordinatesLong $westLong,
+      private CoordinatesLat $northLat,
+      private CoordinatesLong $eastLong
     ) { }
 
-    public function southLat(): FountainLat
+    public function southLat(): CoordinatesLat
     {
         return $this->southLat;
     }
 
-    public function westLong(): FountainLong
+    public function westLong(): CoordinatesLong
     {
         return $this->westLong;
     }
 
-    public function northLat(): FountainLat
+    public function northLat(): CoordinatesLat
     {
         return $this->northLat;
     }
 
-    public function eastLong(): FountainLong
+    public function eastLong(): CoordinatesLong
     {
         return $this->eastLong;
     }

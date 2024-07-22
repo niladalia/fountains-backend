@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Fountains\Application\Create;
+namespace App\Fountains\Application\Create\DTO;
 
 use DateTime;
 
-class CreateFountainRequest
+abstract class FountainRequest
 {
     public function __construct(
         private float $lat,
@@ -103,5 +103,4 @@ class CreateFountainRequest
     {
         return $this->provider_updated_at;
     }
-
 }
