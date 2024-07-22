@@ -2,6 +2,8 @@
 
 namespace App\Fountains\Application\CreateOrUpdate;
 
+use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
+
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainsCache;
 use App\Fountains\Domain\ValueObject\FountainLat;

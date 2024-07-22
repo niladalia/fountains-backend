@@ -3,6 +3,7 @@
 namespace App\Fountains\Application\Create;
 
 use App\Fountains\Application\Create\DTO\CreateFountainRequest;
+use App\Fountains\Application\Create\DTO\FountainRequest;
 
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
@@ -26,17 +27,22 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 
 class FountainCreator
 {
-    public function __construct(protected FountainRepository $fountainRepository) { }
+    public function __construct(private FountainRepository $fountainRepository) { }
 
     public function __invoke(CreateFountainRequest $fountainRequest)
     {
-        $this->fountainRepository->save($this->create($fountainRequest));
+        $fountain = self::create(
+            FountainId::fromString($fountainRequest->id()),
+            $fountainRequest
+        );
+
+        $this->fountainRepository->save($fountain);
     }
 
-    public function create(CreateFountainRequest $fountainRequest): Fountain
+    public static function create(FountainId $id, FountainRequest $fountainRequest): Fountain
     {
-        $fountain = Fountain::create(
-            FountainId::fromString($fountainRequest->id()),
+        return Fountain::create(
+            $id,
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
             new FountainName($fountainRequest->name()),
@@ -54,7 +60,5 @@ class FountainCreator
             new FountainUserId($fountainRequest->user_id()),
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at())
         );
-
-        return $fountain;
     }
 }

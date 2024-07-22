@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
-use App\Fountains\Application\CreateOrUpdate\CreateOrUpdateFountainRequest;
+use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\CreateOrUpdate\FountainCreateOrUpdateMany;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
