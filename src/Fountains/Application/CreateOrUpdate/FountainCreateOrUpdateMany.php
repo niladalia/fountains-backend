@@ -5,15 +5,23 @@ namespace App\Fountains\Application\CreateOrUpdate;
 use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
 
 use App\Fountains\Domain\Fountain;
+use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\FountainsCache;
+use App\Fountains\Application\Create\FountainCreator;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
 
 class FountainCreateOrUpdateMany extends FountainCreateOrUpdate
 {
-    private const int QUEUE_BATCH_SIZE = 1000;
+    private const QUEUE_BATCH_SIZE = 1000;
 
-    public function __construct(protected FountainsCache $fountainsCache) {}
+    public function __construct(
+        protected FountainsCache $fountainsCache,
+        FountainRepository $fountainRepository,
+        private FountainCreator $fountainCreator
+    ) {
+        parent::__construct($fountainRepository,$fountainCreator);
+    }
 
     /**
      * @param CreateOrUpdateFountainRequest[] $fountainRequests

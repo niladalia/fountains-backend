@@ -2,6 +2,7 @@
 
 namespace App\Fountains\Application\CreateOrUpdate;
 
+use App\Fountains\Application\Create\CreateFountainFactory;
 use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\Create\DTO\FountainRequest;
 use App\Fountains\Application\Create\FountainCreator;
@@ -16,7 +17,10 @@ use App\Fountains\Domain\ValueObject\FountainLong;
 
 abstract class FountainCreateOrUpdate
 {
-    public function __construct(protected FountainRepository $fountainRepository) { }
+    public function __construct(
+        protected FountainRepository $fountainRepository,
+        private FountainCreator $fountainCreator
+    ) { }
 
     protected function queue(CreateOrUpdateFountainRequest $fountainRequest): Fountain
     {
@@ -43,7 +47,7 @@ abstract class FountainCreateOrUpdate
 
     private function createFountain(FountainRequest $fountainRequest): Fountain
     {
-        return FountainCreator::create(FountainId::generate(), $fountainRequest);
+        return CreateFountainFactory::createWithId(FountainId::generate(), $fountainRequest);
     }
 
     private function updateFountain(Fountain $fountain, FountainRequest $fountainRequest)
