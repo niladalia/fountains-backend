@@ -4,9 +4,18 @@ namespace App\Providers\Application\Create;
 
 class CreateProviderRequest
 {
-    public function __construct(private string $name) { }
+    public function __construct(
+        private string $name,
+        private ?string $url
+    ) { }
 
-    public function name(): string {
+    public function name(): string
+    {
         return $this->name;
+    }
+
+    public function url(): ?string
+    {
+        return $this->url;
     }
 }
