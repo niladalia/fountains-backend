@@ -15,6 +15,7 @@ services:
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
+            - '../src/Command/'
             - '../src/Kernel.php'
     App\Security\ApiKeyAuthenticator:
         arguments:
