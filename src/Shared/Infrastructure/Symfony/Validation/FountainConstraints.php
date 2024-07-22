@@ -19,10 +19,12 @@ class FountainConstraints extends ValidationConstraints
             'access_bottles' => self::optional(self::type('bool')),
             'access_pets' => self::optional(self::type('bool')),
             'access_wheelchair' => self::optional(self::type('bool')),
+            'website' => self::optional(self::type('string')),
             'provider_name' => self::optional(self::type('string')),
             'provider_id' => self::optional(self::type('string')),
-            'user_id' => self::optional(self::type('string')),
             'provider_updated_at' => self::optional(DateTimeConstraints::dateTime()),
+            'provider_url' => self::optional(self::type('string')),
+            'user_id' => self::optional(self::type('string')),
         ];
     }
 }
