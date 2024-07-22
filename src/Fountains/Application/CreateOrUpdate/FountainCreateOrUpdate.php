@@ -47,7 +47,7 @@ abstract class FountainCreateOrUpdate
 
     private function createFountain(FountainRequest $fountainRequest): Fountain
     {
-        return CreateFountainFactory::createWithId(FountainId::generate(), $fountainRequest);
+        return CreateFountainFactory::createWithId($fountainRequest, FountainId::generate());
     }
 
     private function updateFountain(Fountain $fountain, FountainRequest $fountainRequest)

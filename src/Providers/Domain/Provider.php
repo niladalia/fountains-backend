@@ -3,18 +3,23 @@
 namespace App\Providers\Domain;
 
 use App\Providers\Domain\ValueObject\ProviderName;
+use App\Providers\Domain\ValueObject\ProviderUrl;
 use App\Shared\Domain\Entity;
 
 class Provider implements Entity
 {
-
-    public function __construct(private ProviderName $name) { }
+    public function __construct(
+        private ProviderName $name,
+        private ProviderUrl $url
+    ) { }
 
     public static function create(
-        ProviderName $name
+        ProviderName $name,
+        ProviderUrl $url,
     ): self {
         $provider = new self(
-            $name
+            $name,
+            $url
         );
 
         return $provider;
@@ -32,11 +37,23 @@ class Provider implements Entity
         return $this;
     }
 
+    public function url(): ProviderUrl
+    {
+        return $this->url;
+    }
+
+    public function setUrl(ProviderUrl $url): self
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
     public function toArray(): array
     {
         return [
-            "name" => $this->name()->getValue()
+            "name" => $this->name()->getValue(),
+            "url"  => $this->url()->getValue(),
         ];
     }
-
 }

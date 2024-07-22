@@ -19,6 +19,8 @@ final class Version20240613092837 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
+        $this->addSql("CREATE EXTENSION IF NOT EXISTS postgis");
+        
         $this->addSql("CREATE TYPE fountain_type AS ENUM ('natural', 'tap_water', 'water_point', 'watering_place', 'unknown');");
         $this->addSql("CREATE TYPE safe_water_type AS ENUM ('yes', 'probably', 'no', 'unknown');");
         $this->addSql("CREATE TYPE legal_water_type AS ENUM ('treated', 'untreated', 'unknown');");
@@ -39,10 +41,12 @@ final class Version20240613092837 extends AbstractMigration
                 access_bottles BOOLEAN DEFAULT NULL,
                 access_pets BOOLEAN DEFAULT NULL,
                 acces_wheelchair BOOLEAN DEFAULT NULL,
+                website VARCHAR(255) DEFAULT NULL,
                 provider_name VARCHAR(64) DEFAULT NULL,
                 provider_id VARCHAR(64) DEFAULT NULL,
-                user_id UUID DEFAULT NULL,
+                provider_url VARCHAR(255) DEFAULT NULL,
                 provider_updated_at TIMESTAMP WITH TIME ZONE DEFAULT NULL,
+                user_id UUID DEFAULT NULL,
                 updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
                 PRIMARY KEY(id),
