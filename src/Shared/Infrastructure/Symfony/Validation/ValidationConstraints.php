@@ -35,6 +35,11 @@ abstract class ValidationConstraints
         return (new static())->fieldsConstraintsAllowExtraFields($options);
     }
 
+    protected static final function enum(string $enumClass): EnumConstraint
+    {
+        return new EnumConstraint(['enum' => $enumClass]);
+    }
+
     protected static final function type(string $type): Assert\Type
     {
         return new Assert\Type($type);

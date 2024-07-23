@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Application\Find\Filter;
 
-class FindFountainsByBoundingBoxFilter
+class BoundingBoxFilter
 {
     public function __construct(
       private float $southLat,

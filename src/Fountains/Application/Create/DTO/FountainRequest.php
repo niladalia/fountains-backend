@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Fountains\Application\Create;
+namespace App\Fountains\Application\Create\DTO;
 
 use DateTime;
 
-class CreateFountainRequest
+abstract class FountainRequest
 {
     public function __construct(
         private float $lat,
@@ -19,10 +19,15 @@ class CreateFountainRequest
         private ?bool $access_bottles = null,
         private ?bool $access_pets = null,
         private ?bool $access_wheelchair = null,
+        private ?string $access = null,
+        private ?bool $fee = null,
+        private ?string $address = null,
+        private ?string $website = null,
         private ?string $provider_name = null,
         private ?string $provider_id = null,
-        private ?string $user_id = null,
-        private ?DateTime $provider_updated_at = null
+        private ?DateTime $provider_updated_at = null,
+        private ?string $provider_url = null,
+        private ?string $user_id = null
     ) {}
 
     public function lat(): float
@@ -84,6 +89,25 @@ class CreateFountainRequest
     {
         return $this->access_wheelchair;
     }
+    public function access(): ?string
+    {
+        return $this->access;
+    }
+
+    public function fee(): ?bool
+    {
+        return $this->fee;
+    }
+
+    public function address(): ?string
+    {
+        return $this->address;
+    }
+
+    public function website(): ?string
+    {
+        return $this->website;
+    }
 
     public function provider_name(): ?string
     {
@@ -94,14 +118,18 @@ class CreateFountainRequest
         return $this->provider_id;
     }
 
-    public function user_id(): ?string
-    {
-        return $this->user_id;
-    }
-
     public function provider_updated_at(): ?DateTime
     {
         return $this->provider_updated_at;
     }
 
+    public function provider_url(): ?string
+    {
+        return $this->provider_url;
+    }
+
+    public function user_id(): ?string
+    {
+        return $this->user_id;
+    }
 }

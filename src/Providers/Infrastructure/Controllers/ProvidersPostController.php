@@ -21,7 +21,8 @@ class ProvidersPostController extends ApiController
         $this->validateRequest($requestData, $this->constraints());
 
         $providerRequest = new CreateProviderRequest(
-            $requestData['name']
+            $requestData['name'],
+            $requestData['url']
         );
 
         $created = $providerCreator->createIfNotExists($providerRequest);
