@@ -9,9 +9,7 @@
 /var/
 /vendor/
 /.vscode
-/.idea/*
 /.idea
-.idea
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
