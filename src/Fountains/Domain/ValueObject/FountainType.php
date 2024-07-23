@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-enum FountainType : string
+enum FountainType: string
 {
     case NATURAL = 'natural';
     case TAP_WATER = 'tap_water';
@@ -16,5 +16,10 @@ enum FountainType : string
             return self::UNKNOWN;
         }
         return self::from($value);
+    }
+
+    public function getValue(): string
+    {
+        return $this->value;
     }
 }
