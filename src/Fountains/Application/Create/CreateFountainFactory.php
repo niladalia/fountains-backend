@@ -29,12 +29,15 @@ abstract class CreateFountainFactory
 {
     public static function create(CreateFountainRequest $fountainRequest): Fountain
     {
-        return self::createFountain($fountainRequest, $fountainRequest->id());
+        return self::createFountain(
+            $fountainRequest,
+            FountainId::fromString($fountainRequest->id())
+        );
     }
 
     public static function createWithId(
         FountainRequest $fountainRequest,
-        string $fountainId
+        FountainId $fountainId
     ): Fountain
     {
         return self::createFountain($fountainRequest, $fountainId);
@@ -42,11 +45,11 @@ abstract class CreateFountainFactory
 
     private static function createFountain(
         FountainRequest $fountainRequest,
-        string $fountainId
+        FountainId $fountainId
     ): Fountain
     {
         return Fountain::create(
-            FountainId::fromString($fountainId),
+            $fountainId,
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
             new FountainName($fountainRequest->name()),
