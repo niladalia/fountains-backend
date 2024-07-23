@@ -7,12 +7,15 @@ use App\Tests\Fountains\FountainsUnitTestCase;
 
 class FountainCreatorUnitTest extends FountainsUnitTestCase
 {
-    private FountainRepository $fountainRepository;
+    
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->fountainRepository = $this->createMock(FountainRepository::class);
+    }
+
+    public function test_it_creates_a_fountain(): void
+    {
 
     }
 }
