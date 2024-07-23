@@ -31,7 +31,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
-    App\Shared\Infrastructure\Symfony\Validation\EnumValidator:
+    App\Shared\Infrastructure\Symfony\Validation\EnumConstraintValidator:
         tags: ['validator.constraint_validator']
 
     # FountainRepository service definition
