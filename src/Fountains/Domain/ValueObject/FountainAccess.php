@@ -2,12 +2,14 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-enum FountainType : string
+enum FountainAccess : string
 {
-    case NATURAL = 'natural';
-    case TAP_WATER = 'tap_water';
-    case WATER_POINT = 'water_point';
-    case WATERING_PLACE = 'watering_place';
+    case YES = 'yes';
+    case PERMISSIVE = 'permissive';
+    case CUSTOMERS = 'customers';
+    case PERMIT = 'permit';
+    case PRIVATE = 'private';
+    case NO = 'no';
     case UNKNOWN = 'unknown';
 
     public static function fromString(?string $value): self
