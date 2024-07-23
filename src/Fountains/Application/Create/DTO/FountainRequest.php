@@ -19,6 +19,9 @@ abstract class FountainRequest
         private ?bool $access_bottles = null,
         private ?bool $access_pets = null,
         private ?bool $access_wheelchair = null,
+        private ?string $access = null,
+        private ?bool $fee = null,
+        private ?string $address = null,
         private ?string $website = null,
         private ?string $provider_name = null,
         private ?string $provider_id = null,
@@ -86,6 +89,21 @@ abstract class FountainRequest
     {
         return $this->access_wheelchair;
     }
+    public function access(): ?string
+    {
+        return $this->access;
+    }
+
+    public function fee(): ?bool
+    {
+        return $this->fee;
+    }
+
+    public function address(): ?string
+    {
+        return $this->address;
+    }
+
     public function website(): ?string
     {
         return $this->website;

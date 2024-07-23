@@ -18,6 +18,9 @@ use App\Fountains\Domain\ValueObject\FountainLegalWater;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
 use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
+use App\Fountains\Domain\ValueObject\FountainAccess;
+use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainAddress;
 use App\Fountains\Domain\ValueObject\FountainWebsite;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
@@ -62,6 +65,9 @@ abstract class CreateFountainFactory
             new FountainAccesBottles($fountainRequest->access_bottles()),
             new FountainAccesPets($fountainRequest->access_pets()),
             new FountainAccessWheelchair($fountainRequest->access_wheelchair()),
+            FountainAccess::fromString($fountainRequest->access()),
+            new FountainFee($fountainRequest->fee()),
+            new FountainAddress($fountainRequest->address()),
             new FountainWebsite($fountainRequest->website()),
             new FountainProviderName($fountainRequest->provider_name()),
             new FountainProviderId($fountainRequest->provider_id()),
