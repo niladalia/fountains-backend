@@ -2,11 +2,11 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
-use App\Fountains\Application\CreateOrUpdate\CreateOrUpdateFountainRequest;
-use App\Fountains\Application\CreateOrUpdate\FountainCreateOrUpdate;
+use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
+use App\Fountains\Application\CreateOrUpdate\FountainCreateOrUpdateMany;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Shared\Infrastructure\Symfony\Validation\UpdateFountainConstraints;
+use App\Shared\Infrastructure\Symfony\Validation\FountainConstraints;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class FountainsPutController extends ApiController
 {
-    public function __invoke(Request $request, FountainCreateOrUpdate $fountainCreateOrUpdate): Response
+    public function __invoke(Request $request, FountainCreateOrUpdateMany $fountainCreateOrUpdate): Response
     {
         $requestBatch = json_decode($request->getContent(), true);
 
@@ -26,7 +26,6 @@ class FountainsPutController extends ApiController
             $providerUpdatedAt = $this->parseDateTime($requestData['provider_updated_at'] ?? null);
 
             return new CreateOrUpdateFountainRequest(
-                $requestData['id'] ?? null,
                 $requestData['lat'],
                 $requestData['long'],
                 $requestData['name'] ?? null,
@@ -39,21 +38,26 @@ class FountainsPutController extends ApiController
                 $requestData['access_bottles'] ?? null,
                 $requestData['access_pets'] ?? null,
                 $requestData['access_wheelchair'] ?? null,
+                $requestData['access'] ?? null,
+                $requestData['fee'] ?? null,
+                $requestData['address'] ?? null,
+                $requestData['website'] ?? null,
                 $requestData['provider_name'] ?? null,
                 $requestData['provider_id'] ?? null,
-                $requestData['user_id'] ?? null,
-                $providerUpdatedAt
+                $providerUpdatedAt,
+                $requestData['provider_url'] ?? null,
+                $requestData['user_id'] ?? null
             );
         }, $requestBatch);
 
-        $fountainCreateOrUpdate->many($fountainRequests);
+        $fountainCreateOrUpdate->__invoke($fountainRequests);
 
         return new Response('', Response::HTTP_OK);
     }
 
     protected function constraints(): Assert\Collection
     {
-        return UpdateFountainConstraints::constraintsAllowExtraFields();
+        return FountainConstraints::constraintsAllowExtraFields();
     }
 
 }

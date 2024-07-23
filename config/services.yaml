@@ -15,18 +15,24 @@ services:
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Entity/'
+            - '../src/Command/'
             - '../src/Kernel.php'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
     App\Security\ApiKeyAuthenticator:
         arguments:
             $appApiToken: '%app.api_token%'
+
     App\Shared\Infrastructure\Symfony\ApiExceptionListener:
         arguments:
             $appEnv: '%app.env%'
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\Shared\Infrastructure\Symfony\Validation\EnumConstraintValidator:
+        tags: ['validator.constraint_validator']
 
     # FountainRepository service definition
     App\Fountains\Domain\FountainRepository:

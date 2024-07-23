@@ -3,18 +3,17 @@
 namespace App\Fountains\Application\Find\Filter;
 
 use App\Fountains\Domain\BoundingBox;
-use App\Fountains\Domain\ValueObject\FountainLat;
-use App\Fountains\Domain\ValueObject\FountainLong;
+use App\Shared\Domain\ValueObject\CoordinatesLat;
+use App\Shared\Domain\ValueObject\CoordinatesLong;
 
 class BoundingBoxFactory
 {
-
-    public static function fromBoundingBoxFilter(FindFountainsByBoundingBoxFilter $bboxFilter ){
+    public static function fromBoundingBoxFilter(BoundingBoxFilter $bboxFilter) {
         return new BoundingBox(
-            new FountainLat($bboxFilter->southLat()),
-            new FountainLong($bboxFilter->westLong()),
-            new FountainLat($bboxFilter->northLat()),
-            new FountainLong($bboxFilter->eastLong())
+            new CoordinatesLat($bboxFilter->southLat()),
+            new CoordinatesLong($bboxFilter->westLong()),
+            new CoordinatesLat($bboxFilter->northLat()),
+            new CoordinatesLong($bboxFilter->eastLong())
         );
     }
 }
