@@ -15,6 +15,9 @@ use App\Fountains\Domain\ValueObject\FountainLegalWater;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
 use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
+use App\Fountains\Domain\ValueObject\FountainAccess;
+use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainAddress;
 use App\Fountains\Domain\ValueObject\FountainWebsite;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
@@ -48,6 +51,9 @@ final class ArrayToFountainFactory
             new FountainAccesBottles($data['access_bottles']),
             new FountainAccesPets($data['access_pets']),
             new FountainAccessWheelchair($data['acces_wheelchair']),
+            FountainAccess::fromString($data['access']),
+            new FountainFee($data['fee']),
+            new FountainAddress($data['address']),
             new FountainWebsite($data['website']),
             new FountainProviderName($data['provider_name']),
             new FountainProviderId($data['provider_id']),

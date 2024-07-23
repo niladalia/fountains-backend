@@ -15,6 +15,9 @@ use App\Fountains\Domain\ValueObject\FountainLegalWater;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
 use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
+use App\Fountains\Domain\ValueObject\FountainAccess;
+use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainAddress;
 use App\Fountains\Domain\ValueObject\FountainWebsite;
 use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
@@ -43,6 +46,9 @@ class Fountain implements Entity
         private FountainAccesBottles      $access_bottles,
         private FountainAccesPets         $access_pets,
         private FountainAccessWheelchair  $access_wheelchair,
+        private FountainAccess            $access,
+        private FountainFee               $fee,
+        private FountainAddress           $address,
         private FountainWebsite           $website,
         private FountainProviderName      $provider_name,
         private FountainProviderId        $provider_id,
@@ -67,6 +73,9 @@ class Fountain implements Entity
         FountainAccesBottles      $access_bottles,
         FountainAccesPets         $access_pets,
         FountainAccessWheelchair  $access_wheelchair,
+        FountainAccess            $access,
+        FountainFee               $fee,
+        FountainAddress           $address,
         FountainWebsite           $website,
         FountainProviderName      $provider_name,
         FountainProviderId        $provider_id,
@@ -93,6 +102,9 @@ class Fountain implements Entity
             $access_bottles,
             $access_pets,
             $access_wheelchair,
+            $access,
+            $fee,
+            $address,
             $website,
             $provider_name,
             $provider_id,
@@ -117,6 +129,9 @@ class Fountain implements Entity
         FountainAccesBottles      $access_bottles,
         FountainAccesPets         $access_pets,
         FountainAccessWheelchair  $access_wheelchair,
+        FountainAccess            $access,
+        FountainFee               $fee,
+        FountainAddress           $address,
         FountainWebsite           $website,
         FountainProviderName      $provider_name,
         FountainProviderId        $provider_id,
@@ -136,6 +151,9 @@ class Fountain implements Entity
         $this->updateAccesBottles($access_bottles);
         $this->updateAccesPets($access_pets);
         $this->updateAccessWheelchair($access_wheelchair);
+        $this->updateAccess($access);
+        $this->updateFee($fee);
+        $this->updateAddress($address);
         $this->updateWebsite($website);
         $this->updateProviderName($provider_name);
         $this->updateProviderId($provider_id);
@@ -269,6 +287,36 @@ class Fountain implements Entity
         $this->access_wheelchair = $access_wheelchair;
     }
 
+    public function access(): FountainAccess
+    {
+        return $this->access;
+    }
+
+    public function updateAccess(FountainAccess $access): void
+    {
+        $this->access = $access;
+    }
+
+    public function fee(): FountainFee
+    {
+        return $this->fee;
+    }
+
+    public function updateFee(FountainFee $fee): void
+    {
+        $this->fee = $fee;
+    }
+
+    public function address(): FountainAddress
+    {
+        return $this->address;
+    }
+
+    public function updateAddress(FountainAddress $address): void
+    {
+        $this->address = $address;
+    }
+
     public function website(): FountainWebsite
     {
         return $this->website;
@@ -355,6 +403,9 @@ class Fountain implements Entity
             'access_bottles' => $this->access_bottles()->getValue(),
             'access_pets' => $this->access_pets()->getValue(),
             'access_wheelchair' => $this->access_wheelchair()->getValue(),
+            'access' => $this->access()->getValue(),
+            'fee' => $this->fee()->getValue(),
+            'address' => $this->address()->getValue(),
             'website' => $this->website()->getValue(),
             'provider_name' => $this->provider_name()->getValue(),
             'provider_id' => $this->provider_id()->getValue(),
