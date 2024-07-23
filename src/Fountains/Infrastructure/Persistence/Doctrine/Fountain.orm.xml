@@ -6,15 +6,18 @@
         <embedded name="lat" class="App\Fountains\Domain\ValueObject\FountainLat" use-column-prefix="false"/>
         <embedded name="long" class="App\Fountains\Domain\ValueObject\FountainLong" use-column-prefix="false"/>
         <embedded name="name" class="App\Fountains\Domain\ValueObject\FountainName" use-column-prefix="false"/>
-        <field name="type" column="type" nullable="true"/>
+        <field name="type" column="type"/>
         <embedded name="picture" class="App\Fountains\Domain\ValueObject\FountainPicture" use-column-prefix="false"/>
         <embedded name="description" class="App\Fountains\Domain\ValueObject\FountainDescription" use-column-prefix="false"/>
         <embedded name="operational_status" class="App\Fountains\Domain\ValueObject\FountainOperationalStatus" use-column-prefix="false"/>
-        <field name="safe_water" column="safe_water" nullable="true"/>
-        <field name="legal_water" column="legal_water" nullable="true"/>
+        <field name="safe_water" column="safe_water"/>
+        <field name="legal_water" column="legal_water"/>
         <embedded name="access_bottles" class="App\Fountains\Domain\ValueObject\FountainAccesBottles" use-column-prefix="false"/>
         <embedded name="access_pets" class="App\Fountains\Domain\ValueObject\FountainAccesPets" use-column-prefix="false"/>
         <embedded name="access_wheelchair" class="App\Fountains\Domain\ValueObject\FountainAccessWheelchair" use-column-prefix="false"/>
+        <field name="access" column="access"/>
+        <embedded name="fee" class="App\Fountains\Domain\ValueObject\FountainFee" use-column-prefix="false"/>
+        <embedded name="address" class="App\Fountains\Domain\ValueObject\FountainAddress" use-column-prefix="false"/>
         <embedded name="website" class="App\Fountains\Domain\ValueObject\FountainWebsite" use-column-prefix="false"/>
         <embedded name="provider_name" class="App\Fountains\Domain\ValueObject\FountainProviderName" use-column-prefix="false"/>
         <embedded name="provider_id" class="App\Fountains\Domain\ValueObject\FountainProviderId" use-column-prefix="false"/>
