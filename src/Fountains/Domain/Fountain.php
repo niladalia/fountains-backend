@@ -33,9 +33,9 @@ use App\Shared\Domain\Utils\DateTimeUtils;
 class Fountain implements Entity
 {
     public function __construct(
-        private FountainId                 $id,
-        private FountainLat                $lat,
-        private FountainLong               $long,
+        private FountainId                $id,
+        private FountainLat               $lat,
+        private FountainLong              $long,
         private FountainName              $name,
         private FountainType              $type,
         private FountainPicture           $picture,
@@ -60,9 +60,9 @@ class Fountain implements Entity
     ) { }
 
     public static function create(
-        FountainId                 $id,
-        FountainLat                $lat,
-        FountainLong               $long,
+        FountainId                $id,
+        FountainLat               $lat,
+        FountainLong              $long,
         FountainName              $name,
         FountainType              $type,
         FountainPicture           $picture,
@@ -117,8 +117,8 @@ class Fountain implements Entity
     }
 
     public function update(
-        FountainLat                $lat,
-        FountainLong               $long,
+        FountainLat               $lat,
+        FountainLong              $long,
         FountainName              $name,
         FountainType              $type,
         FountainPicture           $picture,
