@@ -2,6 +2,8 @@
 
 namespace App\Tests\Fountains\Domain\ValueObject;
 
+use App\Fountains\Domain\ValueObject\FountainSafeWater;
+
 enum FountainSafeWaterMother : string
 {
     case YES = 'yes';
@@ -9,11 +11,12 @@ enum FountainSafeWaterMother : string
     case NO = 'no';
     case UNKNOWN = 'unknown';
 
-    public static function fromString(?string $value): self
+    public static function create(?string $value = ''): FountainSafeWater
     {
-        if ($value === null) {
-            return self::UNKNOWN;
+        if ($value === '') {
+            $options = array_column(self::cases(), 'value');
+            $value = $options[array_rand($options)];
         }
-        return self::from($value);
+        return FountainSafeWater::fromString($value);
     }
 }

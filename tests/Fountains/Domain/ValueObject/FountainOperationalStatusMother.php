@@ -2,9 +2,13 @@
 
 namespace App\Tests\Fountains\Domain\ValueObject;
 
-use App\Shared\Domain\ValueObject\BooleanValueObject;
+use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
+use Faker\Factory;
 
 class FountainOperationalStatusMother 
 {
-
+    public static function create(?string $value = null): FountainOperationalStatus
+    {
+        return new FountainOperationalStatus($value ?? Factory::create()->boolean());
+    }
 }

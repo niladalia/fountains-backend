@@ -10,6 +10,6 @@ class FountainAccessWheelchairMother
 {
     public static function create(?string $value = null): FountainAccessWheelchair
     {
-        return new FountainAccessWheelchair($value ?? Factory::create()->boolean);
+        return new FountainAccessWheelchair($value ?? Factory::create()->boolean());
     }
 }

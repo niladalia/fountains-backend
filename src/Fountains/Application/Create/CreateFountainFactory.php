@@ -73,7 +73,7 @@ abstract class CreateFountainFactory
             new FountainProviderId($fountainRequest->provider_id()),
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
             new FountainProviderUrl($fountainRequest->provider_url()),
-            new FountainUserId($fountainRequest->user_id())
+            FountainUserId::fromString($fountainRequest->user_id())
         );
     }
 }

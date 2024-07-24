@@ -10,6 +10,6 @@ class FountainAccesPetsMother
 {
     public static function create(?string $value = null): FountainAccesPets
     {
-        return new FountainAccesPets($value ?? Factory::create()->boolean);
+        return new FountainAccesPets($value ?? Factory::create()->boolean());
     }
 }
