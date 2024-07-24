@@ -2,10 +2,13 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-enum FountainSafeWater : string
+enum FountainAccess : string
 {
     case YES = 'yes';
-    case PROBABLY = 'probably';
+    case PERMISSIVE = 'permissive';
+    case CUSTOMERS = 'customers';
+    case PERMIT = 'permit';
+    case PRIVATE = 'private';
     case NO = 'no';
     case UNKNOWN = 'unknown';
 

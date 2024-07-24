@@ -15,4 +15,9 @@ enum FountainLegalWater : string
         }
         return self::from($value);
     }
+
+    public function getValue(): string
+    {
+        return $this->value;
+    }
 }
