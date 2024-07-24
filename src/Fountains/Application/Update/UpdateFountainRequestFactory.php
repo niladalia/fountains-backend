@@ -28,10 +28,15 @@ abstract class UpdateFountainRequestFactory
             $request->access_bottles() ?? $default?->access_bottles(),
             $request->access_pets() ?? $default?->access_pets(),
             $request->access_wheelchair() ?? $default?->access_wheelchair(),
+            $request->access() ?? $default?->access(),
+            $request->fee() ?? $default?->fee(),
+            $request->address() ?? $default?->address(),
+            $request->website() ?? $default?->website(),
             $request->provider_name() ?? $default?->provider_name(),
             $request->provider_id() ?? $default?->provider_id(),
-            $request->user_id() ?? $default?->user_id(),
-            $request->provider_updated_at() ?? $default?->provider_updated_at()
+            $request->provider_updated_at() ?? $default?->provider_updated_at(),
+            $request->provider_url() ?? $default?->provider_url(),
+            $request->user_id() ?? $default?->user_id()
         );
     }
 
@@ -41,20 +46,25 @@ abstract class UpdateFountainRequestFactory
             $fountain->id()->getValue(),
             $fountain->lat()->getValue(),
             $fountain->long()->getValue(),
-            $fountain->name()?->getValue(),
-            $fountain->type()?->value,
-            $fountain->picture()?->getValue(),
-            $fountain->description()?->getValue(),
-            $fountain->operational_status()?->getValue(),
-            $fountain->safe_water()?->value,
-            $fountain->legal_water()?->value,
-            $fountain->access_bottles()?->getValue(),
-            $fountain->access_pets()?->getValue(),
-            $fountain->access_wheelchair()?->getValue(),
-            $fountain->provider_name()?->getValue(),
-            $fountain->provider_id()?->getValue(),
-            $fountain->user_id()?->getValue(),
-            $fountain->provider_updated_at()?->getValue()
+            $fountain->name()->getValue(),
+            $fountain->type()->getValue(),
+            $fountain->picture()->getValue(),
+            $fountain->description()->getValue(),
+            $fountain->operational_status()->getValue(),
+            $fountain->safe_water()->getValue(),
+            $fountain->legal_water()->getValue(),
+            $fountain->access_bottles()->getValue(),
+            $fountain->access_pets()->getValue(),
+            $fountain->access_wheelchair()->getValue(),
+            $fountain->access()->getValue(),
+            $fountain->fee()->getValue(),
+            $fountain->address()->getValue(),
+            $fountain->website()->getValue(),
+            $fountain->provider_name()->getValue(),
+            $fountain->provider_id()->getValue(),
+            $fountain->provider_updated_at()->getValue(),
+            $fountain->provider_url()->getValue(),
+            $fountain->user_id()->getValue(),
         );
     }
 }

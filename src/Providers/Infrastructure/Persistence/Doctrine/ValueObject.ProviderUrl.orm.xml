@@ -4,8 +4,8 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <embeddable name="App\Fountains\Domain\ValueObject\FountainAccessWheelchair">
-        <field name="value" type="boolean" column="acces_wheelchair" nullable="true"/>
+    <embeddable name="App\Providers\Domain\ValueObject\ProviderUrl">
+        <field name="value" column="url" nullable="true"/>
     </embeddable>
 
 </doctrine-mapping>

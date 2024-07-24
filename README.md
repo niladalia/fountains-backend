@@ -60,6 +60,7 @@ To delete all containers:
 
 ```sh
 docker compose down
+docker compose down --rmi all # This also removes fountains-back images
 ```
 
 To also delete database and other data volumes:

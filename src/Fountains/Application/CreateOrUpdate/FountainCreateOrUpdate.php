@@ -47,41 +47,33 @@ abstract class FountainCreateOrUpdate
 
     private function createFountain(FountainRequest $fountainRequest): Fountain
     {
-        return CreateFountainFactory::createWithId(FountainId::generate(), $fountainRequest);
+        return CreateFountainFactory::createWithId($fountainRequest, FountainId::generate());
     }
 
     private function updateFountain(Fountain $fountain, FountainRequest $fountainRequest)
     {
-        if (self::isSameProviderFountain($fountain, $fountainRequest)) {
-            if (self::isRequestNewer($fountain, $fountainRequest)) {
-                FountainUpdater::update($fountain, $fountainRequest);
-            }
-        } else {
-            $fountainRequest = $this->mergeRequest($fountain, $fountainRequest);
-            FountainUpdater::update($fountain, $fountainRequest);
-        }
+        $fountainRequest = $this->mergeRequest($fountain, $fountainRequest);
+        FountainUpdater::update($fountain, $fountainRequest);
     }
 
     private function mergeRequest(Fountain $fountain, FountainRequest $fountainRequest): FountainRequest
     {
         $existingFountainRequest = UpdateFountainRequestFactory::fromFountain($fountain);
 
-        $isRequestNewer = self::isRequestNewer($fountain, $fountainRequest);
+        $isRequestNewer = self::isRequestNewer($fountainRequest, $fountain);
 
         $recent = $isRequestNewer ? $fountainRequest : $existingFountainRequest;
         $other = $isRequestNewer ? $existingFountainRequest : $fountainRequest;
 
-        return UpdateFountainRequestFactory::fromFountainRequest($fountain->id()->getValue(), $recent, $other);
+        return UpdateFountainRequestFactory::fromFountainRequest(
+            $fountain->id()->getValue(),
+            $recent,
+            $other
+        );
     }
 
-    private static function isSameProviderFountain(Fountain $fountain, FountainRequest $fountainRequest): bool
+    private static function isRequestNewer(FountainRequest $fountainRequest, Fountain $fountain): bool
     {
-        return $fountainRequest->provider_name() === $fountain->provider_name()?->getValue()
-            && $fountainRequest->provider_id() === $fountain->provider_id()?->getValue();
-    }
-
-    private static function isRequestNewer(Fountain $fountain, FountainRequest $fountainRequest): bool
-    {
-        return $fountainRequest->provider_updated_at() > $fountain->provider_updated_at()?->getValue();
+        return $fountainRequest->provider_updated_at() >= $fountain->provider_updated_at()->getValue();
     }
 }

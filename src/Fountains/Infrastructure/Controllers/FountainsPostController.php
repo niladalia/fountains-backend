@@ -35,10 +35,15 @@ class FountainsPostController extends ApiController
             $requestData['access_bottles'] ?? null,
             $requestData['access_pets'] ?? null,
             $requestData['access_wheelchair'] ?? null,
+            $requestData['access'] ?? null,
+            $requestData['fee'] ?? null,
+            $requestData['address'] ?? null,
+            $requestData['website'] ?? null,
             $requestData['provider_name'] ?? null,
             $requestData['provider_id'] ?? null,
+            $providerUpdatedAt,
+            $requestData['provider_url'] ?? null,
             $requestData['user_id'] ?? null,
-            $providerUpdatedAt
         );
 
         $fountainCreator->__invoke($createFountainRequest);
