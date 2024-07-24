@@ -2,9 +2,13 @@
 
 namespace App\Tests\Fountains\Domain\ValueObject;
 
+use App\Fountains\Domain\ValueObject\FountainId;
 use App\Shared\Domain\Utils\Uuid;
 
 class FountainIdMother
 {
-    // To create an instance, use FountainIdMother::generate or FountainIdMother::fromString
+    public static function create(?string $value = null): FountainId
+    {
+        return FountainId::fromString($value ?? Uuid::generate());
+    }
 }

@@ -19,9 +19,9 @@ class FountainsUnitTestCase extends KernelTestCase
     protected function shouldSave(Fountain $fountain): void
     {
         $this->repository()
-            ->expects(self::exactly(1))
+            ->expects(self::once())
             ->method('save')
-            ->with($this->isSimilar($fountain, []));
+            ->with($this->isSimilar($fountain, ['created_at','updated_at']));
     }
 
     protected function repository(): FountainRepository

@@ -2,17 +2,21 @@
 
 namespace App\Tests\Fountains\Domain\ValueObject;
 
+use App\Fountains\Domain\ValueObject\FountainLegalWater;
+
 enum FountainLegalWaterMother : string
 {
     case TREATED = 'treated';
     case UNTREATED = 'untreated';
     case UNKNOWN = 'unknown';
 
-    public static function fromString(?string $value): self
+    public static function create(?string $value = ''): FountainLegalWater
     {
-        if ($value === null) {
-            return self::UNKNOWN;
+        if ($value === '') {
+            $options = array_column(self::cases(), 'value');
+            $value = $options[array_rand($options)];
         }
-        return self::from($value);
+
+        return FountainLegalWater::fromString($value);
     }
 }

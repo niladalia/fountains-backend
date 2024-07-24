@@ -9,6 +9,6 @@ class FountainAccesBottlesMother
 {
     public static function create(?string $value = null): FountainAccesBottles
     {
-        return new FountainAccesBottles($value ?? Factory::create()->boolean);
+        return new FountainAccesBottles($value ?? Factory::create()->boolean());
     }
 }
