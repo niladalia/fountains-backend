@@ -114,4 +114,23 @@ SELECT COUNT(*) FROM fountains;
 
 -- Last updated fountains
 SELECT * FROM fountains ORDER BY updated_at DESC LIMIT 5;
+
+-- Database size
+SELECT
+  pg_database.datname AS database_name,
+  pg_size_pretty(pg_database_size(pg_database.datname)) AS database_size
+FROM
+  pg_database
+WHERE
+  pg_database.datname = current_database();
+
+-- Index size
+SELECT
+  indexrelname AS indexname,
+  pg_size_pretty(pg_relation_size(indexrelid)) AS index_size,
+  pg_size_pretty(pg_total_relation_size(indexrelid)) AS total_index_size
+FROM         
+  pg_stat_user_indexes
+WHERE                                      
+  schemaname = 'public';
 ```
