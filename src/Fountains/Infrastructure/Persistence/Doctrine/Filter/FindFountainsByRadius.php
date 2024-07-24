@@ -8,7 +8,7 @@ use Doctrine\DBAL\Statement;
 
 class FindFountainsByRadius
 {
-    const RADIUS_FILTER = 'ST_DWithin( geo_point::geometry, ST_SetSRID(ST_MakePoint(:long, :lat), 4326), :radius);';
+    const RADIUS_FILTER = 'ST_DWithin( ST_Transform(geo_point::geometry, 3857), ST_Transform(ST_SetSRID(ST_MakePoint(:long, :lat), 4326)::geometry, 3857), :radius);';
 
     public function __construct(private Connection $connection) { }
 
