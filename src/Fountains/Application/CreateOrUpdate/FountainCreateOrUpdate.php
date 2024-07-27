@@ -2,13 +2,12 @@
 
 namespace App\Fountains\Application\CreateOrUpdate;
 
-use App\Fountains\Application\Create\CreateFountainFactory;
-use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\Create\DTO\FountainRequest;
+use App\Fountains\Application\Create\Factory\CreateFountainFactory;
 use App\Fountains\Application\Create\FountainCreator;
+use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\Update\FountainUpdater;
 use App\Fountains\Application\Update\UpdateFountainRequestFactory;
-
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainId;
