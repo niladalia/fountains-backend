@@ -9,6 +9,6 @@ class FountainPictureMother
 {
     public static function create(?string $value = null): FountainPicture
     {
-        return new FountainPicture($value ?? Factory::create()->words(mt_rand(3, 200), true));
+        return new FountainPicture($value ?? Factory::create()->text(100));
     }
 }

@@ -9,6 +9,6 @@ class FountainWebsiteMother
 {
     public static function create(?string $value = null): FountainWebsite
     {
-        return new FountainWebsite($value ?? Factory::create()->words(mt_rand(3, 200), true));
+        return new FountainWebsite($value ?? Factory::create()->text(100));
     }
 }
