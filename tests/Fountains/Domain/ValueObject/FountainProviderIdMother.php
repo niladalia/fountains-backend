@@ -9,6 +9,6 @@ class FountainProviderIdMother
 {
     public static function create(?string $value = null): FountainProviderId
     {
-        return new FountainProviderId($value ?? Factory::create()->words(mt_rand(3, 50), true));
+        return new FountainProviderId($value ?? Factory::create()->text(50));
     }
 }

@@ -1,32 +1,32 @@
 <?php
 
-namespace App\Fountains\Application\Create;
+namespace App\Fountains\Application\Create\Factory;
 
 use App\Fountains\Application\Create\DTO\CreateFountainRequest;
 use App\Fountains\Application\Create\DTO\FountainRequest;
 use App\Fountains\Domain\Fountain;
-use App\Fountains\Domain\ValueObject\FountainId;
-use App\Fountains\Domain\ValueObject\FountainLat;
-use App\Fountains\Domain\ValueObject\FountainLong;
-use App\Fountains\Domain\ValueObject\FountainName;
-use App\Fountains\Domain\ValueObject\FountainType;
-use App\Fountains\Domain\ValueObject\FountainDescription;
-use App\Fountains\Domain\ValueObject\FountainPicture;
-use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
-use App\Fountains\Domain\ValueObject\FountainSafeWater;
-use App\Fountains\Domain\ValueObject\FountainLegalWater;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
-use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
 use App\Fountains\Domain\ValueObject\FountainAccess;
-use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
 use App\Fountains\Domain\ValueObject\FountainAddress;
-use App\Fountains\Domain\ValueObject\FountainWebsite;
-use App\Fountains\Domain\ValueObject\FountainProviderName;
+use App\Fountains\Domain\ValueObject\FountainDescription;
+use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainId;
+use App\Fountains\Domain\ValueObject\FountainLat;
+use App\Fountains\Domain\ValueObject\FountainLegalWater;
+use App\Fountains\Domain\ValueObject\FountainLong;
+use App\Fountains\Domain\ValueObject\FountainName;
+use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
+use App\Fountains\Domain\ValueObject\FountainPicture;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
-use App\Fountains\Domain\ValueObject\FountainProviderUrl;
+use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
+use App\Fountains\Domain\ValueObject\FountainProviderUrl;
+use App\Fountains\Domain\ValueObject\FountainSafeWater;
+use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUserId;
+use App\Fountains\Domain\ValueObject\FountainWebsite;
 
 abstract class CreateFountainFactory
 {
@@ -73,7 +73,7 @@ abstract class CreateFountainFactory
             new FountainProviderId($fountainRequest->provider_id()),
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
             new FountainProviderUrl($fountainRequest->provider_url()),
-            FountainUserId::fromString($fountainRequest->user_id())
+            $fountainRequest->user_id() ? FountainUserId::fromString($fountainRequest->user_id()) : null
         );
     }
 }

@@ -9,6 +9,6 @@ class FountainNameMother
 {
     public static function create(?string $value = null): FountainName
     {
-        return new FountainName($value ?? Factory::create()->words(mt_rand(3, 50), true));
+        return new FountainName($value ?? Factory::create()->text(50));
     }
 }

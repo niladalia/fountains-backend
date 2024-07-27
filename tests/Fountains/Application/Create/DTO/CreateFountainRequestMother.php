@@ -74,7 +74,7 @@ class CreateFountainRequestMother
             $website ??  FountainWebsiteMother::create()->getValue(),
             $provider_name ?? FountainProviderNameMother::create()->getValue(),
             $provider_id ?? FountainProviderIdMother::create()->getValue(),
-            $provider_updated_a ?? FountainProviderUpdatedAtMother::create()->getValue(),
+            $provider_updated_at ?? FountainProviderUpdatedAtMother::create()->getValue(),
             $provider_url ?? FountainProviderUrlMother::create()->getValue(),
             $user_id ?? FountainUserIdMother::create()->getValue()
         );
