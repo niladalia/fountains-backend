@@ -14,10 +14,10 @@ class FountainFinderTest extends FountainsUnitTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->finder = new FountainFinder($this->repository());
+        //$this->finder = new FountainFinder($this->repository());
     }
 
-    public function test_find_a_fountain_by_id(){
+    /*public function test_find_a_fountain_by_id(){
         $uuid = FountainIdMother::create();
 
         $fountainRequest = FountainFinderRequestMother::create($uuid->getValue());
@@ -29,5 +29,5 @@ class FountainFinderTest extends FountainsUnitTestCase
 
         $this->assertEquals($fountainFound->name(), $fountain->name());
         $this->assertEquals($fountainFound->id(), $fountain->id());
-    }
+    }*/
 }

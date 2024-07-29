@@ -190,7 +190,7 @@ class FountainHttpRequestBuilder
     public function build(): array
     {
         if ($this->userRequest) {
-            $this->user_id = $this->user_id ?? FountainUserIdMother::create()->getValue();
+            $this->user_id = $this->user_id ?? FountainUserIdMother::create()->__tostring();
         }
 
         if ($this->providerRequest) {
