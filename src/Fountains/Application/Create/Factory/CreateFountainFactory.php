@@ -27,6 +27,7 @@ use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainWebsite;
+use App\Shared\Domain\Utils\Uuid;
 
 abstract class CreateFountainFactory
 {
@@ -73,7 +74,7 @@ abstract class CreateFountainFactory
             new FountainProviderId($fountainRequest->provider_id()),
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
             new FountainProviderUrl($fountainRequest->provider_url()),
-            $fountainRequest->user_id() ? FountainUserId::fromString($fountainRequest->user_id()) : null
+            new FountainUserId($fountainRequest->user_id() ? Uuid::fromString($fountainRequest->user_id()) : null)
         );
     }
 }

@@ -4,6 +4,7 @@ namespace App\Tests\Fountains;
 
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
+use App\Fountains\Domain\ValueObject\FountainId;
 use App\Tests\Shared\Infrastructure\IsSimilar;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -22,6 +23,14 @@ class FountainsUnitTestCase extends KernelTestCase
             ->expects(self::once())
             ->method('save')
             ->with($this->isSimilar($fountain, ['created_at','updated_at']));
+    }
+
+    protected function shouldFind(Fountain $fountain, FountainId $id): void{
+        $this->repository()
+            ->expects(self::once())
+            ->method('findById')
+            ->with($id)
+            ->willReturn($fountain);
     }
 
     protected function repository(): FountainRepository
