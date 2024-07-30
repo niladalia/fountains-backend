@@ -2,28 +2,22 @@
 
 namespace App\Fountains\Application\Find;
 
-use App\Fountains\Domain\Exceptions\FountainNotFound;
+use App\Fountains\Application\Find\DTO\FindFountainRequest;
 use App\Fountains\Domain\Fountain;
-use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainId;
+use App\Fountains\Domain\Services\FountainFinder as DomainFountainFinder;
 
 class FountainFinder
 {
-    private $fountainRepository;
+    private $finder;
 
-    public function __construct(FountainRepository $fountainRepository)
+    public function __construct(DomainFountainFinder $finder)
     {
-        $this->fountainRepository = $fountainRepository;
+        $this->finder = $finder;
     }
 
-    public function __invoke(FountainId $id): Fountain
+    public function __invoke(FindFountainRequest $findFountainRequest): Fountain
     {
-        $fountain = $this->fountainRepository->findById($id);
-
-        if (!$fountain) {
-            FountainNotFound::throw($id->getValue());
-        }
-        
-        return $fountain;
+        return $this->finder->__invoke(FountainId::fromString($findFountainRequest->getId()));
     }
 }
