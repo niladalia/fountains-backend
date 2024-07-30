@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Application\Update;
 
-use App\Fountains\Application\Find\FountainFinder;
+use App\Fountains\Domain\Services\FountainFinder;
 use App\Fountains\Application\Create\DTO\FountainRequest;
 use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
 
