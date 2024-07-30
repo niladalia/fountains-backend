@@ -22,3 +22,8 @@ fountains_radius_controller_get:
   path: /api/fountains/radius
   controller: App\Fountains\Infrastructure\Controllers\FountainsRadiusGetController
   methods: [GET]
+
+fountain_by_id_controller_get:
+  path: /api/fountains/{id}
+  controller: App\Fountains\Infrastructure\Controllers\FountainGetController
+  methods: [GET]
