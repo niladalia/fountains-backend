@@ -15,7 +15,7 @@ use App\Fountains\Domain\ValueObject\FountainProviderId;
 
 class FountainCreateOrUpdateMany extends FountainCreateOrUpdate
 {
-    private const QUEUE_BATCH_SIZE = 1000;
+    private const int QUEUE_BATCH_SIZE = 1000;
 
     public function __construct(
         protected FountainsCache $fountainsCache,
