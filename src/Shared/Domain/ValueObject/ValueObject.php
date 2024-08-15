@@ -21,4 +21,9 @@ abstract class ValueObject
     {
         return $this->value;
     }
+
+    public function isPresent(): bool
+    {
+        return $this->value !== null;
+    }
 }
