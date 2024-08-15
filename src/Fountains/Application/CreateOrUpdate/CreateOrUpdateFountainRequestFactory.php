@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Fountains\Application\Update;
+namespace App\Fountains\Application\CreateOrUpdate;
 
 use App\Fountains\Application\Create\DTO\FountainRequest;
-use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
+use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
 use App\Fountains\Domain\Fountain;
 
-abstract class UpdateFountainRequestFactory
+abstract class CreateOrUpdateFountainRequestFactory
 {
     public static function fromFountainRequest(
-        string $fountainId,
         FountainRequest $request,
         ?FountainRequest $default = null
-    ): UpdateFountainRequest
+    ): CreateOrUpdateFountainRequest
     {
-        return new UpdateFountainRequest(
-            $fountainId,
+        return new CreateOrUpdateFountainRequest(
             $request->lat(),
             $request->long(),
             $request->name() ?? $default?->name(),
@@ -40,10 +38,9 @@ abstract class UpdateFountainRequestFactory
         );
     }
 
-    public static function fromFountain(Fountain $fountain): UpdateFountainRequest
+    public static function fromFountain(Fountain $fountain): CreateOrUpdateFountainRequest
     {
-        return new UpdateFountainRequest(
-            $fountain->id()->getValue(),
+        return new CreateOrUpdateFountainRequest(
             $fountain->lat()->getValue(),
             $fountain->long()->getValue(),
             $fountain->name()->getValue(),
