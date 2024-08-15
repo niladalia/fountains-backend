@@ -44,6 +44,14 @@ interface DatabaseRepository
     public function save(Entity $object): void;
 
     /**
+     * Set to remove an object from the database.
+     * The object will be definitely removed from the database when the apply method is called.
+     * 
+     * @param T $object The object to delete.
+     */
+    public function delete(Entity $object): void;
+
+    /**
      * Apply the changes to the database.
      */
     public function apply(): void;
