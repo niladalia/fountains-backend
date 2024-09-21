@@ -12,7 +12,6 @@ class FountainCreator
 
     public function __invoke(CreateFountainRequest $fountainRequest): void
     {
-
         $fountain = CreateFountainFactory::create($fountainRequest);
 
         $this->fountainRepository->save($fountain);

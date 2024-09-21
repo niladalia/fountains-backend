@@ -26,6 +26,11 @@ abstract class DoctrineDatabaseRepository extends ServiceEntityRepository implem
         $this->getEntityManager()->persist($object);
     }
 
+    public function delete(Entity $object): void
+    {
+        $this->getEntityManager()->remove($object);
+    }
+
     public function apply(): void
     {
         $em = $this->getEntityManager();
