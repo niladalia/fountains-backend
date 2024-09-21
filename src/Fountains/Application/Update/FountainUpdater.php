@@ -5,9 +5,7 @@ namespace App\Fountains\Application\Update;
 use App\Fountains\Application\Find\FountainFinder;
 use App\Fountains\Application\Create\DTO\FountainRequest;
 use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
-
 use App\Fountains\Domain\Fountain;
-use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
@@ -37,13 +35,11 @@ class FountainUpdater
         private FountainFinder $fountainFinder
     ) { }
 
-    public function __invoke(UpdateFountainRequest $fountainRequest, ?Fountain $fountain = null)
+    public function __invoke(UpdateFountainRequest $fountainRequest)
     {
-        if (!$fountain) {
-            $fountain = $this->fountainFinder->__invoke(
-                FountainId::fromString($fountainRequest->id())
-            );
-        }
+        $fountain = $this->fountainFinder->__invoke(
+            FountainId::fromString($fountainRequest->id())
+        );
 
         $this->update($fountain, $fountainRequest);
     }
