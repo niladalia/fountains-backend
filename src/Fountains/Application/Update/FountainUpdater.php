@@ -34,8 +34,7 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 class FountainUpdater
 {
     public function __construct(
-        private FountainFinder $fountainFinder,
-        private FountainRepository $fountainRepository,
+        private FountainFinder $fountainFinder
     ) { }
 
     public function __invoke(UpdateFountainRequest $fountainRequest, ?Fountain $fountain = null)
@@ -46,12 +45,10 @@ class FountainUpdater
             );
         }
 
-        self::update($fountain, $fountainRequest);
-
-        $this->fountainRepository->save($fountain);
+        $this->update($fountain, $fountainRequest);
     }
 
-    public static function update(Fountain $fountain, FountainRequest $fountainRequest)
+    private function update(Fountain $fountain, FountainRequest $fountainRequest)
     {
         $fountain->update(
             new FountainLat($fountainRequest->lat()),

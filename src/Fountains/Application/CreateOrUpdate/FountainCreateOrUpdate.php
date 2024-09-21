@@ -8,6 +8,7 @@ use App\Fountains\Application\Create\FountainCreator;
 use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
 use App\Fountains\Application\Update\FountainUpdater;
 
+use App\Fountains\Application\Update\FountainUpdateRequestFactory;
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainId;
@@ -20,7 +21,8 @@ abstract class FountainCreateOrUpdate
 {
     public function __construct(
         protected FountainRepository $fountainRepository,
-        private FountainCreator $fountainCreator
+        private FountainCreator $fountainCreator,
+        private FountainUpdater $fountainUpdater
     ) { }
 
     protected function queue(CreateOrUpdateFountainRequest $fountainRequest): Fountain
@@ -98,9 +100,11 @@ abstract class FountainCreateOrUpdate
                 $fountain = $fountainLocation;
             }
         }
-
+        $updateFountainRequest = FountainUpdateRequestFactory::fromFountainRequest($fountain->id()->getValue(),$fountainRequest);
         // Update fountain node with the merged update request
-        FountainUpdater::update($fountain, $fountainRequest);
+        $this->fountainUpdater->__invoke($updateFountainRequest, $fountain);
+
+        //FountainUpdater::update($fountain, $fountainRequest);
 
         return $fountain;
     }

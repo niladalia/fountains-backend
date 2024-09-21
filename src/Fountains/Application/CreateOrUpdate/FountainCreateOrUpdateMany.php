@@ -4,6 +4,7 @@ namespace App\Fountains\Application\CreateOrUpdate;
 
 use App\Fountains\Application\CreateOrUpdate\DTO\CreateOrUpdateFountainRequest;
 
+use App\Fountains\Application\Update\FountainUpdater;
 use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\FountainsCache;
@@ -20,9 +21,10 @@ class FountainCreateOrUpdateMany extends FountainCreateOrUpdate
     public function __construct(
         protected FountainsCache $fountainsCache,
         FountainRepository $fountainRepository,
-        private FountainCreator $fountainCreator
+        private FountainCreator $fountainCreator,
+        private FountainUpdater $fountainUpdater
     ) {
-        parent::__construct($fountainRepository,$fountainCreator);
+        parent::__construct($fountainRepository,$fountainCreator,$fountainUpdater);
     }
 
     /**
