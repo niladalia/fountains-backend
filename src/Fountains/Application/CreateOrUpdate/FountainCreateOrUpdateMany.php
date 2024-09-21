@@ -10,10 +10,12 @@ use App\Fountains\Domain\FountainsCache;
 use App\Fountains\Application\Create\FountainCreator;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
+use App\Fountains\Domain\ValueObject\FountainProviderName;
+use App\Fountains\Domain\ValueObject\FountainProviderId;
 
 class FountainCreateOrUpdateMany extends FountainCreateOrUpdate
 {
-    private const QUEUE_BATCH_SIZE = 1000;
+    private const int QUEUE_BATCH_SIZE = 1000;
 
     public function __construct(
         protected FountainsCache $fountainsCache,
@@ -40,11 +42,19 @@ class FountainCreateOrUpdateMany extends FountainCreateOrUpdate
         );
     }
 
+    protected function findByProvider(FountainProviderName $provider, FountainProviderId $providerId): ?Fountain
+    {
+        // Look if a fountain by provider is already queued
+        // Otherwise look if the fountain exists in the database
+        return $this->fountainsCache->findByProvider($provider, $providerId)
+        ?: $this->fountainRepository->findByProvider($provider, $providerId);
+    }
+
     protected function findByLocation(FountainLat $lat, FountainLong $long): ?Fountain
     {
-        // Look if a fountain is already queued
+        // Look if a fountain by location is already queued
         // Otherwise look if the fountain exists in the database
-        return $this->fountainsCache->find($lat, $long)
+        return $this->fountainsCache->findByLocation($lat, $long)
             ?: $this->fountainRepository->findByLocation($lat, $long);
     }
 }
