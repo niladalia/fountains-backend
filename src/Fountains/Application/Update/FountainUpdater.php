@@ -34,8 +34,7 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 class FountainUpdater
 {
     public function __construct(
-        private FountainFinder $fountainFinder,
-        private FountainRepository $fountainRepository,
+        private FountainFinder $fountainFinder
     ) { }
 
     public function __invoke(UpdateFountainRequest $fountainRequest, ?Fountain $fountain = null)
@@ -47,8 +46,6 @@ class FountainUpdater
         }
 
         $this->update($fountain, $fountainRequest);
-
-      //  $this->fountainRepository->save($fountain);
     }
 
     private function update(Fountain $fountain, FountainRequest $fountainRequest)
