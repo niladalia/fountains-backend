@@ -101,10 +101,9 @@ abstract class FountainCreateOrUpdate
             }
         }
         $updateFountainRequest = FountainUpdateRequestFactory::fromFountainRequest($fountain->id()->getValue(),$fountainRequest);
-        // Update fountain node with the merged update request
-        $this->fountainUpdater->__invoke($updateFountainRequest, $fountain);
 
-        //FountainUpdater::update($fountain, $fountainRequest);
+        // Update fountain node with the merged update request
+        $this->fountainUpdater->__invoke($updateFountainRequest);
 
         return $fountain;
     }
