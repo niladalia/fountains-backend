@@ -46,12 +46,12 @@ class FountainUpdater
             );
         }
 
-        self::update($fountain, $fountainRequest);
+        $this->update($fountain, $fountainRequest);
 
-        $this->fountainRepository->save($fountain);
+      //  $this->fountainRepository->save($fountain);
     }
 
-    public static function update(Fountain $fountain, FountainRequest $fountainRequest)
+    private function update(Fountain $fountain, FountainRequest $fountainRequest)
     {
         $fountain->update(
             new FountainLat($fountainRequest->lat()),
