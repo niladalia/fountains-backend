@@ -51,7 +51,7 @@ class FountainHttpRequestBuilder
     private $userRequest = false;
     private $providerRequest = false;
 
-    public function setLat(?float $lat): self
+    public function setLat($lat): self
     {
         $this->lat = $lat;
         return $this;
@@ -63,25 +63,25 @@ class FountainHttpRequestBuilder
         return $this;
     }
 
-    public function setName(?string $name): self
+    public function setName($name): self
     {
         $this->name = $name;
         return $this;
     }
 
-    public function setType(?string $type): self
+    public function setType($type): self
     {
         $this->type = $type;
         return $this;
     }
 
-    public function setPicture(?string $picture): self
+    public function setPicture($picture): self
     {
         $this->picture = $picture;
         return $this;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription($description): self
     {
         $this->description = $description;
         return $this;
@@ -93,13 +93,13 @@ class FountainHttpRequestBuilder
         return $this;
     }
 
-    public function setSafeWater(?string $safe_water): self
+    public function setSafeWater($safe_water): self
     {
         $this->safe_water = $safe_water;
         return $this;
     }
 
-    public function setLegalWater(?string $legal_water): self
+    public function setLegalWater($legal_water): self
     {
         $this->legal_water = $legal_water;
         return $this;
@@ -123,7 +123,7 @@ class FountainHttpRequestBuilder
         return $this;
     }
 
-    public function setAccess(?string $access): self
+    public function setAccess($access): self
     {
         $this->access = $access;
         return $this;
@@ -135,25 +135,25 @@ class FountainHttpRequestBuilder
         return $this;
     }
 
-    public function setAddress(?string $address): self
+    public function setAddress($address): self
     {
         $this->address = $address;
         return $this;
     }
 
-    public function setWebsite(?string $website): self
+    public function setWebsite($website): self
     {
         $this->website = $website;
         return $this;
     }
 
-    public function setProviderName(?string $provider_name): self
+    public function setProviderName($provider_name): self
     {
         $this->provider_name = $provider_name;
         return $this;
     }
 
-    public function setProviderId(?string $provider_id): self
+    public function setProviderId($provider_id): self
     {
         $this->provider_id = $provider_id;
         return $this;
@@ -165,13 +165,13 @@ class FountainHttpRequestBuilder
         return $this;
     }
 
-    public function setProviderUrl(?string $provider_url): self
+    public function setProviderUrl($provider_url): self
     {
         $this->provider_url = $provider_url;
         return $this;
     }
 
-    public function setUserId(?string $user_id): self
+    public function setUserId($user_id): self
     {
         $this->user_id = $user_id;
         return $this;
