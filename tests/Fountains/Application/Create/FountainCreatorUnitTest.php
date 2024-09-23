@@ -10,12 +10,12 @@ use App\Tests\Shared\Domain\UuidMother;
 
 class FountainCreatorUnitTest extends FountainsUnitTestCase
 {
-    private FountainCreator $bookCreator;
+    private FountainCreator $fountainCreator;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->bookCreator = new FountainCreator($this->repository());
+        $this->fountainCreator = new FountainCreator($this->repository());
 
     }
 
@@ -31,6 +31,6 @@ class FountainCreatorUnitTest extends FountainsUnitTestCase
 
         $this->shouldSave($fountain);
 
-        $this->bookCreator->__invoke($fountainRequest);
+        $this->fountainCreator->__invoke($fountainRequest);
     }
 }

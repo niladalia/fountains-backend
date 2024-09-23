@@ -24,5 +24,4 @@ class FountainsFilterRequest
     {
         return $this->boundingBoxFilter;
     }
-
 }
