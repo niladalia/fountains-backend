@@ -1,0 +1,4 @@
+google_auth_controller_post:
+  path: /api/auth/google
+  controller: App\Users\Infrastructure\Controllers\GoogleAuthenticationController
+  methods:  [GET]
