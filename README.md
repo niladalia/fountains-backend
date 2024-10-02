@@ -115,6 +115,9 @@ SELECT COUNT(*) FROM fountains;
 -- Last updated fountains
 SELECT * FROM fountains ORDER BY updated_at DESC LIMIT 5;
 
+-- Get one fountain by provider id
+SELECT * FROM fountains WHERE provider_name = 'OpenStreetMap' AND provider_id = 'node:430607924';
+
 -- Database size
 SELECT
   pg_database.datname AS database_name,
