@@ -8,6 +8,11 @@ fountains_controller_put:
    controller: App\Fountains\Infrastructure\Controllers\FountainsPutController
    methods: [PUT]
 
+fountain_controller_delete:
+  path: /api/{id}/fountain
+  controller: App\Fountains\Infrastructure\Controllers\FountainsDeleteController
+  methods: [DELETE]
+
 fountains_controller_get:
   path: /api/fountains
   controller: App\Fountains\Infrastructure\Controllers\FountainsGetController
@@ -22,3 +27,4 @@ fountains_radius_controller_get:
   path: /api/fountains/radius
   controller: App\Fountains\Infrastructure\Controllers\FountainsRadiusGetController
   methods: [GET]
+

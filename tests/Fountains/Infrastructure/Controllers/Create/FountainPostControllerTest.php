@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Tests\Fountains\Infrastructure\Controllers;
+namespace App\Tests\Fountains\Infrastructure\Controllers\Create;
 
 use App\Providers\Domain\ProviderRepository;
-use App\Tests\Fountains\Infrastructure\ApiTestCase;
-use PHPUnit\Framework\Attributes\DataProvider;
+use App\Tests\Fountains\Domain\ValueObject\FountainProviderIdMother;
+use App\Tests\Fountains\Domain\ValueObject\FountainProviderUpdatedAtMother;
+use App\Tests\Fountains\Infrastructure\HttpApiTestCase;
 use App\Tests\Providers\Domain\ProviderMother;
 use App\Tests\Providers\Domain\ProviderNameMother;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use App\Tests\Shared\Domain\DateTimeMother;
+use PHPUnit\Framework\Attributes\DataProvider;
+use DateTime;
 
-class FountainPostControllerTest extends ApiTestCase
+class FountainPostControllerTest extends HttpApiTestCase
 {
 
     public function testCreateFountainPost(){
@@ -20,8 +23,8 @@ class FountainPostControllerTest extends ApiTestCase
                     ->setUserRequest()
                     ->build();
 
-        $this->sendRequest(
-            $client,
+        $this->post(
+            '/api/fountains',
             $request
         );
 
@@ -41,16 +44,17 @@ class FountainPostControllerTest extends ApiTestCase
 
         $request = (new FountainHttpRequestBuilder)
             ->setProviderName($providerName->getValue())
+            ->setProviderUrl($provider->url()->getValue())
+            ->setProviderId(FountainProviderIdMother::generate()->getValue())
+            ->setProviderUpdatedAt(DateTimeMother::generate()->format())
             ->setProviderRequest()
             ->build();
 
-
-        $this->sendRequest(
-            $client,
+        $this->post(
+            '/api/fountains',
             $request
         );
-
-
+        
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
@@ -64,8 +68,8 @@ class FountainPostControllerTest extends ApiTestCase
             ->build();
 
 
-        $this->sendRequest(
-            $client,
+        $this->post(
+            '/api/fountains',
             $request
         );
 
@@ -81,25 +85,12 @@ class FountainPostControllerTest extends ApiTestCase
 
         $request['long'] = null;
 
-        $this->sendRequest(
-            $client,
+        $this->post(
+            '/api/fountains',
             $request
         );
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-    }
-
-    private function sendRequest(KernelBrowser $client, array $data){
-        $client->request(
-            'POST',
-            '/api/fountains',
-            [],
-            [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-            ],
-            json_encode($data)
-        );
     }
 
     public static function invalidLatitudesProvider(): array
