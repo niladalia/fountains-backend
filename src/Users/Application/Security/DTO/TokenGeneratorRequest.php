@@ -2,7 +2,9 @@
 
 namespace App\Users\Application\Security\DTO;
 
-class TokenGeneratorRequest
+use App\Users\Application\Login\DTO\LoginResponse;
+
+class TokenGeneratorRequest extends LoginResponse
 {
 
 }

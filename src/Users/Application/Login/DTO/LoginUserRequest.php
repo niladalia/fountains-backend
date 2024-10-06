@@ -1,33 +1,16 @@
 <?php
 
-namespace App\Users\Application\Register\DTO;
+namespace App\Users\Application\Login\DTO;
 
-use ECSPrefix202407\Psr\Log\NullLogger;
+use App\Users\Application\UserRequest;
 
-class RegistrateUserRequest
+class LoginUserRequest extends UserRequest
 {
     public function __construct(
-        private string $email,
-        private string $password,
-        private ?string $name = null
+        string $email,
+        string $password
     )
-    { }
-
-    public function email(): string
     {
-        return $this->email;
+        parent::__construct($email, $password);
     }
-
-    public function password(): string
-    {
-        return $this->password;
-    }
-
-    public function name(): string
-    {
-        return $this->name;
-    }
-
-
-
 }

@@ -2,7 +2,16 @@
 
 namespace App\Users\Domain\Exception;
 
-class EmailAlreadyExistException
-{
+use DomainException;
 
+class EmailAlreadyExistException extends DomainException
+{
+    public static function throw(?string $email = '')
+    {
+        throw new self("Email {$email} already exists");
+    }
+    public function getStatusCode()
+    {
+        return 400;
+    }
 }

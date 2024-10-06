@@ -1,36 +1,54 @@
 <?php
 
-namespace App\Tests\Fountains\Application\Create;
+namespace App\Tests\Users\Infrastructure\Hasher;
 
 use App\Fountains\Application\Create\FountainCreator;
 use App\Tests\Fountains\Application\Create\DTO\CreateFountainRequestMother;
 use App\Tests\Fountains\Domain\FountainMother;
 use App\Tests\Fountains\FountainsUnitTestCase;
 use App\Tests\Shared\Domain\UuidMother;
+use App\Users\Domain\PasswordHasherRepository;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class FountainCreatorUnitTest extends FountainsUnitTestCase
+class PasswordHasherRepositoryTest extends KernelTestCase
 {
-    private FountainCreator $fountainCreator;
+    private $hasher;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->fountainCreator = new FountainCreator($this->repository());
-
+        $this->hasher = self::getContainer()->get(PasswordHasherRepository::class);
+        restore_exception_handler();
     }
 
-    public function test_it_creates_a_fountain(): void
+    public function test_it_should_hash_a_password(): void
     {
-        $uuid = UuidMother::create();
+        $password = "Chopinballade";
 
-        $fountainRequest = CreateFountainRequestMother::create(
-            $uuid
-        );
+        $hashedPass = $this->hasher->hash($password);
 
-        $fountain = FountainMother::fromRequest($fountainRequest);
-
-        $this->shouldSave($fountain);
-
-        $this->fountainCreator->__invoke($fountainRequest);
+        $this->assertEquals(strlen($hashedPass), 60);
     }
+
+    public function test_it_should_verify_a_correct_hash_password(): void
+    {
+        $plainPass =  "SuiteBach";
+        $hashedPass = $this->hasher->hash($plainPass);
+
+        $isCorrect = $this->hasher->verifyPassword($hashedPass, $plainPass);
+
+        $this->assertTrue($isCorrect);
+    }
+
+    public function test_it_should_not_verify_an_incorrect_hash_password(): void
+    {
+        $plainPass =  "4SeasonsVivaldi";
+        $hashedPass = $this->hasher->hash($plainPass);
+
+        $wrongPlainPas = "Bach4ever";
+        $isCorrect = $this->hasher->verifyPassword($hashedPass, $wrongPlainPas);
+
+        $this->assertFalse($isCorrect);
+    }
+
 }
