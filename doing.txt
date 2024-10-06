@@ -1,0 +1,3 @@
+El login esta funcionant perfectament !
+Per a seguir, mirar com fer el refresh token.
+Despres, mirar trello.

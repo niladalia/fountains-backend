@@ -2,12 +2,12 @@
 
 namespace App\Shared\Infrastructure\Symfony\Validation;
 
-class UserLoginConstraints extends ValidationConstraints
+class UserRegistrationConstraints extends ValidationConstraints
 {
     protected function fields(): array
     {
         return [
-            'email' => self::type('string'),
+            'email' => EmailConstraint::check(),
             'password' => self::type('string'),
             'name' => self::type('string')
         ];

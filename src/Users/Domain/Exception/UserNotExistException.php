@@ -4,11 +4,11 @@ namespace App\Users\Domain\Exception;
 
 use DomainException;
 
-class EmailAlreadyExistException extends DomainException
+class UserNotExistException extends DomainException
 {
-    public static function throw(?string $email = '')
+    public static function throw(?string $message = '')
     {
-        throw new self("Email {$email} already exists");
+        throw new self($message);
     }
     public function getStatusCode()
     {

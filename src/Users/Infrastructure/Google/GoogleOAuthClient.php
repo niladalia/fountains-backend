@@ -18,8 +18,6 @@ class GoogleOAuthClient implements GoogleOAuthClientInterface
 
         $accessToken = $this->googleClient->fetchAccessTokenWithAuthCode($authCode->getValue());
 
-        var_dump($accessToken);
-
         $this->googleClient->setAccessToken($accessToken);
 
         // Fetch the user's profile information using the Oauth2 service

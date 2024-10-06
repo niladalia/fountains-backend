@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Users\Infrastructure\Security;
+namespace App\Users\Application\Security;
+
+use App\Users\Application\Security\DTO\TokenGeneratorRequest;
 
 interface AuthTokenGeneratorInterface
 {
-    public function generateToken(UserAdapter $userAdapter): string;
+    public function generateToken(TokenGeneratorRequest $tokenRequest): string;
 }

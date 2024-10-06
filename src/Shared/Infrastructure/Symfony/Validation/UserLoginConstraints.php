@@ -2,12 +2,13 @@
 
 namespace App\Shared\Infrastructure\Symfony\Validation;
 
-class GoogleAuthenticationConstraints extends ValidationConstraints
+class UserLoginConstraints extends ValidationConstraints
 {
     protected function fields(): array
     {
         return [
-            'code' => self::type('string')
+            'email' => EmailConstraint::check(),
+            'password' => self::type('string')
         ];
     }
 }

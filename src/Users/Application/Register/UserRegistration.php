@@ -3,31 +3,25 @@
 namespace App\Users\Application\Register;
 
 use App\Users\Application\Create\DTO\CreateUserRequest;
-use App\Users\Domain\PasswordHasherRepository;
-use App\Users\Domain\User;
-use App\Users\Domain\UserRepository;
-use App\Users\Domain\ValueObject\UserEmail;
-use App\Users\Domain\ValueObject\UserId;
-use App\Users\Domain\ValueObject\UserPassword;
+use App\Users\Application\Create\UserCreator;
+use App\Users\Application\Register\DTO\RegisterUserRequest;
 
-class RegistrateUser
+
+class UserRegistration
 {
     public function __construct(
-        private UserRepository $userRepository,
-        private PasswordHasherRepository $passwordHasher
+        private UserCreator $userCreator
     ) { }
 
-    public function __invoke(CreateUserRequest $userRequest): void
+    public function __invoke(RegisterUserRequest $registrationRequest): void
     {
-        $user = User::create(
-            UserId::generate(),
-            new UserEmail($userRequest->email()),
-            new UserPassword(
-                $this->passwordHasher->hash($userRequest->password())
+        // Send Email , do Some Verifications ...
+        $this->userCreator->__invoke(
+            new CreateUserRequest(
+                $registrationRequest->email(),
+                $registrationRequest->password(),
+                $registrationRequest->name()
             )
         );
-
-        $this->userRepository->save($user);
-
     }
 }

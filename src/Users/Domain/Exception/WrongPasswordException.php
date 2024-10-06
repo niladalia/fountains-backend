@@ -4,11 +4,11 @@ namespace App\Users\Domain\Exception;
 
 use DomainException;
 
-class UserNotExistException extends DomainException
+class WrongPasswordException extends DomainException
 {
-    public static function throw(?string $message = '')
+    public static function throw(?string $email = '')
     {
-        throw new self($message);
+        throw new self("Wrong password.");
     }
     public function getStatusCode()
     {
