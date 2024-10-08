@@ -27,6 +27,11 @@ final class Version20240925150426 extends AbstractMigration
             FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
             );
         ');
+
+        $this->addSql('
+            ALTER TABLE fountains ADD CONSTRAINT 
+            FK_CBE5A331F675F31B FOREIGN KEY (user_id) REFERENCES users (id)'
+        );
     }
 
     public function down(Schema $schema): void

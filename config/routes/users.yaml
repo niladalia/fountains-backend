@@ -12,3 +12,8 @@ user_login:
   path: /api/auth/login
   controller: App\Users\Infrastructure\Controllers\UserLoginController
   methods:  [POST]
+
+get_user:
+  path: /api/user
+  controller: App\Users\Infrastructure\Controllers\UserGetController
+  methods: [GET]
