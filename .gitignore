@@ -10,6 +10,7 @@
 /vendor/
 /.vscode
 /.idea
+/src/Command/TesstCodeScriptCommand.php
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###

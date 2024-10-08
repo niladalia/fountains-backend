@@ -5,6 +5,6 @@
         <embedded name="id" class="App\Users\Domain\ValueObject\UserId" use-column-prefix="false"/>
         <embedded name="email" class="App\Users\Domain\ValueObject\UserEmail" use-column-prefix="false"/>
         <embedded name="password" class="App\Users\Domain\ValueObject\UserPassword" use-column-prefix="false"/>
-
+        <one-to-many field="fountains" target-entity="App\Fountains\Domain\Fountain" mapped-by="user" fetch="LAZY"/>
     </entity>
 </doctrine-mapping>

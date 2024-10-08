@@ -4,6 +4,9 @@ namespace App\Tests\Fountains\Infrastructure\Controllers;
 
 use App\Providers\Domain\ProviderRepository;
 use App\Tests\Fountains\Infrastructure\ApiTestCase;
+use App\Tests\Users\Domain\UserMother;
+use App\Users\Domain\UserRepository;
+use App\Users\Infrastructure\Persistence\Doctrine\Repository\DoctrineUserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use App\Tests\Providers\Domain\ProviderMother;
 use App\Tests\Providers\Domain\ProviderNameMother;
@@ -11,20 +14,33 @@ use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
 class FountainPostControllerTest extends ApiTestCase
 {
+    private UserRepository $userRepository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->auth();
+        $this->userRepository = static::getContainer()->get(DoctrineUserRepository::class);
+    }
 
     public function testCreateFountainPost(){
 
         $client = $this->client;
 
+        $user = UserMother::create();
+
+        $this->userRepository->save($user);
+
         $request = (new FountainHttpRequestBuilder)
                     ->setUserRequest()
+                    ->setUserId($user->id()->getValue())
                     ->build();
 
-        $this->sendRequest(
-            $client,
+        $this->post(
+            '/api/fountains',
             $request
         );
-
+        var_dump($client->getResponse()->getContent());
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
@@ -45,8 +61,8 @@ class FountainPostControllerTest extends ApiTestCase
             ->build();
 
 
-        $this->sendRequest(
-            $client,
+        $this->post(
+            '/api/fountains',
             $request
         );
 
@@ -58,14 +74,18 @@ class FountainPostControllerTest extends ApiTestCase
     public function testCreateFountainWithInvalidData($invalidLat){
         $client = $this->client;
 
+        $user = UserMother::create();
+
+        $this->userRepository->save($user);
+
         $request = (new FountainHttpRequestBuilder)
             ->setLat($invalidLat)
             ->setUserRequest()
             ->build();
 
 
-        $this->sendRequest(
-            $client,
+        $this->post(
+            '/api/fountains',
             $request
         );
 
@@ -81,26 +101,14 @@ class FountainPostControllerTest extends ApiTestCase
 
         $request['long'] = null;
 
-        $this->sendRequest(
-            $client,
+        $this->post(
+            '/api/fountains',
             $request
         );
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
-    private function sendRequest(KernelBrowser $client, array $data){
-        $client->request(
-            'POST',
-            '/api/fountains',
-            [],
-            [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-            ],
-            json_encode($data)
-        );
-    }
 
     public static function invalidLatitudesProvider(): array
     {

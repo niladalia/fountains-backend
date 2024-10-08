@@ -2,7 +2,9 @@
 
 namespace App\Command;
 
+use App\Users\Application\Find\UserFinderByEmail;
 use App\Users\Domain\User;
+use App\Users\Domain\ValueObject\UserEmail;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -15,13 +17,11 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 )]
 class TesstCodeScriptCommand extends Command
 {
-    private $hasher;
 
-    public function __construct(PasswordHasherFactoryInterface $passwordHasher)
+
+    public function __construct(private UserFinderByEmail $finder)
     {
         parent::__construct();
-        $this->hasher = $passwordHasher->getPasswordHasher(User::class);
-
     }
 
     protected function configure(): void
@@ -31,19 +31,9 @@ class TesstCodeScriptCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $falsePassword = "asereje";
-        $plainPassword = "Chopinballade";
+        $user = $this->finder->__invoke(new UserEmail("niladalia.1@gmail.com"));
 
-        $hashedVerify =  $this->hasher->hash($plainPassword);
-
-        $hashedPassword = "$2y$12$93JItbyB1/VCwlHGfOUiDuDyYu2pfhRjej9Bjb/p6gfXEuQhg12lW";
-
-        var_dump( $hashedPassword . " - " . $hashedVerify);
-
-        var_dump("Should be TRUE : " );
-        var_dump($this->hasher->verify($hashedVerify, $plainPassword));
-        var_dump("Should be FALSE : ");
-        var_dump($this->hasher->verify($hashedVerify, $falsePassword));
+        var_dump($user->toArray());
 
         return Command::SUCCESS;
     }
