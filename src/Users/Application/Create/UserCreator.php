@@ -2,6 +2,7 @@
 
 namespace App\Users\Application\Create;
 
+use App\Shared\Domain\Event\EventDispatcherInterface;
 use App\Users\Application\Create\DTO\CreateUserRequest;
 use App\Users\Domain\PasswordHasherRepository;
 use App\Users\Domain\UniqueEmailSpecificationInterface;
@@ -16,7 +17,8 @@ class UserCreator
     public function __construct(
         private UserRepository $userRepository,
         private UniqueEmailSpecificationInterface $uniqueEmailSpecification,
-        private PasswordHasherRepository $passwordHasher
+        private PasswordHasherRepository $passwordHasher,
+        private EventDispatcherInterface $eventDispatcher
     ) { }
 
     public function __invoke(CreateUserRequest $userRequest): void
@@ -31,6 +33,8 @@ class UserCreator
         );
 
         $this->userRepository->save($user);
+
+        $this->eventDispatcher->dispatch(...$user->pullDomainEvents());
 
     }
 }

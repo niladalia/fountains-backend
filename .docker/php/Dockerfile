@@ -27,11 +27,3 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 WORKDIR /var/www/fountains
 
 COPY . .
-
-RUN mkdir -p /etc/supervisor
-RUN mkdir -p /etc/conf.d
-RUN mkdir -p /var/log/supervisor
-RUN touch /var/www/xdebug.logs
-
-COPY .docker/supervisord.conf /etc/supervisor/supervisord.conf
-COPY .docker/messenger-worker.conf /etc/supervisor/conf.d/messenger-worker.conf
