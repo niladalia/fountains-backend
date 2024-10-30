@@ -31,13 +31,8 @@ use DateTime;
 
 class ArrayToFountainFactory
 {
-<<<<<<< Updated upstream
-    private static ?ArrayToFountainFactory $instance = null;
 
-    private function __construct() { }
-=======
     public function __construct(private UserFinder $finder) { }
->>>>>>> Stashed changes
 
     public function __invoke(array $data): Fountain
     {
