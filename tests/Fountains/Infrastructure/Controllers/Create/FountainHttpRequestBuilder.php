@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Fountains\Infrastructure\Controllers;
+namespace App\Tests\Fountains\Infrastructure\Controllers\Create;
 
 use App\Tests\Fountains\Domain\ValueObject\FountainAccesBottlesMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainAccesPetsMother;
@@ -159,7 +159,7 @@ class FountainHttpRequestBuilder
         return $this;
     }
 
-    public function setProviderUpdatedAt(?DateTime $provider_updated_at): self
+    public function setProviderUpdatedAt(?string $provider_updated_at): self
     {
         $this->provider_updated_at = $provider_updated_at;
         return $this;

@@ -10,7 +10,7 @@ class FountainProviderUpdatedAtMother
 {
     public static function create( DateTime $value = null): FountainProviderUpdatedAt
     {
-        $dateTimeValue = $value ?? new DateTime(Factory::create()->dateTime()->format(DateTime::ATOM));
-        return new FountainProviderUpdatedAt($dateTimeValue);
+
+        return new FountainProviderUpdatedAt($value);
     }
 }
