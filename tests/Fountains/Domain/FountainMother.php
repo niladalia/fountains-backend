@@ -54,6 +54,12 @@ use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainWebsite;
+use App\Tests\src\Authors\Domain\AuthorMother;
+use App\Tests\src\Authors\Domain\ValueObject\AuthorIdMother;
+use App\Tests\Users\Domain\UserMother;
+use App\Users\Domain\User;
+use App\Users\Domain\ValueObject\UserId;
+
 class FountainMother
 {
     public static function create(
@@ -78,9 +84,9 @@ class FountainMother
          ?FountainProviderId        $provider_id = null,
          ?FountainProviderUpdatedAt $provider_updated_at = null,
          ?FountainProviderUrl       $provider_url = null,
-         ?FountainUserId            $user_id = null,
          ?FountainCreatedAt         $created_at = null,
-         ?FountainUpdatedAt         $updated_a = null
+         ?FountainUpdatedAt         $updated_a = null,
+         ?User                      $user = null,
     ): Fountain {
         return new Fountain(
             $id ?? FountainIdMother::create(),
@@ -104,14 +110,16 @@ class FountainMother
             $provider_id ?? FountainProviderIdMother::create(),
             $provider_updated_at ?? FountainProviderUpdatedAtMother::create(),
             $provider_url ?? FountainProviderUrlMother::create(),
-            $user_id ?? FountainUserIdMother::create(),
             $created_at ?? FountainCreatedAtMother::create(),
-            $updated_at ?? FountainUpdatedAtMother::create()
+            $updated_at ?? FountainUpdatedAtMother::create(),
+            $user
         );
     }
 
     public static function fromRequest(CreateFountainRequest $request): Fountain
     {
+        $user = $request->user_id() ? UserMother::create(UserId::fromString($request->user_id() )) : null;
+
         return self::create(
             FountainIdMother::create($request->id()),
             FountainLatMother::create($request->lat()),
@@ -134,9 +142,9 @@ class FountainMother
             FountainProviderIdMother::create($request->provider_id()),
             FountainProviderUpdatedAtMother::create($request->provider_updated_at()),
             FountainProviderUrlMother::create($request->provider_url()),
-            FountainUserIdMother::create($request->user_id()),
             FountainCreatedAtMother::create(),
-            FountainUpdatedAtMother::create()
+            FountainUpdatedAtMother::create(),
+            $user
         );
     }
 

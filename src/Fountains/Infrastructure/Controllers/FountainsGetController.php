@@ -10,14 +10,16 @@ use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Shared\Infrastructure\Symfony\Validation\PaginateConstraints;
 use App\Shared\Infrastructure\Symfony\Validation\BoundingBoxConstraints;
 
+use App\Users\Infrastructure\Security\UserAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class FountainsGetController extends ApiController
 {
-    public function __invoke(Request $request, FountainsFinder $fountainsFinder): Response
+    public function __invoke(Request $request, FountainsFinder $fountainsFinder, UserInterface $userAdapter): Response
     {
         $queryParameters = $request->query->all();
 

@@ -27,6 +27,9 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainCreatedAt;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 
+use App\Shared\Domain\Utils\Uuid;
+use App\Users\Domain\Services\UserFinder;
+use App\Users\Domain\ValueObject\UserId;
 use DateTime;
 
 class ArrayToFountainFactory
@@ -36,6 +39,8 @@ class ArrayToFountainFactory
 
     public function __invoke(array $data): Fountain
     {
+        $userId = $data['user_id'];
+        $user = $userId ? $this->finder->__invoke(UserId::fromString($userId)) : null;
         return new Fountain(
             FountainId::fromString($data['id']),
             new FountainLat($data['lat']),
@@ -58,9 +63,9 @@ class ArrayToFountainFactory
             new FountainProviderId($data['provider_id']),
             new FountainProviderUpdatedAt(new DateTime($data['provider_updated_at'])),
             new FountainProviderUrl($data['provider_url']),
-            new FountainUserId($data['user_id']),
             new FountainCreatedAt(new DateTime($data['created_at'])),
             new FountainUpdatedAt(new DateTime($data['updated_at'])),
+            $user
         );
     }
 }

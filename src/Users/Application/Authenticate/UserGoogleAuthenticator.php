@@ -3,6 +3,7 @@
 namespace App\Users\Application\Authenticate;
 
 use App\Users\Application\Authenticate\DTO\GoogleAuthenticatorRequest;
+use App\Users\Application\Create\DTO\CreateUserRequest;
 use App\Users\Application\Create\UserCreator;
 use App\Users\Domain\Auth\GoogleOAuthClientInterface;
 use App\Users\Domain\UserRepository;
@@ -27,8 +28,10 @@ class UserGoogleAuthenticator
 
         if (!$user) {
             $this->creator->__invoke(
-                new UserEmail($googleData->email()),
-                new UserPassword()
+                new CreateUserRequest(
+                    $googleData->email(),
+                    bin2hex(random_bytes(6))
+                )
             );
         }
     }
