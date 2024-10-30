@@ -18,3 +18,5 @@ list-migrations:
 
 status-migrations:
 	docker exec -it fountains_php php bin/console doctrine:migrations:status
+run-test:
+	docker exec fountains_php ./vendor/bin/phpunit
