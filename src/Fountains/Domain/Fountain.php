@@ -368,7 +368,7 @@ class Fountain extends AggregateRoot
         $this->provider_url = $provider_url;
     }
 
-    public function user(): User
+    public function user(): ?User
     {
         return $this->user;
     }
@@ -412,7 +412,7 @@ class Fountain extends AggregateRoot
             'provider_id' => $this->provider_id()->getValue(),
             'provider_updated_at' => $this->provider_updated_at()->formatISO(),
             'provider_url' => $this->provider_url()->getValue(),
-            'user_id' => $this->user()->id()->getValue(),
+            'user_id' => $this->user() ? $this->user->id()->getValue() : null,
             'updated_at' => $this->updated_at()->formatISO(),
             'created_at' => $this->created_at()->formatISO()
         ];
