@@ -21,4 +21,12 @@ final class Fountains
     {
         return array_map(fn($fountain) => $fountain->toArray(), $this->fountains);
     }
+
+    public function toSmallArray(): array
+    {
+        return array_map(fn($fountain) => [
+            'id' => $fountain->id()->getValue(),
+            'name' => $fountain->name()->getValue()
+        ], $this->fountains);
+    }
 }

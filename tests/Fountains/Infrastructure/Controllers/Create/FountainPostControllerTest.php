@@ -1,33 +1,46 @@
 <?php
 
-namespace App\Tests\Fountains\Infrastructure\Controllers\Create;
+namespace App\Tests\Fountains\Infrastructure\Controllers;
 
 use App\Providers\Domain\ProviderRepository;
-use App\Tests\Fountains\Domain\ValueObject\FountainProviderIdMother;
-use App\Tests\Fountains\Domain\ValueObject\FountainProviderUpdatedAtMother;
-use App\Tests\Fountains\Infrastructure\HttpApiTestCase;
+use App\Tests\Fountains\Infrastructure\ApiTestCase;
+use App\Tests\Users\Domain\UserMother;
+use App\Users\Domain\UserRepository;
+use App\Users\Infrastructure\Persistence\Doctrine\Repository\DoctrineUserRepository;
+use PHPUnit\Framework\Attributes\DataProvider;
 use App\Tests\Providers\Domain\ProviderMother;
 use App\Tests\Providers\Domain\ProviderNameMother;
-use App\Tests\Shared\Domain\DateTimeMother;
-use PHPUnit\Framework\Attributes\DataProvider;
-use DateTime;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 
-class FountainPostControllerTest extends HttpApiTestCase
+class FountainPostControllerTest extends ApiTestCase
 {
+    private UserRepository $userRepository;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->auth();
+        $this->userRepository = static::getContainer()->get(DoctrineUserRepository::class);
+    }
 
     public function testCreateFountainPost(){
 
         $client = $this->client;
 
+        $user = UserMother::create();
+
+        $this->userRepository->save($user);
+
         $request = (new FountainHttpRequestBuilder)
                     ->setUserRequest()
+                    ->setUserId($user->id()->getValue())
                     ->build();
 
         $this->post(
             '/api/fountains',
             $request
         );
-
+        var_dump($client->getResponse()->getContent());
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
@@ -44,23 +57,26 @@ class FountainPostControllerTest extends HttpApiTestCase
 
         $request = (new FountainHttpRequestBuilder)
             ->setProviderName($providerName->getValue())
-            ->setProviderUrl($provider->url()->getValue())
-            ->setProviderId(FountainProviderIdMother::generate()->getValue())
-            ->setProviderUpdatedAt(DateTimeMother::generate()->format())
             ->setProviderRequest()
             ->build();
+
 
         $this->post(
             '/api/fountains',
             $request
         );
-        
+
+
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
     #[DataProvider('invalidLatitudesProvider')]
     public function testCreateFountainWithInvalidData($invalidLat){
         $client = $this->client;
+
+        $user = UserMother::create();
+
+        $this->userRepository->save($user);
 
         $request = (new FountainHttpRequestBuilder)
             ->setLat($invalidLat)
@@ -92,6 +108,7 @@ class FountainPostControllerTest extends HttpApiTestCase
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
+
 
     public static function invalidLatitudesProvider(): array
     {

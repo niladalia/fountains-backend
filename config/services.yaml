@@ -14,7 +14,7 @@ services:
         resource: '../src/*'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            - '../src/AggregateRoot/'
             - '../src/Kernel.php'
 
     App\Command\GoogleAuthCommand:
@@ -32,13 +32,22 @@ services:
 
     #App\Users\Domain\Auth\GoogleOAuthClientInterface: '@App\Users\Infrastructure\Google\GoogleOAuthClient'
 
+    App\Users\Domain\PasswordHasherRepository: '@App\Users\Infrastructure\SymfonyPasswordHasher'
 
 
-    # Google OAuth Port Interface is implemented by GoogleOAuthClient
+
+  # Google OAuth Port Interface is implemented by GoogleOAuthClient
     App\Users\Domain\Auth\GoogleOAuthClientInterface:
       class: App\Users\Infrastructure\Google\GoogleOAuthClient
       arguments:
         $googleClient: '@google.client'  # This injects the Google_Client service
+
+
+    App\Users\Domain\EventHandler\SendWelcomeEmailHandler:
+      tags: ['messenger.message_handler']
+
+    App\Shared\Domain\Event\EventDispatcherInterface:
+      class: App\Shared\Infrastructure\Event\SymfonyMessengerEventDispatcher
 
     # Define the Google Client service
     google.client:

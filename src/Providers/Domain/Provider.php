@@ -4,9 +4,9 @@ namespace App\Providers\Domain;
 
 use App\Providers\Domain\ValueObject\ProviderName;
 use App\Providers\Domain\ValueObject\ProviderUrl;
-use App\Shared\Domain\Entity;
+use App\Shared\Domain\AggregateRoot;
 
-class Provider implements Entity
+class Provider extends AggregateRoot
 {
     public function __construct(
         private ProviderName $name,
