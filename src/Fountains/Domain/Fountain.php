@@ -367,7 +367,11 @@ class Fountain implements Entity
         $this->provider_url = $provider_url;
     }
 
+<<<<<<< Updated upstream
     public function user_id(): FountainUserId
+=======
+    public function user(): ?User
+>>>>>>> Stashed changes
     {
         return $this->user_id;
     }
@@ -411,7 +415,11 @@ class Fountain implements Entity
             'provider_id' => $this->provider_id()->getValue(),
             'provider_updated_at' => $this->provider_updated_at()->formatISO(),
             'provider_url' => $this->provider_url()->getValue(),
+<<<<<<< Updated upstream
             'user_id' => $this->user_id()->getValue(),
+=======
+            'user_id' => $this->user() ? $this->user->id()->getValue() : null,
+>>>>>>> Stashed changes
             'updated_at' => $this->updated_at()->formatISO(),
             'created_at' => $this->created_at()->formatISO()
         ];
