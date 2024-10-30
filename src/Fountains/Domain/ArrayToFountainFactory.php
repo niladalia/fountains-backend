@@ -29,11 +29,15 @@ use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 
 use DateTime;
 
-final class ArrayToFountainFactory
+class ArrayToFountainFactory
 {
+<<<<<<< Updated upstream
     private static ?ArrayToFountainFactory $instance = null;
 
     private function __construct() { }
+=======
+    public function __construct(private UserFinder $finder) { }
+>>>>>>> Stashed changes
 
     public function __invoke(array $data): Fountain
     {
@@ -63,13 +67,5 @@ final class ArrayToFountainFactory
             new FountainCreatedAt(new DateTime($data['created_at'])),
             new FountainUpdatedAt(new DateTime($data['updated_at'])),
         );
-    }
-
-    public static function getInstance()
-    {
-        if (self::$instance === null) {
-            self::$instance = new ArrayToFountainFactory();
-        }
-        return self::$instance;
     }
 }
