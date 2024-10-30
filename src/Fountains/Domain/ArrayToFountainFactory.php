@@ -32,11 +32,10 @@ use App\Users\Domain\Services\UserFinder;
 use App\Users\Domain\ValueObject\UserId;
 use DateTime;
 
-final class ArrayToFountainFactory
+class ArrayToFountainFactory
 {
-    private static ?ArrayToFountainFactory $instance = null;
 
-    private function __construct(private UserFinder $finder) { }
+    public function __construct(private UserFinder $finder) { }
 
     public function __invoke(array $data): Fountain
     {
@@ -68,13 +67,5 @@ final class ArrayToFountainFactory
             new FountainUpdatedAt(new DateTime($data['updated_at'])),
             $user
         );
-    }
-
-    public static function getInstance()
-    {
-        if (self::$instance === null) {
-            self::$instance = new ArrayToFountainFactory();
-        }
-        return self::$instance;
     }
 }
