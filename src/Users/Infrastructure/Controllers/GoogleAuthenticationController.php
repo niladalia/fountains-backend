@@ -3,7 +3,7 @@
 namespace App\Users\Infrastructure\Controllers;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Users\Application\Authenticate\DTO\GoogleAuthenticatorRequest;
+use App\Users\Application\Authenticate\DTO\UserCreatorRequest;
 use App\Users\Application\Authenticate\UserGoogleAuthenticator;
 use App\Shared\Infrastructure\Symfony\Validation\GoogleAuthenticationConstraints;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +17,11 @@ class GoogleAuthenticationController extends ApiController
 
         $this->validateRequest($queryParameters, $this->constraints());
 
-        $authenticatorRequest = new GoogleAuthenticatorRequest($queryParameters['code']);
+        $authenticatorRequest = new UserCreatorRequest($queryParameters['code']);
 
-        $data = $authenticator->__invoke($authenticatorRequest);
+        $authenticator->__invoke($authenticatorRequest);
 
-        return new Response($data->email(), Response::HTTP_CREATED);
+        return new Response('', Response::HTTP_CREATED);
 
 
     }

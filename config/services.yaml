@@ -32,9 +32,11 @@ services:
 
     #App\Users\Domain\Auth\GoogleOAuthClientInterface: '@App\Users\Infrastructure\Google\GoogleOAuthClient'
 
+    App\Users\Domain\PasswordHasherRepository: '@App\Users\Infrastructure\SymfonyPasswordHasher'
 
 
-    # Google OAuth Port Interface is implemented by GoogleOAuthClient
+
+  # Google OAuth Port Interface is implemented by GoogleOAuthClient
     App\Users\Domain\Auth\GoogleOAuthClientInterface:
       class: App\Users\Infrastructure\Google\GoogleOAuthClient
       arguments:

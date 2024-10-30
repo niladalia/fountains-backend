@@ -23,9 +23,14 @@
         <embedded name="provider_id" class="App\Fountains\Domain\ValueObject\FountainProviderId" use-column-prefix="false"/>
         <embedded name="provider_updated_at" class="App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt" use-column-prefix="false"/>
         <embedded name="provider_url" class="App\Fountains\Domain\ValueObject\FountainProviderUrl" use-column-prefix="false"/>
-        <embedded name="user_id" class="App\Fountains\Domain\ValueObject\FountainUserId" use-column-prefix="false"/>
+
         <embedded name="created_at" class="App\Fountains\Domain\ValueObject\FountainCreatedAt" use-column-prefix="false"/>
         <embedded name="updated_at" class="App\Fountains\Domain\ValueObject\FountainUpdatedAt" use-column-prefix="false"/>
 
+        <many-to-one field="user"   target-entity="App\Users\Domain\User" inversed-by="fountain" fetch="LAZY">
+            <join-columns>
+                <join-column name="user_id" referenced-column-name="id" />
+            </join-columns>
+        </many-to-one>
     </entity>
 </doctrine-mapping>

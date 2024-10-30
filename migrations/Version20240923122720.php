@@ -25,6 +25,7 @@ final class Version20240923122720 extends AbstractMigration
                 email VARCHAR(225) NOT NULL,
                 password VARCHAR(255) DEFAULT NULL,
                 auth_token VARCHAR(255) DEFAULT NULL,
+                UNIQUE (email),
                 PRIMARY KEY(id)
             );
         ');

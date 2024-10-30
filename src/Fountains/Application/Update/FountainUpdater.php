@@ -3,37 +3,38 @@
 namespace App\Fountains\Application\Update;
 
 use App\Fountains\Application\Find\FountainFinder;
-use App\Fountains\Application\Create\DTO\FountainRequest;
 use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
 use App\Fountains\Domain\Fountain;
-use App\Fountains\Domain\ValueObject\FountainId;
-use App\Fountains\Domain\ValueObject\FountainLat;
-use App\Fountains\Domain\ValueObject\FountainLong;
-use App\Fountains\Domain\ValueObject\FountainName;
-use App\Fountains\Domain\ValueObject\FountainType;
-use App\Fountains\Domain\ValueObject\FountainDescription;
-use App\Fountains\Domain\ValueObject\FountainPicture;
-use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
-use App\Fountains\Domain\ValueObject\FountainSafeWater;
-use App\Fountains\Domain\ValueObject\FountainLegalWater;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
-use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
 use App\Fountains\Domain\ValueObject\FountainAccess;
-use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
 use App\Fountains\Domain\ValueObject\FountainAddress;
-use App\Fountains\Domain\ValueObject\FountainWebsite;
-use App\Fountains\Domain\ValueObject\FountainProviderName;
+use App\Fountains\Domain\ValueObject\FountainDescription;
+use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainId;
+use App\Fountains\Domain\ValueObject\FountainLat;
+use App\Fountains\Domain\ValueObject\FountainLegalWater;
+use App\Fountains\Domain\ValueObject\FountainLong;
+use App\Fountains\Domain\ValueObject\FountainName;
+use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
+use App\Fountains\Domain\ValueObject\FountainPicture;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
-use App\Fountains\Domain\ValueObject\FountainProviderUrl;
+use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
-use App\Fountains\Domain\ValueObject\FountainUserId;
-use App\Shared\Domain\Utils\Uuid;
+use App\Fountains\Domain\ValueObject\FountainProviderUrl;
+use App\Fountains\Domain\ValueObject\FountainSafeWater;
+use App\Fountains\Domain\ValueObject\FountainType;
+use App\Fountains\Domain\ValueObject\FountainWebsite;
+use App\Users\Application\Find\DTO\FindUserRequest;
+use App\Users\Domain\Services\UserFinder;
+use App\Users\Domain\ValueObject\UserId;
 
 class FountainUpdater
 {
     public function __construct(
-        private FountainFinder $fountainFinder
+        private FountainFinder $fountainFinder,
+        private UserFinder $finder
     ) { }
 
     public function __invoke(UpdateFountainRequest $updateRequest)
@@ -47,6 +48,9 @@ class FountainUpdater
 
     private function update(Fountain $fountain, UpdateFountainRequest $updateRequest)
     {
+        $userId = $updateRequest->user_id();
+        $user = $userId ? $this->finder->__invoke(UserId::fromString($userId)) : null;
+
         $fountain->update(
             new FountainLat($updateRequest->lat()),
             new FountainLong($updateRequest->long()),
@@ -68,7 +72,7 @@ class FountainUpdater
             new FountainProviderId($updateRequest->provider_id()),
             new FountainProviderUpdatedAt($updateRequest->provider_updated_at()),
             new FountainProviderUrl($updateRequest->provider_url()),
-            new FountainUserId($updateRequest->user_id() ? Uuid::fromString($updateRequest->user_id()) : null)
+            $user
         );
     }
 }
