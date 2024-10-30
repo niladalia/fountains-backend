@@ -2,7 +2,7 @@
 
 namespace App\Shared\Infrastructure\Persistence\Doctrine\Repository;
 
-use App\Shared\Domain\Entity;
+use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\Repository\DatabaseRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Connection;
@@ -15,18 +15,18 @@ abstract class DoctrineDatabaseRepository extends ServiceEntityRepository implem
         parent::__construct($registry, $entityClass);
     }
 
-    public function save(Entity $object): void
+    public function save(AggregateRoot $object): void
     {
         $this->persist($object);
         $this->apply();
     }
 
-    public function persist(Entity $object): void
+    public function persist(AggregateRoot $object): void
     {
         $this->getEntityManager()->persist($object);
     }
 
-    public function delete(Entity $object): void
+    public function delete(AggregateRoot $object): void
     {
         $this->getEntityManager()->remove($object);
     }

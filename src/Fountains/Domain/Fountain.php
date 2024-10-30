@@ -27,11 +27,11 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainCreatedAt;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 
-use App\Shared\Domain\Entity;
+use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\Utils\DateTimeUtils;
 use App\Users\Domain\User;
 
-class Fountain implements Entity
+class Fountain extends AggregateRoot
 {
     public function __construct(
         private FountainId                $id,

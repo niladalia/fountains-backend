@@ -12,7 +12,7 @@
 /.idea
 /src/Command/TesstCodeScriptCommand.php
 ###< symfony/framework-bundle ###
-
+/doing.txt
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
