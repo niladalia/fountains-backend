@@ -80,12 +80,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
     {
         $fountainsArray = $queryStatement->executeQuery()->fetchAllAssociative();
 
-      #  $fountains = array_map(ArrayToFountainFactory::getInstance(), $fountainsArray);
-
-        $fountainsArray = $queryStatement->executeQuery()->fetchAllAssociative();
-
         $fountains = array_map($this->factory, $fountainsArray);
-
 
         return new Fountains($fountains);
     }
