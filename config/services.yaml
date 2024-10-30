@@ -14,7 +14,7 @@ services:
         resource: '../src/*'
         exclude:
             - '../src/DependencyInjection/'
-            - '../src/Entity/'
+            - '../src/AggregateRoot/'
             - '../src/Kernel.php'
 
     App\Command\GoogleAuthCommand:
@@ -41,6 +41,13 @@ services:
       class: App\Users\Infrastructure\Google\GoogleOAuthClient
       arguments:
         $googleClient: '@google.client'  # This injects the Google_Client service
+
+
+    App\Users\Domain\EventHandler\SendWelcomeEmailHandler:
+      tags: ['messenger.message_handler']
+
+    App\Shared\Domain\Event\EventDispatcherInterface:
+      class: App\Shared\Infrastructure\Event\SymfonyMessengerEventDispatcher
 
     # Define the Google Client service
     google.client:
