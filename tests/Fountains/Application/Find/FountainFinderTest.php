@@ -17,10 +17,9 @@ class FountainFinderTest extends FountainsUnitTestCase
         $this->finder = new FountainFinder($this->repository());
     }
 
-    public function test_find_a_fountain_by_id(){
+    public function test_find_a_fountain_by_id()
+    {
         $uuid = FountainIdMother::create();
-
-        $uuid = FountainIdMother::create($uuid->getValue());
         $fountain = FountainMother::create($uuid);
 
         $this->shouldFind($fountain, $uuid);

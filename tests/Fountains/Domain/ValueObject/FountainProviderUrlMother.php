@@ -10,6 +10,6 @@ class FountainProviderUrlMother
 {
     public static function create(?string $value = null): FountainProviderUrl
     {
-        return new FountainProviderUrl($value ?? Factory::create()->text(100));
+        return new FountainProviderUrl($value);
     }
 }
