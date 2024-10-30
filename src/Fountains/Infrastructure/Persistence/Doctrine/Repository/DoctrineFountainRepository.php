@@ -23,7 +23,7 @@ use Doctrine\DBAL\Statement;
 
 class DoctrineFountainRepository extends DoctrineDatabaseRepository implements FountainRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private ArrayToFountainFactory $factory)
     {
         parent::__construct($registry, Fountain::class);
     }
@@ -80,7 +80,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
     {
         $fountainsArray = $queryStatement->executeQuery()->fetchAllAssociative();
 
-        $fountains = array_map(ArrayToFountainFactory::getInstance(), $fountainsArray);
+        $fountains = array_map($this->factory, $fountainsArray);
 
         return new Fountains($fountains);
     }

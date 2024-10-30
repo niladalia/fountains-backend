@@ -30,11 +30,10 @@ use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 use App\Shared\Domain\Utils\Uuid;
 use DateTime;
 
-final class ArrayToFountainFactory
+class ArrayToFountainFactory
 {
-    private static ?ArrayToFountainFactory $instance = null;
 
-    private function __construct() { }
+    public function __construct(private UserFinder $finder) { }
 
     public function __invoke(array $data): Fountain
     {
@@ -64,13 +63,5 @@ final class ArrayToFountainFactory
             new FountainCreatedAt(new DateTime($data['created_at'])),
             new FountainUpdatedAt(new DateTime($data['updated_at'])),
         );
-    }
-
-    public static function getInstance()
-    {
-        if (self::$instance === null) {
-            self::$instance = new ArrayToFountainFactory();
-        }
-        return self::$instance;
     }
 }
