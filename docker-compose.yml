@@ -1,3 +1,4 @@
+#psql -U default -d fountains_db
 services:
     php:
         container_name: fountains_php

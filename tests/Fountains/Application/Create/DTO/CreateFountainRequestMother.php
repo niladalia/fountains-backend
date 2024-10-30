@@ -27,56 +27,32 @@ use App\Tests\Fountains\Domain\ValueObject\FountainTypeMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainUserIdMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainWebsiteMother;
 use DateTime;
-
 class CreateFountainRequestMother
 {
-    public static function create(
-        string $id = null,
-        float $lat = null,
-        float $long = null,
-        string $name = null,
-        string $type = null,
-        string $picture = null,
-        string $description = null,
-        bool $operational_status = null,
-        string $safe_water = null,
-        string $legal_water = null,
-        bool $access_bottles = null,
-        bool $access_pets = null,
-        bool $access_wheelchair = null,
-        string $access = null,
-        bool $fee = null,
-        string $address = null,
-        string $website = null,
-        string $provider_name = null,
-        string $provider_id = null,
-        DateTime $provider_updated_at = null,
-        string $provider_url = null,
-        string $user_id = null
-    ): CreateFountainRequest {
+    public static function create(array $data = []): CreateFountainRequest {
         return new CreateFountainRequest(
-            $id ?? FountainIdMother::create()->getValue(),
-            $lat ?? FountainLatMother::create()->getValue(),
-            $long ?? FountainLongMother::create()->getValue(),
-            $name ?? FountainNameMother::create()->getValue(),
-            $type ?? FountainTypeMother::create()->getValue(),
-            $picture ?? FountainPictureMother::create()->getValue(),
-            $description ?? FountainDescriptionMother::create()->getValue(),
-            $operational_status ?? FountainOperationalStatusMother::create()->getValue(),
-            $safe_water ?? FountainSafeWaterMother::create()->getValue(),
-            $legal_water ?? FountainLegalWaterMother::create()->getValue(),
-            $access_bottles ?? FountainAccesBottlesMother::create()->getValue(),
-            $access_pets ?? FountainAccesPetsMother::create()->getValue(),
-            $access_wheelchair ?? FountainAccessWheelchairMother::create()->getValue(),
-            $access ?? FountainAccessMother::create()->getValue(),
-            $fee ??  FountainFeeMother::create()->getValue(),
-            $address ??  FountainAddressMother::create()->getValue(),
-            $website ??  FountainWebsiteMother::create()->getValue(),
-            $provider_name ?? FountainProviderNameMother::create()->getValue(),
-            $provider_id ?? FountainProviderIdMother::create()->getValue(),
-            $provider_updated_at ?? FountainProviderUpdatedAtMother::create()->getValue(),
-            $provider_url ?? FountainProviderUrlMother::create()->getValue(),
-            $user_id ?? FountainUserIdMother::create()->getValue()
+            $data['id'] ?? FountainIdMother::create()->getValue(),
+            $data['lat'] ?? FountainLatMother::create()->getValue(),
+            $data['long'] ?? FountainLongMother::create()->getValue(),
+            $data['name'] ?? FountainNameMother::create()->getValue(),
+            $data['type'] ?? FountainTypeMother::create()->getValue(),
+            $data['picture'] ?? FountainPictureMother::create()->getValue(),
+            $data['description'] ?? FountainDescriptionMother::create()->getValue(),
+            $data['operational_status'] ?? FountainOperationalStatusMother::create()->getValue(),
+            $data['safe_water'] ?? FountainSafeWaterMother::create()->getValue(),
+            $data['legal_water'] ?? FountainLegalWaterMother::create()->getValue(),
+            $data['access_bottles'] ?? FountainAccesBottlesMother::create()->getValue(),
+            $data['access_pets'] ?? FountainAccesPetsMother::create()->getValue(),
+            $data['access_wheelchair'] ?? FountainAccessWheelchairMother::create()->getValue(),
+            $data['access'] ?? FountainAccessMother::create()->getValue(),
+            $data['fee'] ?? FountainFeeMother::create()->getValue(),
+            $data['address'] ?? FountainAddressMother::create()->getValue(),
+            $data['website'] ?? FountainWebsiteMother::create()->getValue(),
+            $data['provider_name'] ?? FountainProviderNameMother::create()->getValue(),
+            $data['provider_id'] ?? FountainProviderIdMother::create()->getValue(),
+            $data['provider_updated_at'] ?? FountainProviderUpdatedAtMother::create()->getValue(),
+            $data['provider_url'] ?? FountainProviderUrlMother::create()->getValue(),
+            $data['user_id'] ?? FountainUserIdMother::create()->getValue()
         );
     }
 }

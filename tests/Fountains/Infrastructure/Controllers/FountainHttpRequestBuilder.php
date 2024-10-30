@@ -198,6 +198,7 @@ class FountainHttpRequestBuilder
             $this->provider_id = $this->provider_id ?? FountainProviderIdMother::create()->getValue();
             $this->provider_updated_at = $this->provider_updated_at ?? FountainProviderUpdatedAtMother::create()->formatISO();
             $this->provider_url = $this->provider_url ?? FountainProviderUrlMother::create()->getValue();
+            $this->user_id = null;
         }
 
         // Fallback for user_id if neither userRequest nor providerRequest is explicitly true
