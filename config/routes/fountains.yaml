@@ -4,9 +4,9 @@ fountains_controller_post:
   methods: [POST]
 
 fountains_controller_put:
-   path: /api/fountains
-   controller: App\Fountains\Infrastructure\Controllers\FountainsPutController
-   methods: [PUT]
+  path: /api/fountains
+  controller: App\Fountains\Infrastructure\Controllers\FountainsPutController
+  methods: [PUT]
 
 fountain_controller_delete:
   path: /api/{id}/fountain
@@ -28,3 +28,7 @@ fountains_radius_controller_get:
   controller: App\Fountains\Infrastructure\Controllers\FountainsRadiusGetController
   methods: [GET]
 
+fountain_by_id_controller_get:
+  path: /api/fountains/{id}
+  controller: App\Fountains\Infrastructure\Controllers\FountainGetController
+  methods: [GET]
