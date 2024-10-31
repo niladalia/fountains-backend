@@ -33,6 +33,14 @@ class FountainsUnitTestCase extends KernelTestCase
             ->willReturn($fountain);
     }
 
+    protected function shouldDelete(Fountain $fountain): void
+    {
+        $this->repository()
+            ->expects(self::once())
+            ->method('delete')
+            ->with($this->isSimilar($fountain, ['created_at','updated_at']));
+    }
+
     protected function repository(): FountainRepository
     {
         return $this->fountainRepository;

@@ -25,17 +25,18 @@ use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainProviderUrl;
 use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
-use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainWebsite;
-use App\Shared\Domain\Utils\Uuid;
+use App\Users\Domain\User;
 
 abstract class CreateFountainFactory
 {
-    public static function create(CreateFountainRequest $fountainRequest): Fountain
+
+    public static function create(CreateFountainRequest $fountainRequest, ?User $user = null): Fountain
     {
         return self::createFountain(
             $fountainRequest,
-            FountainId::fromString($fountainRequest->id())
+            FountainId::fromString($fountainRequest->id()),
+            $user
         );
     }
 
@@ -49,7 +50,8 @@ abstract class CreateFountainFactory
 
     private static function createFountain(
         FountainRequest $fountainRequest,
-        FountainId $fountainId
+        FountainId $fountainId,
+        ?User $user = null
     ): Fountain
     {
         return Fountain::create(
@@ -74,7 +76,7 @@ abstract class CreateFountainFactory
             new FountainProviderId($fountainRequest->provider_id()),
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
             new FountainProviderUrl($fountainRequest->provider_url()),
-            new FountainUserId($fountainRequest->user_id() ? Uuid::fromString($fountainRequest->user_id()) : null)
+            $user
         );
     }
 }

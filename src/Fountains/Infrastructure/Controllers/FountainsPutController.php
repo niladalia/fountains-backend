@@ -57,7 +57,7 @@ class FountainsPutController extends ApiController
 
     protected function constraints(): Assert\Collection
     {
-        return FountainConstraints::constraintsAllowExtraFields();
+        return FountainConstraints::constraintsAllcontowExtraFields();
     }
 
 }

@@ -23,7 +23,7 @@ use Doctrine\DBAL\Statement;
 
 class DoctrineFountainRepository extends DoctrineDatabaseRepository implements FountainRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private ArrayToFountainFactory $factory)
     {
         parent::__construct($registry, Fountain::class);
     }
@@ -38,6 +38,14 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         return $this->findOneBy([
             'lat.value' => $lat->getValue(),
             'long.value' => $long->getValue()
+        ]);
+    }
+
+    public function findByProvider(FountainProviderName $provider, FountainProviderId $providerId): ?Fountain
+    {
+        return $this->findOneBy([
+            'provider_name.value' => $provider->getValue(),
+            'provider_id.value' => $providerId->getValue(),
         ]);
     }
 
@@ -72,7 +80,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
     {
         $fountainsArray = $queryStatement->executeQuery()->fetchAllAssociative();
 
-        $fountains = array_map(ArrayToFountainFactory::getInstance(), $fountainsArray);
+        $fountains = array_map($this->factory, $fountainsArray);
 
         return new Fountains($fountains);
     }
