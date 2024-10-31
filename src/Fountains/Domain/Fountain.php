@@ -27,10 +27,11 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainCreatedAt;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 
-use App\Shared\Domain\Entity;
+use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\Utils\DateTimeUtils;
+use App\Users\Domain\User;
 
-class Fountain implements Entity
+class Fountain extends AggregateRoot
 {
     public function __construct(
         private FountainId                $id,
@@ -54,9 +55,9 @@ class Fountain implements Entity
         private FountainProviderId        $provider_id,
         private FountainProviderUpdatedAt $provider_updated_at,
         private FountainProviderUrl       $provider_url,
-        private FountainUserId            $user_id,
         private FountainCreatedAt         $created_at,
-        private FountainUpdatedAt         $updated_at
+        private FountainUpdatedAt         $updated_at,
+        private ?User                     $user
     ) { }
 
     public static function create(
@@ -81,7 +82,7 @@ class Fountain implements Entity
         ?FountainProviderId        $provider_id,
         ?FountainProviderUpdatedAt $provider_updated_at,
         ?FountainProviderUrl       $provider_url,
-        ?FountainUserId            $user_id,
+        ?User                      $user,
     ): self
     {
         $now = DateTimeUtils::now();
@@ -110,9 +111,9 @@ class Fountain implements Entity
             $provider_id,
             $provider_updated_at,
             $provider_url,
-            $user_id,
             $created_at,
-            $updated_at
+            $updated_at,
+            $user
         );
     }
 
@@ -137,7 +138,7 @@ class Fountain implements Entity
         FountainProviderId        $provider_id,
         FountainProviderUpdatedAt $provider_updated_at,
         FountainProviderUrl       $provider_url,
-        FountainUserId            $user_id,
+        ?User            $user = null,
     ): void {
         $this->updateName($name);
         $this->updateLat($lat);
@@ -159,7 +160,7 @@ class Fountain implements Entity
         $this->updateProviderId($provider_id);
         $this->updateProviderUpdatedAt($provider_updated_at);
         $this->updateProviderUrl($provider_url);
-        $this->updateUserId($user_id);
+        $this->updateUser($user);
     }
 
     public function id(): FountainId
@@ -367,14 +368,14 @@ class Fountain implements Entity
         $this->provider_url = $provider_url;
     }
 
-    public function user_id(): FountainUserId
+    public function user(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function updateUserId(FountainUserId $user_id): void
+    public function updateUser(?User $user): void
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
     }
 
     public function updated_at(): FountainUpdatedAt
@@ -411,7 +412,7 @@ class Fountain implements Entity
             'provider_id' => $this->provider_id()->getValue(),
             'provider_updated_at' => $this->provider_updated_at()->formatISO(),
             'provider_url' => $this->provider_url()->getValue(),
-            'user_id' => $this->user_id()->getValue(),
+            'user_id' => $this->user() ? $this->user->id()->getValue() : null,
             'updated_at' => $this->updated_at()->formatISO(),
             'created_at' => $this->created_at()->formatISO()
         ];

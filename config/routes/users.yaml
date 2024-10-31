@@ -1,0 +1,19 @@
+google_auth_controller_post:
+  path: /api/auth/google
+  controller: App\Users\Infrastructure\Controllers\GoogleAuthenticationController
+  methods:  [GET]
+
+user_register:
+  path: /api/auth/register
+  controller: App\Users\Infrastructure\Controllers\UserRegisterController
+  methods:  [POST]
+
+user_login:
+  path: /api/auth/login
+  controller: App\Users\Infrastructure\Controllers\UserLoginController
+  methods:  [POST]
+
+get_user:
+  path: /api/user
+  controller: App\Users\Infrastructure\Controllers\UserGetController
+  methods: [GET]

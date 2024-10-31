@@ -1,14 +1,14 @@
-build-project:
+build:
 	docker compose --env-file .env --env-file .env.local up --build -d
 	docker exec -it fountains_php composer install
 
-start-project:
+start:
 	docker compose --env-file .env --env-file .env.local up -d
 
-stop-project:
+stop:
 	docker compose stop
 
-restart-project: stop-project start-project
+restart: stop-project start-project
 
 run-migrations:
 	docker exec -it fountains_php php bin/console doctrine:migrations:migrate
@@ -18,3 +18,5 @@ list-migrations:
 
 status-migrations:
 	docker exec -it fountains_php php bin/console doctrine:migrations:status
+run-test:
+	docker exec fountains_php ./vendor/bin/phpunit

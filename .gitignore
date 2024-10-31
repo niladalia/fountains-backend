@@ -11,7 +11,7 @@
 /.vscode
 /.idea
 ###< symfony/framework-bundle ###
-
+/doing.txt
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
@@ -21,3 +21,7 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

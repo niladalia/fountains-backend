@@ -9,6 +9,12 @@ class FountainProviderIdMother
 {
     public static function create(?string $value = null): FountainProviderId
     {
-        return new FountainProviderId($value ?? Factory::create()->text(50));
+        return new FountainProviderId($value);
+    }
+
+    public static function generate(){
+
+        return self::create(Factory::create()->text(50));
+
     }
 }

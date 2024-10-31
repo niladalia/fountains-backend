@@ -2,13 +2,13 @@
 
 namespace App\Shared\Domain\Repository;
 
-use App\Shared\Domain\Entity;
+use App\Shared\Domain\AggregateRoot;
 
 /**
  * Interface for a database repository that provides basic transaction management
  * and batch processing capabilities.
  * 
- * @template T extends Entity
+ * @template T extends AggregateRoot
  */
 interface DatabaseRepository
 {
@@ -33,7 +33,7 @@ interface DatabaseRepository
      *
      * @param T $object The object to persist.
      */
-    public function persist(Entity $object): void;
+    public function persist(AggregateRoot $object): void;
 
     /**
      * Persist an object to the database.
@@ -41,7 +41,15 @@ interface DatabaseRepository
      *
      * @param T $object The object to persist to the database.
      */
-    public function save(Entity $object): void;
+    public function save(AggregateRoot $object): void;
+
+    /**
+     * Set to remove an object from the database.
+     * The object will be definitely removed from the database when the apply method is called.
+     * 
+     * @param T $object The object to delete.
+     */
+    public function delete(AggregateRoot $object): void;
 
     /**
      * Apply the changes to the database.

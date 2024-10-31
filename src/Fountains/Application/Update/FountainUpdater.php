@@ -3,78 +3,76 @@
 namespace App\Fountains\Application\Update;
 
 use App\Fountains\Domain\Services\FountainFinder;
-use App\Fountains\Application\Create\DTO\FountainRequest;
 use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
-
 use App\Fountains\Domain\Fountain;
-use App\Fountains\Domain\FountainRepository;
-use App\Fountains\Domain\ValueObject\FountainId;
-use App\Fountains\Domain\ValueObject\FountainLat;
-use App\Fountains\Domain\ValueObject\FountainLong;
-use App\Fountains\Domain\ValueObject\FountainName;
-use App\Fountains\Domain\ValueObject\FountainType;
-use App\Fountains\Domain\ValueObject\FountainDescription;
-use App\Fountains\Domain\ValueObject\FountainPicture;
-use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
-use App\Fountains\Domain\ValueObject\FountainSafeWater;
-use App\Fountains\Domain\ValueObject\FountainLegalWater;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
-use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
 use App\Fountains\Domain\ValueObject\FountainAccess;
-use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
 use App\Fountains\Domain\ValueObject\FountainAddress;
-use App\Fountains\Domain\ValueObject\FountainWebsite;
-use App\Fountains\Domain\ValueObject\FountainProviderName;
+use App\Fountains\Domain\ValueObject\FountainDescription;
+use App\Fountains\Domain\ValueObject\FountainFee;
+use App\Fountains\Domain\ValueObject\FountainId;
+use App\Fountains\Domain\ValueObject\FountainLat;
+use App\Fountains\Domain\ValueObject\FountainLegalWater;
+use App\Fountains\Domain\ValueObject\FountainLong;
+use App\Fountains\Domain\ValueObject\FountainName;
+use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
+use App\Fountains\Domain\ValueObject\FountainPicture;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
-use App\Fountains\Domain\ValueObject\FountainProviderUrl;
+use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
-use App\Fountains\Domain\ValueObject\FountainUserId;
+use App\Fountains\Domain\ValueObject\FountainProviderUrl;
+use App\Fountains\Domain\ValueObject\FountainSafeWater;
+use App\Fountains\Domain\ValueObject\FountainType;
+use App\Fountains\Domain\ValueObject\FountainWebsite;
+use App\Users\Application\Find\DTO\FindUserRequest;
+use App\Users\Domain\Services\UserFinder;
+use App\Users\Domain\ValueObject\UserId;
 
 class FountainUpdater
 {
     public function __construct(
         private FountainFinder $fountainFinder,
-        private FountainRepository $fountainRepository,
+        private UserFinder $finder
     ) { }
 
-    public function __invoke(UpdateFountainRequest $fountainRequest, ?Fountain $fountain = null)
+    public function __invoke(UpdateFountainRequest $updateRequest)
     {
-        if (!$fountain) {
-            $fountain = $this->fountainFinder->__invoke(
-                FountainId::fromString($fountainRequest->id())
-            );
-        }
+        $fountain = $this->fountainFinder->__invoke(
+            FountainId::fromString($updateRequest->id())
+        );
 
-        self::update($fountain, $fountainRequest);
-
-        $this->fountainRepository->save($fountain);
+        $this->update($fountain, $updateRequest);
     }
 
-    public static function update(Fountain $fountain, FountainRequest $fountainRequest)
+    private function update(Fountain $fountain, UpdateFountainRequest $updateRequest)
     {
+        $userId = $updateRequest->user_id();
+        $user = $userId ? $this->finder->__invoke(UserId::fromString($userId)) : null;
+
         $fountain->update(
-            new FountainLat($fountainRequest->lat()),
-            new FountainLong($fountainRequest->long()),
-            new FountainName($fountainRequest->name()),
-            FountainType::fromString($fountainRequest->type()),
-            new FountainPicture($fountainRequest->picture()),
-            new FountainDescription($fountainRequest->description()),
-            new FountainOperationalStatus($fountainRequest->operational_status()),
-            FountainSafeWater::fromString($fountainRequest->safe_water()),
-            FountainLegalWater::fromString($fountainRequest->legal_water()),
-            new FountainAccesBottles($fountainRequest->access_bottles()),
-            new FountainAccesPets($fountainRequest->access_pets()),
-            new FountainAccessWheelchair($fountainRequest->access_wheelchair()),
-            FountainAccess::fromString($fountainRequest->access()),
-            new FountainFee($fountainRequest->fee()),
-            new FountainAddress($fountainRequest->address()),
-            new FountainWebsite($fountainRequest->website()),
-            new FountainProviderName($fountainRequest->provider_name()),
-            new FountainProviderId($fountainRequest->provider_id()),
-            new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
-            new FountainProviderUrl($fountainRequest->provider_url()),
-            new FountainUserId($fountainRequest->user_id())
+            new FountainLat($updateRequest->lat()),
+            new FountainLong($updateRequest->long()),
+            new FountainName($updateRequest->name()),
+            FountainType::fromString($updateRequest->type()),
+            new FountainPicture($updateRequest->picture()),
+            new FountainDescription($updateRequest->description()),
+            new FountainOperationalStatus($updateRequest->operational_status()),
+            FountainSafeWater::fromString($updateRequest->safe_water()),
+            FountainLegalWater::fromString($updateRequest->legal_water()),
+            new FountainAccesBottles($updateRequest->access_bottles()),
+            new FountainAccesPets($updateRequest->access_pets()),
+            new FountainAccessWheelchair($updateRequest->access_wheelchair()),
+            FountainAccess::fromString($updateRequest->access()),
+            new FountainFee($updateRequest->fee()),
+            new FountainAddress($updateRequest->address()),
+            new FountainWebsite($updateRequest->website()),
+            new FountainProviderName($updateRequest->provider_name()),
+            new FountainProviderId($updateRequest->provider_id()),
+            new FountainProviderUpdatedAt($updateRequest->provider_updated_at()),
+            new FountainProviderUrl($updateRequest->provider_url()),
+            $user
         );
     }
 }

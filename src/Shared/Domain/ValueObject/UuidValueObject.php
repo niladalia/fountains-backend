@@ -20,6 +20,7 @@ class UuidValueObject extends ValueObject implements \Stringable
         return $this->value;
     }
 
+
     function __tostring(): string
     {
         return $this->getValue()?->getValue() ?? '';
