@@ -1,7 +1,7 @@
 #psql -U default -d fountains_db
 services:
     php:
-        container_name: fountains_php
+        container_name: fountains_app_php
         build:
             context: .
             dockerfile: .docker/php/Dockerfile
@@ -15,7 +15,7 @@ services:
             - fountains_network
 
     nginx:
-        container_name: fountains_nginx
+        container_name: fountains_app_nginx
         build:
             context: .
             dockerfile: .docker/nginx/Dockerfile
@@ -30,9 +30,9 @@ services:
             - .env.local
         networks:
             - fountains_network
-    
+
     db:
-        container_name: fountains_db
+        container_name: fountains_app_db
         image: postgis/postgis:latest
         volumes:
             - fountains_database:/var/lib/postgresql/data
@@ -47,7 +47,7 @@ services:
             - 5432:5432
         networks:
             - fountains_network
-    
+
     rabbitmq:
         container_name: rabbitmq
         image: 'rabbitmq:3.10.5-management'
@@ -67,5 +67,5 @@ volumes:
 networks:
     fountains_network:
     shared_network:
-        name: fountains_shared_network
+        name: fountains_app_shared_network
         driver: bridge
