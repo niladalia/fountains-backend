@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Fountains\Domain\Services;
+namespace App\Fountains\Domain\Services\Find;
 
 use App\Fountains\Domain\Exceptions\FountainNotFound;
 use App\Fountains\Domain\Fountain;
@@ -24,7 +24,7 @@ class FountainFinder
         if (!$fountain) {
             FountainNotFound::throw($id->getValue());
         }
-        
+
         return $fountain;
     }
 }

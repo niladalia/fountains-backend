@@ -2,8 +2,11 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
+use App\Books\Application\Find\DTO\FindBookResponse;
 use App\Fountains\Application\Find\DTO\FindFountainRequest;
+use App\Fountains\Application\Find\DTO\FountainResponse;
 use App\Fountains\Application\Find\FountainFinder;
+use App\Fountains\Domain\Fountain;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Shared\Infrastructure\Symfony\Validation\PaginateConstraints;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,10 +18,10 @@ class FountainGetController extends ApiController
     public function __invoke(string $id, FountainFinder $fountainFinder): Response
     {
         $findFountainRequest = new FindFountainRequest($id);
+        /** @var FountainResponse $fountainResponse */
+        $fountainResponse = $fountainFinder->__invoke($findFountainRequest);
 
-        $fountain = $fountainFinder->__invoke($findFountainRequest);
-
-        return new JsonResponse($fountain->toArray(), Response::HTTP_OK);
+        return new JsonResponse($fountainResponse->data(), Response::HTTP_OK);
     }
 
     protected function constraints(): Assert\Collection
