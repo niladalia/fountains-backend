@@ -2,9 +2,9 @@
 
 namespace App\Fountains\Application\Update;
 
+use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\Services\FountainFinder;
 use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
-use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
 use App\Fountains\Domain\ValueObject\FountainAccess;
@@ -19,22 +19,14 @@ use App\Fountains\Domain\ValueObject\FountainLong;
 use App\Fountains\Domain\ValueObject\FountainName;
 use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
 use App\Fountains\Domain\ValueObject\FountainPicture;
-use App\Fountains\Domain\ValueObject\FountainProviderId;
-use App\Fountains\Domain\ValueObject\FountainProviderName;
-use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
-use App\Fountains\Domain\ValueObject\FountainProviderUrl;
 use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
-use App\Fountains\Domain\ValueObject\FountainWebsite;
-use App\Users\Application\Find\DTO\FindUserRequest;
-use App\Users\Domain\Services\UserFinder;
-use App\Users\Domain\ValueObject\UserId;
 
 class FountainUpdater
 {
     public function __construct(
         private FountainFinder $fountainFinder,
-        private UserFinder $finder
+        private FountainRepository $repository
     ) { }
 
     public function __invoke(UpdateFountainRequest $updateRequest)
@@ -43,36 +35,24 @@ class FountainUpdater
             FountainId::fromString($updateRequest->id())
         );
 
-        $this->update($fountain, $updateRequest);
-    }
-
-    private function update(Fountain $fountain, UpdateFountainRequest $updateRequest)
-    {
-        $userId = $updateRequest->user_id();
-        $user = $userId ? $this->finder->__invoke(UserId::fromString($userId)) : null;
-
         $fountain->update(
             new FountainLat($updateRequest->lat()),
             new FountainLong($updateRequest->long()),
             new FountainName($updateRequest->name()),
-            FountainType::fromString($updateRequest->type()),
+            $updateRequest->type() !== null ? FountainType::fromString($updateRequest->type()) : $fountain->type(),
             new FountainPicture($updateRequest->picture()),
             new FountainDescription($updateRequest->description()),
             new FountainOperationalStatus($updateRequest->operational_status()),
-            FountainSafeWater::fromString($updateRequest->safe_water()),
-            FountainLegalWater::fromString($updateRequest->legal_water()),
+            $updateRequest->safe_water() !== null ? FountainSafeWater::fromString($updateRequest->safe_water()) : $fountain->safe_water(),
+            $updateRequest->legal_water() !== null ? FountainLegalWater::fromString($updateRequest->legal_water()) : $fountain->legal_water(),
             new FountainAccesBottles($updateRequest->access_bottles()),
             new FountainAccesPets($updateRequest->access_pets()),
             new FountainAccessWheelchair($updateRequest->access_wheelchair()),
-            FountainAccess::fromString($updateRequest->access()),
+            $updateRequest->access() !== null ? FountainAccess::fromString($updateRequest->access()) : $fountain->access(),
             new FountainFee($updateRequest->fee()),
-            new FountainAddress($updateRequest->address()),
-            new FountainWebsite($updateRequest->website()),
-            new FountainProviderName($updateRequest->provider_name()),
-            new FountainProviderId($updateRequest->provider_id()),
-            new FountainProviderUpdatedAt($updateRequest->provider_updated_at()),
-            new FountainProviderUrl($updateRequest->provider_url()),
-            $user
+            new FountainAddress($updateRequest->address())
         );
+
+        $this->repository->save($fountain);
     }
 }

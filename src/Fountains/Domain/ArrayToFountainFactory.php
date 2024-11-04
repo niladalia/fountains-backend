@@ -41,6 +41,7 @@ class ArrayToFountainFactory
     {
         $userId = $data['user_id'];
         $user = $userId ? $this->finder->__invoke(UserId::fromString($userId)) : null;
+
         return new Fountain(
             FountainId::fromString($data['id']),
             new FountainLat($data['lat']),
@@ -61,11 +62,24 @@ class ArrayToFountainFactory
             new FountainWebsite($data['website']),
             new FountainProviderName($data['provider_name']),
             new FountainProviderId($data['provider_id']),
-            new FountainProviderUpdatedAt(new DateTime($data['provider_updated_at'])),
+            new FountainProviderUpdatedAt($this->parseDateTime($data['provider_updated_at'])),
             new FountainProviderUrl($data['provider_url']),
             new FountainCreatedAt(new DateTime($data['created_at'])),
             new FountainUpdatedAt(new DateTime($data['updated_at'])),
             $user
         );
+    }
+
+    private function parseDateTime(?string $dateString): ?DateTime
+    {
+        if ($dateString === null) {
+            return null;
+        }
+
+        try {
+            return new DateTime($dateString);
+        } catch (\Exception $e) {
+            throw new \InvalidArgumentException("Invalid date format for '$dateString'");
+        }
     }
 }

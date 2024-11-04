@@ -7,6 +7,7 @@ use DateTime;
 abstract class FountainRequest
 {
     public function __construct(
+        private string $id,
         private float $lat,
         private float $long,
         private ?string $name = null,
@@ -21,14 +22,13 @@ abstract class FountainRequest
         private ?bool $access_wheelchair = null,
         private ?string $access = null,
         private ?bool $fee = null,
-        private ?string $address = null,
-        private ?string $website = null,
-        private ?string $provider_name = null,
-        private ?string $provider_id = null,
-        private ?DateTime $provider_updated_at = null,
-        private ?string $provider_url = null,
-        private ?string $user_id = null
+        private ?string $address = null
     ) {}
+
+    public function id(): string
+    {
+        return $this->id;
+    }
 
     public function lat(): float
     {
@@ -102,34 +102,5 @@ abstract class FountainRequest
     public function address(): ?string
     {
         return $this->address;
-    }
-
-    public function website(): ?string
-    {
-        return $this->website;
-    }
-
-    public function provider_name(): ?string
-    {
-        return $this->provider_name;
-    }
-    public function provider_id(): ?string
-    {
-        return $this->provider_id;
-    }
-
-    public function provider_updated_at(): ?DateTime
-    {
-        return $this->provider_updated_at;
-    }
-
-    public function provider_url(): ?string
-    {
-        return $this->provider_url;
-    }
-
-    public function user_id(): ?string
-    {
-        return $this->user_id;
     }
 }

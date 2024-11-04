@@ -17,7 +17,5 @@ interface FountainRepository extends DatabaseRepository
     public function findById(FountainId $id): ?Fountain;
     public function findByFilter(FountainsFilter $filter): Fountains;
     public function findByRadius(RadiusFilter $radiusFilter): Fountains;
-    public function findByBoundingBox(BoundingBox $boundingBox): Fountains;
     public function findByLocation(FountainLat $lat, FountainLong $long): ?Fountain;
-    public function findByProvider(FountainProviderName $provider, FountainProviderId $providerId): ?Fountain;
 }

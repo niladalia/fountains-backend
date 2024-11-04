@@ -3,10 +3,10 @@ fountains_controller_post:
   controller: App\Fountains\Infrastructure\Controllers\FountainsPostController
   methods: [POST]
 
-fountains_controller_put:
-  path: /api/fountains
-  controller: App\Fountains\Infrastructure\Controllers\FountainsPutController
-  methods: [PUT]
+fountains_controller_patch:
+  path: /api/fountain/{id}
+  controller: App\Fountains\Infrastructure\Controllers\FountainsPatchController
+  methods: [PATCH]
 
 fountain_controller_delete:
   path: /api/{id}/fountain

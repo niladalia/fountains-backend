@@ -15,6 +15,7 @@ class FountainGetController extends ApiController
     public function __invoke(string $id, FountainFinder $fountainFinder): Response
     {
         $findFountainRequest = new FindFountainRequest($id);
+
         $fountain = $fountainFinder->__invoke($findFountainRequest);
 
         return new JsonResponse($fountain->toArray(), Response::HTTP_OK);

@@ -49,4 +49,9 @@ abstract class ValidationConstraints
     {
         return new Assert\Optional($constraint);
     }
+
+    protected static final function required(mixed $constraint): Assert\Required
+    {
+        return new Assert\Required($constraint);
+    }
 }

@@ -41,14 +41,6 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         ]);
     }
 
-    public function findByProvider(FountainProviderName $provider, FountainProviderId $providerId): ?Fountain
-    {
-        return $this->findOneBy([
-            'provider_name.value' => $provider->getValue(),
-            'provider_id.value' => $providerId->getValue(),
-        ]);
-    }
-
     public function findByFilter(FountainsFilter $filter): Fountains
     {
         $findFountainsByFilter = new FindFountainsByFilter($this->getConnection());

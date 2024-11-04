@@ -21,7 +21,8 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-
+/src/Command/GoogleAuthCommand.php
+/src/Command/TesstCodeScriptCommand.php
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###

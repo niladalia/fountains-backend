@@ -26,13 +26,7 @@ class FountainConstraints extends ValidationConstraints
             'access_wheelchair' => self::optional(self::type('bool')),
             'access' => self::optional(self::enum(FountainAccess::class)),
             'fee' => self::optional(self::type('bool')),
-            'address' => self::optional(self::type('string')),
-            'website' => self::optional(self::type('string')),
-            'provider_name' => self::optional(self::type('string')),
-            'provider_id' => self::optional(self::type('string')),
-            'provider_updated_at' => self::optional(DateTimeConstraints::dateTime()),
-            'provider_url' => self::optional(self::type('string')),
-            'user_id' => self::optional(self::type('string')),
+            'address' => self::optional(self::type('string'))
         ];
     }
 }

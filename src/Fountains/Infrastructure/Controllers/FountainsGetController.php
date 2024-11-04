@@ -23,7 +23,7 @@ class FountainsGetController extends ApiController
     {
         $queryParameters = $request->query->all();
 
-        $this->validateRequest($queryParameters, $this->constraints());
+        $this->validateParams($queryParameters);
 
         $limit = $request->query->get('limit');
         $offset = $request->query->get('offset');
@@ -36,7 +36,7 @@ class FountainsGetController extends ApiController
         // We add the optional bbox filter into the builder
         $this->setBoundingBoxFilter($fountainsFilterBuilder, $queryParameters);
 
-        // Here we build the FountainsFilterRequest DTO that we will send to the application service.
+
         $fountainsFinderRequest = $fountainsFilterBuilder->build();
 
         $fountains = $fountainsFinder->__invoke($fountainsFinderRequest);
@@ -44,14 +44,24 @@ class FountainsGetController extends ApiController
         return new JsonResponse($fountains->toArray(), Response::HTTP_OK);
     }
 
-    private function setBoundingBoxFilter(FountainsFilterRequestBuilder $fountainsFilter, array $queryParameters)
+    private function validateParams(array $queryParameters): void
     {
+        //We validate the query params
+        $this->validateRequest($queryParameters, $this->constraints());
+
+        // We validate the optional BBox params
         if ($this->withBoundingBoxParameters($queryParameters)) {
             $this->validateRequest(
                 $queryParameters,
                 BoundingBoxConstraints::constraintsAllowExtraFields()
             );
+        }
 
+    }
+
+    private function setBoundingBoxFilter(FountainsFilterRequestBuilder $fountainsFilter, array $queryParameters)
+    {
+        if ($this->withBoundingBoxParameters($queryParameters)) {
             $fountainsFilter->setBoundingBoxFilter(
                 new BoundingBoxFilter(
                     $queryParameters['south_lat'],

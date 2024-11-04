@@ -7,7 +7,7 @@ use DateTime;
 class CreateFountainRequest extends FountainRequest
 {
     public function __construct(
-        private string $id,
+        string $id,
         float $lat,
         float $long,
         ?string $name = null,
@@ -23,14 +23,15 @@ class CreateFountainRequest extends FountainRequest
         ?string $access = null,
         ?bool $fee = null,
         ?string $address = null,
-        ?string $website = null,
-        ?string $provider_name = null,
-        ?string $provider_id = null,
-        ?DateTime $provider_updated_at = null,
-        ?string $provider_url = null,
-        ?string $user_id = null
+        private ?string $website = null,
+        private ?string $provider_name = null,
+        private ?string $provider_id = null,
+        private ?DateTime $provider_updated_at = null,
+        private ?string $provider_url = null,
+        private ?string $user_id = null
     ) {
         parent::__construct(
+            $id,
             $lat,
             $long,
             $name,
@@ -45,18 +46,36 @@ class CreateFountainRequest extends FountainRequest
             $access_wheelchair,
             $access,
             $fee,
-            $address,
-            $website,
-            $provider_name,
-            $provider_id,
-            $provider_updated_at,
-            $provider_url,
-            $user_id
+            $address
         );
     }
 
-    public function id(): string
+    public function website(): ?string
     {
-        return $this->id;
+        return $this->website;
+    }
+
+    public function provider_name(): ?string
+    {
+        return $this->provider_name;
+    }
+    public function provider_id(): ?string
+    {
+        return $this->provider_id;
+    }
+
+    public function provider_updated_at(): ?DateTime
+    {
+        return $this->provider_updated_at;
+    }
+
+    public function provider_url(): ?string
+    {
+        return $this->provider_url;
+    }
+
+    public function user_id(): ?string
+    {
+        return $this->user_id;
     }
 }
