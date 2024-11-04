@@ -40,14 +40,6 @@ abstract class CreateFountainFactory
         );
     }
 
-    public static function createWithId(
-        FountainRequest $fountainRequest,
-        FountainId $fountainId
-    ): Fountain
-    {
-        return self::createFountain($fountainRequest, $fountainId);
-    }
-
     private static function createFountain(
         FountainRequest $fountainRequest,
         FountainId $fountainId,
