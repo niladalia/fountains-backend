@@ -3,6 +3,7 @@
 namespace App\Tests\Fountains\Infrastructure\Controllers;
 
 use App\Providers\Domain\ProviderRepository;
+use App\Shared\Domain\Event\EventBus;
 use App\Tests\Fountains\Infrastructure\ApiTestCase;
 use App\Tests\Fountains\Infrastructure\Controllers\Create\FountainHttpRequestBuilder;
 use App\Tests\Fountains\Infrastructure\HttpApiTestCase;
@@ -24,6 +25,7 @@ class FountainPostControllerTest extends HttpApiTestCase
         parent::setUp();
         $this->auth();
         $this->userRepository = static::getContainer()->get(DoctrineUserRepository::class);
+
     }
 
     public function testCreateFountainPost(){

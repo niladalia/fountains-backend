@@ -2,6 +2,7 @@
 
 namespace App\Fountains\Domain;
 
+use App\Fountains\Domain\Events\FountainCreatedDomainEvent;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
@@ -89,7 +90,7 @@ class Fountain extends AggregateRoot
         $created_at = new FountainCreatedAt($now);
         $updated_at = new FountainUpdatedAt($now);
 
-        return new self(
+        $fountain =  new self(
             $id,
             $lat,
             $long,
@@ -115,6 +116,12 @@ class Fountain extends AggregateRoot
             $updated_at,
             $user
         );
+
+        $fountain->addDomainEvent(
+            new FountainCreatedDomainEvent($id->getValue(), $lat->getValue(), $long->getValue(), $name->getValue())
+        );
+
+        return $fountain;
     }
 
     public function update(

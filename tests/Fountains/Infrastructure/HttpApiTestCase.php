@@ -10,6 +10,7 @@ use App\Fountains\Domain\Fountain;
 use App\Fountains\Domain\FountainRepository;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Infrastructure\Persistence\Doctrine\Repository\DoctrineFountainRepository;
+use App\Shared\Domain\Event\EventBus;
 use App\Tests\Fountains\Application\Create\DTO\CreateFountainRequestMother;
 use App\Tests\Shared\Infrastructure\Doctrine\PostgresTestDatabaseCleaner;
 use Doctrine\DBAL\Connection;
@@ -23,10 +24,14 @@ class HttpApiTestCase extends WebTestCase
     public const DEFAULT_PASS = 'TestPass';
     private ?string $token = null;
 
+    protected $mockEventPublisher;
+
     public function setUp(): void
     {
         parent::setUp();
         $this->client = static::createClient();
+        $this->mockEventPublisher = $this->createMock(EventBus::class);
+        $this->getContainer()->set(EventBus::class, $this->mockEventPublisher);
         $this->clearDatabase();
     }
 

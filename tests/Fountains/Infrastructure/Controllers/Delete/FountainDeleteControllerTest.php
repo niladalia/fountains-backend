@@ -4,6 +4,7 @@ namespace App\Tests\Fountains\Infrastructure\Controllers\Delete;
 
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Providers\Domain\ProviderRepository;
+use App\Shared\Domain\Event\EventBus;
 use App\Tests\Fountains\Application\Create\DTO\CreateFountainRequestMother;
 use App\Tests\Fountains\Domain\FountainMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainIdMother;

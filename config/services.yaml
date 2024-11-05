@@ -34,6 +34,8 @@ services:
 
     App\Users\Domain\PasswordHasherRepository: '@App\Users\Infrastructure\SymfonyPasswordHasher'
 
+    App\Shared\Domain\Event\EventBus: '@App\Shared\Infrastructure\Event\RabbitMqEventBus'
+
 
 
   # Google OAuth Port Interface is implemented by GoogleOAuthClient

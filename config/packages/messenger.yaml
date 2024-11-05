@@ -1,15 +1,23 @@
 framework:
     messenger:
-        transports:
-        # Define transports here if needed for async, but for sync handling, this can be omitted
-        routing:
-        # Map your messages to transports if using async
         default_bus: command_bus
-
         buses:
             command_bus:
-                # Middleware for the command bus
                 default_middleware: true
+
             event_bus:
-                # Middleware for the event bus
                 default_middleware: true
+
+            messenger.bus.event.async:
+                default_middleware: allow_no_handlers
+
+        transports:
+            amqp:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: exchange_librarify
+                        type: topic
+                    queues: [ ]
+        routing:
+            '*': amqp
