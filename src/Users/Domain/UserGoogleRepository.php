@@ -2,7 +2,6 @@
 
 namespace App\Users\Domain;
 
-use App\Users\Domain\ValueObject\UserEmail;
 
 interface UserGoogleRepository
 {

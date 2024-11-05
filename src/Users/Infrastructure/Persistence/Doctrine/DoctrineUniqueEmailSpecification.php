@@ -2,7 +2,6 @@
 
 namespace App\Users\Infrastructure\Persistence\Doctrine;
 
-use App\Fountains\Domain\FountainRepository;
 use App\Users\Domain\Exception\EmailAlreadyExistException;
 use App\Users\Domain\UniqueEmailSpecificationInterface;
 use App\Users\Domain\UserRepository;

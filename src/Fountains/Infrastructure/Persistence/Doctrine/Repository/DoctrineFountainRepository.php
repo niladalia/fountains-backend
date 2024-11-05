@@ -12,8 +12,6 @@ use App\Fountains\Domain\RadiusFilter;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
-use App\Fountains\Domain\ValueObject\FountainProviderId;
-use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\FindFountainsByFilter;
 use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\FindFountainsByBoundingBox;
 use App\Fountains\Infrastructure\Persistence\Doctrine\Filter\FindFountainsByRadius;

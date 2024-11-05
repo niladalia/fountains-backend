@@ -4,7 +4,6 @@ namespace App\Users\Infrastructure\Controllers;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Users\Application\Authenticate\DTO\GoogleAuthenticatorRequest;
-use App\Users\Application\Authenticate\DTO\UserCreatorRequest;
 use App\Users\Application\Authenticate\UserGoogleAuthenticator;
 use App\Shared\Infrastructure\Symfony\Validation\GoogleAuthenticationConstraints;
 use Symfony\Component\HttpFoundation\Response;

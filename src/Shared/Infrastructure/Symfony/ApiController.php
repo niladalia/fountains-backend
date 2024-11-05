@@ -9,7 +9,6 @@ use App\Shared\Infrastructure\Symfony\Validation\Validator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Constraints as Assert;
 
-use DateTime;
 
 abstract class ApiController extends AbstractController
 {

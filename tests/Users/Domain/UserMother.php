@@ -6,7 +6,6 @@ use App\Users\Domain\User;
 use App\Users\Domain\ValueObject\UserEmail;
 use App\Users\Domain\ValueObject\UserId;
 use App\Users\Domain\ValueObject\UserPassword;
-use App\Users\Infrastructure\Persistence\Doctrine\DoctrineUniqueEmailSpecification;
 
 class UserMother
 {

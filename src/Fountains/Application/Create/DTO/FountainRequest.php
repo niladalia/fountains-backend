@@ -2,7 +2,6 @@
 
 namespace App\Fountains\Application\Create\DTO;
 
-use DateTime;
 
 abstract class FountainRequest
 {

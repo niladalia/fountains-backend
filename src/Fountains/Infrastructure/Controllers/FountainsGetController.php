@@ -10,7 +10,6 @@ use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Shared\Infrastructure\Symfony\Validation\PaginateConstraints;
 use App\Shared\Infrastructure\Symfony\Validation\BoundingBoxConstraints;
 
-use App\Users\Infrastructure\Security\UserAdapter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;

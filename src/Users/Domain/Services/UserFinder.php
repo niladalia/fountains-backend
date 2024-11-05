@@ -2,8 +2,6 @@
 
 namespace App\Users\Domain\Services;
 
-use App\Users\Application\Find\DTO\FindUserRequest;
-use App\Users\Application\Find\DTO\FindUserResponse;
 use App\Users\Domain\Exception\UserNotExistException;
 use App\Users\Domain\User;
 use App\Users\Domain\UserRepository;

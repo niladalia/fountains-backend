@@ -3,8 +3,6 @@
 namespace App\Tests\Fountains\Application\Update\DTO;
 
 use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
-use App\Fountains\Domain\Fountain;
-use App\Tests\Fountains\Domain\FountainMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainAccesBottlesMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainAccesPetsMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainAccessMother;

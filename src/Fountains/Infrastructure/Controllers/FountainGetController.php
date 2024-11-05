@@ -2,13 +2,10 @@
 
 namespace App\Fountains\Infrastructure\Controllers;
 
-use App\Books\Application\Find\DTO\FindBookResponse;
 use App\Fountains\Application\Find\DTO\FindFountainRequest;
 use App\Fountains\Application\Find\DTO\FountainResponse;
 use App\Fountains\Application\Find\FountainFinder;
-use App\Fountains\Domain\Fountain;
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Shared\Infrastructure\Symfony\Validation\PaginateConstraints;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints as Assert;

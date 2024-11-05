@@ -3,17 +3,11 @@
 namespace App\Tests\Fountains\Infrastructure;
 
 use App\Fountains\Application\Create\DTO\CreateFountainRequest;
-use App\Fountains\Application\Create\DTO\FountainRequest;
-use App\Fountains\Application\Create\FountainCreator;
 use App\Fountains\Domain\Fountain;
-use App\Fountains\Domain\FountainRepository;
-use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Infrastructure\Persistence\Doctrine\Repository\DoctrineFountainRepository;
 use App\Shared\Domain\Event\EventBus;
-use App\Tests\Fountains\Application\Create\DTO\CreateFountainRequestMother;
 use App\Tests\Shared\Infrastructure\Doctrine\PostgresTestDatabaseCleaner;
 use Doctrine\DBAL\Connection;
-use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class HttpApiTestCase extends WebTestCase

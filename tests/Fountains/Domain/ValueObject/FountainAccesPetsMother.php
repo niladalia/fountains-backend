@@ -3,7 +3,6 @@
 namespace App\Tests\Fountains\Domain\ValueObject;
 
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
-use App\Shared\Domain\ValueObject\BooleanValueObject;
 use Faker\Factory;
 
 class FountainAccesPetsMother 

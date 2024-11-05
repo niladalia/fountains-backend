@@ -2,7 +2,6 @@
 
 namespace App\Tests\Fountains\Application\Find;
 
-use App\Fountains\Application\Delete\DTO\DeleteFountainRequest;
 use App\Fountains\Application\Find\FountainFinder;
 use App\Fountains\Application\Find\FountainResponseFactory;
 use App\Fountains\Domain\Exceptions\FountainNotFound;

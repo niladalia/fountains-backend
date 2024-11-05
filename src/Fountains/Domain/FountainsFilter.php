@@ -2,7 +2,6 @@
 
 namespace App\Fountains\Domain;
 
-use App\Fountains\Domain\BoundingBox;
 
 class FountainsFilter
 {

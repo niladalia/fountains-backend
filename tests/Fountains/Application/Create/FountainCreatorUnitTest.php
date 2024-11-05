@@ -3,16 +3,12 @@
 namespace App\Tests\Fountains\Application\Create;
 
 use App\Fountains\Application\Create\FountainCreator;
-use App\Shared\Domain\Event\EventBus;
 use App\Tests\Fountains\Application\Create\DTO\CreateFountainRequestMother;
 use App\Tests\Fountains\Domain\Events\FountainCreatedDomainEventMother;
 use App\Tests\Fountains\Domain\FountainMother;
 use App\Tests\Fountains\FountainsUnitTestCase;
 use App\Tests\Shared\Domain\UuidMother;
-use App\Tests\src\Authors\Domain\AuthorMother;
-use App\Tests\src\Authors\Domain\ValueObject\AuthorIdMother;
 use App\Tests\Users\Domain\UserMother;
-use App\Users\Application\Find\DTO\FindUserRequest;
 use App\Users\Domain\Services\UserFinder;
 use App\Users\Domain\ValueObject\UserId;
 

@@ -26,7 +26,6 @@ use App\Tests\Fountains\Domain\ValueObject\FountainSafeWaterMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainTypeMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainUserIdMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainWebsiteMother;
-use DateTime;
 class CreateFountainRequestMother
 {
     public static function create(array $data = []): CreateFountainRequest {

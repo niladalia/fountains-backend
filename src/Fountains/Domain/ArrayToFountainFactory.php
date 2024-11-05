@@ -23,12 +23,10 @@ use App\Fountains\Domain\ValueObject\FountainProviderName;
 use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Fountains\Domain\ValueObject\FountainProviderUrl;
 use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
-use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainCreatedAt;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 
 use App\Shared\Domain\Utils\DateTimeUtils;
-use App\Shared\Domain\Utils\Uuid;
 use App\Users\Domain\Services\UserFinder;
 use App\Users\Domain\ValueObject\UserId;
 use DateTime;

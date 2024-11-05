@@ -3,7 +3,6 @@
 namespace App\Tests\Fountains\Domain\ValueObject;
 
 use App\Fountains\Domain\ValueObject\FountainProviderName;
-use Faker\Factory;
 
 class FountainProviderNameMother
 {

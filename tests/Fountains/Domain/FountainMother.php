@@ -26,7 +26,6 @@ use App\Tests\Fountains\Domain\ValueObject\FountainProviderUrlMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainSafeWaterMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainTypeMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainUpdatedAtMother;
-use App\Tests\Fountains\Domain\ValueObject\FountainUserIdMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainWebsiteMother;
 
 
@@ -52,10 +51,7 @@ use App\Fountains\Domain\ValueObject\FountainProviderUrl;
 use App\Fountains\Domain\ValueObject\FountainSafeWater;
 use App\Fountains\Domain\ValueObject\FountainType;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
-use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainWebsite;
-use App\Tests\src\Authors\Domain\AuthorMother;
-use App\Tests\src\Authors\Domain\ValueObject\AuthorIdMother;
 use App\Tests\Users\Domain\UserMother;
 use App\Users\Domain\User;
 use App\Users\Domain\ValueObject\UserId;

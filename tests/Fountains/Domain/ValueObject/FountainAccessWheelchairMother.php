@@ -3,7 +3,6 @@
 namespace App\Tests\Fountains\Domain\ValueObject;
 
 use App\Fountains\Domain\ValueObject\FountainAccessWheelchair;
-use App\Shared\Domain\ValueObject\BooleanValueObject;
 use Faker\Factory;
 
 class FountainAccessWheelchairMother 

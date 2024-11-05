@@ -3,7 +3,6 @@
 namespace App\Users\Infrastructure\Controllers;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Shared\Infrastructure\Symfony\Validation\UserLoginConstraints;
 use App\Users\Application\Find\DTO\FindUserRequest;
 
 use App\Users\Application\Find\DTO\FindUserResponse;

@@ -6,7 +6,6 @@ use App\Fountains\Domain\Services\Find\FountainFinder;
 use App\Fountains\Application\Delete\DeleteFountain;
 use App\Fountains\Application\Delete\DTO\DeleteFountainRequest;
 use App\Fountains\Domain\Fountain;
-use App\Fountains\Domain\FountainsFilter;
 use App\Tests\Fountains\Domain\FountainMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainIdMother;
 use App\Tests\Fountains\FountainsUnitTestCase;

@@ -2,10 +2,6 @@
 
 namespace App\Users\Infrastructure\Security;
 
-use App\Users\Domain\User;
-use App\Users\Domain\ValueObject\UserEmail;
-use App\Users\Domain\ValueObject\UserId;
-use App\Users\Domain\ValueObject\UserPassword;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserAdapter implements UserInterface

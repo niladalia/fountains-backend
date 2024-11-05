@@ -7,7 +7,6 @@ use App\Fountains\Application\Create\FountainCreator;
 use App\Shared\Domain\Utils\DateTimeUtils;
 use App\Shared\Domain\Utils\Uuid;
 use App\Shared\Infrastructure\Symfony\ApiController;
-use App\Shared\Infrastructure\Symfony\Validation\FountainConstraints;
 use App\Shared\Infrastructure\Symfony\Validation\FountainCreateConstraints;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

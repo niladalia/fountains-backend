@@ -9,7 +9,6 @@ use App\Users\Domain\Auth\GoogleOAuthClientInterface;
 use App\Users\Domain\UserRepository;
 use App\Users\Domain\ValueObject\UserEmail;
 use App\Users\Domain\ValueObject\UserGoogleAuthCode;
-use App\Users\Domain\ValueObject\UserPassword;
 
 class UserGoogleAuthenticator
 {

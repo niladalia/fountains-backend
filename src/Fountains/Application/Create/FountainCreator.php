@@ -6,7 +6,6 @@ use App\Fountains\Application\Create\DTO\CreateFountainRequest;
 use App\Fountains\Application\Create\Factory\CreateFountainFactory;
 use App\Fountains\Domain\FountainRepository;
 use App\Shared\Domain\Event\EventBus;
-use App\Users\Application\Find\DTO\FindUserRequest;
 use App\Users\Domain\Services\UserFinder;
 use App\Users\Domain\ValueObject\UserId;
 

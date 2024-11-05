@@ -5,8 +5,6 @@ namespace App\Fountains\Domain;
 use App\Fountains\Domain\ValueObject\FountainId;
 use App\Fountains\Domain\ValueObject\FountainLat;
 use App\Fountains\Domain\ValueObject\FountainLong;
-use App\Fountains\Domain\ValueObject\FountainProviderName;
-use App\Fountains\Domain\ValueObject\FountainProviderId;
 use App\Shared\Domain\Repository\DatabaseRepository;
 
 /**

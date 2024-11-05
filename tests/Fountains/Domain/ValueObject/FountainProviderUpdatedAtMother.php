@@ -3,7 +3,6 @@
 namespace App\Tests\Fountains\Domain\ValueObject;
 
 use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
-use Faker\Factory;
 use DateTime;
 
 class FountainProviderUpdatedAtMother

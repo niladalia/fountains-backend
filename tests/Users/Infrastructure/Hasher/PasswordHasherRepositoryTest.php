@@ -2,11 +2,6 @@
 
 namespace App\Tests\Users\Infrastructure\Hasher;
 
-use App\Fountains\Application\Create\FountainCreator;
-use App\Tests\Fountains\Application\Create\DTO\CreateFountainRequestMother;
-use App\Tests\Fountains\Domain\FountainMother;
-use App\Tests\Fountains\FountainsUnitTestCase;
-use App\Tests\Shared\Domain\UuidMother;
 use App\Users\Domain\PasswordHasherRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
