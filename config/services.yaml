@@ -20,17 +20,11 @@ services:
     App\Command\GoogleAuthCommand:
       tags: ['console.command']
 
-    App\Security\ApiKeyAuthenticator:
-        arguments:
-            $appApiToken: '%app.api_token%'
-
     App\Shared\Infrastructure\Symfony\ApiExceptionListener:
         arguments:
             $appEnv: '%app.env%'
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
-
-    #App\Users\Domain\Auth\GoogleOAuthClientInterface: '@App\Users\Infrastructure\Google\GoogleOAuthClient'
 
     App\Users\Domain\PasswordHasherRepository: '@App\Users\Infrastructure\SymfonyPasswordHasher'
 
