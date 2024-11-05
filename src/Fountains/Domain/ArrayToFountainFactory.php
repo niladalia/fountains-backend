@@ -27,6 +27,7 @@ use App\Fountains\Domain\ValueObject\FountainUserId;
 use App\Fountains\Domain\ValueObject\FountainCreatedAt;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
 
+use App\Shared\Domain\Utils\DateTimeUtils;
 use App\Shared\Domain\Utils\Uuid;
 use App\Users\Domain\Services\UserFinder;
 use App\Users\Domain\ValueObject\UserId;
@@ -62,24 +63,11 @@ class ArrayToFountainFactory
             new FountainWebsite($data['website']),
             new FountainProviderName($data['provider_name']),
             new FountainProviderId($data['provider_id']),
-            new FountainProviderUpdatedAt($this->parseDateTime($data['provider_updated_at'])),
+            new FountainProviderUpdatedAt(DateTimeUtils::parseDateTime($data['provider_updated_at'])),
             new FountainProviderUrl($data['provider_url']),
             new FountainCreatedAt(new DateTime($data['created_at'])),
             new FountainUpdatedAt(new DateTime($data['updated_at'])),
             $user
         );
-    }
-
-    private function parseDateTime(?string $dateString): ?DateTime
-    {
-        if ($dateString === null) {
-            return null;
-        }
-
-        try {
-            return new DateTime($dateString);
-        } catch (\Exception $e) {
-            throw new \InvalidArgumentException("Invalid date format for '$dateString'");
-        }
     }
 }
