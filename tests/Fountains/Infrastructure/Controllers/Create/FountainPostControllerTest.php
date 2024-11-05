@@ -1,20 +1,15 @@
 <?php
 
-namespace App\Tests\Fountains\Infrastructure\Controllers;
+namespace App\Tests\Fountains\Infrastructure\Controllers\Create;
 
 use App\Providers\Domain\ProviderRepository;
-use App\Shared\Domain\Event\EventBus;
-use App\Tests\Fountains\Infrastructure\ApiTestCase;
-use App\Tests\Fountains\Infrastructure\Controllers\Create\FountainHttpRequestBuilder;
 use App\Tests\Fountains\Infrastructure\HttpApiTestCase;
 use App\Tests\Users\Domain\UserMother;
-use App\Users\Domain\EventHandler\SendWelcomeEmailHandler;
 use App\Users\Domain\UserRepository;
 use App\Users\Infrastructure\Persistence\Doctrine\Repository\DoctrineUserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use App\Tests\Providers\Domain\ProviderMother;
 use App\Tests\Providers\Domain\ProviderNameMother;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 class FountainPostControllerTest extends HttpApiTestCase
 {
@@ -25,7 +20,6 @@ class FountainPostControllerTest extends HttpApiTestCase
         parent::setUp();
         $this->auth();
         $this->userRepository = static::getContainer()->get(DoctrineUserRepository::class);
-
     }
 
     public function testCreateFountainPost(){
@@ -50,7 +44,6 @@ class FountainPostControllerTest extends HttpApiTestCase
     }
 
     public function testCreateFountainWithProvider(){
-
         $client = $this->client;
 
         $providerName = ProviderNameMother::create("GeoMap");

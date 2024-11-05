@@ -32,7 +32,7 @@ class FountainUpdater
     public function __invoke(UpdateFountainRequest $updateRequest)
     {
         $fountain = $this->fountainFinder->__invoke(
-            FountainId::fromString($updateRequest->id())
+            new FountainId($updateRequest->id())
         );
 
         $fountain->update(

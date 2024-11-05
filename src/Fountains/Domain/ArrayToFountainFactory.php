@@ -40,10 +40,10 @@ class ArrayToFountainFactory
     public function __invoke(array $data): Fountain
     {
         $userId = $data['user_id'];
-        $user = $userId ? $this->finder->__invoke(UserId::fromString($userId)) : null;
+        $user = $userId ? $this->finder->__invoke(new UserId($userId)) : null;
 
         return new Fountain(
-            FountainId::fromString($data['id']),
+            new FountainId($data['id']),
             new FountainLat($data['lat']),
             new FountainLong($data['long']),
             new FountainName($data['name']),

@@ -35,19 +35,17 @@ abstract class CreateFountainFactory
     {
         return self::createFountain(
             $fountainRequest,
-            FountainId::fromString($fountainRequest->id()),
             $user
         );
     }
 
     private static function createFountain(
         FountainRequest $fountainRequest,
-        FountainId $fountainId,
         ?User $user = null
     ): Fountain
     {
         return Fountain::create(
-            $fountainId,
+            new FountainId($fountainRequest->id()),
             new FountainLat($fountainRequest->lat()),
             new FountainLong($fountainRequest->long()),
             new FountainName($fountainRequest->name()),

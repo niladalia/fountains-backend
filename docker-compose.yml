@@ -61,19 +61,6 @@
                 - shared_network
                 - fountains_network
 
-        rabbitmq_test:
-            container_name: rabbitmq_test
-            image: 'rabbitmq:3.10.5-management'
-            restart: unless-stopped
-            ports:
-                - 5673:15672
-            environment:
-                - RABBITMQ_DEFAULT_USER=guest
-                - RABBITMQ_DEFAULT_PASS=guest
-            networks:
-                - shared_network
-                - fountains_network
-
     volumes:
         fountains_database:
 

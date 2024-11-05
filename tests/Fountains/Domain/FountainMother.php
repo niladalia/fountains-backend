@@ -118,7 +118,7 @@ class FountainMother
 
     public static function fromRequest(CreateFountainRequest $request): Fountain
     {
-        $user = $request->user_id() ? UserMother::create(UserId::fromString($request->user_id() )) : null;
+        $user = $request->user_id() ? UserMother::create(new UserId($request->user_id() )) : null;
 
         return self::create(
             FountainIdMother::create($request->id()),

@@ -20,7 +20,7 @@ class FountainFinder
     public function __invoke(FindFountainRequest $findFountainRequest): FountainResponse
     {
         $fountain = $this->finder->__invoke(
-            FountainId::fromString($findFountainRequest->getId())
+            new FountainId($findFountainRequest->getId())
         );
         return  $this->responseConverter->__invoke($fountain);
     }

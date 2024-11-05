@@ -18,7 +18,7 @@ class DeleteFountain
     public function __invoke(DeleteFountainRequest $request): void
     {
         $fountain = $this->finder->__invoke(
-            FountainId::fromString( $request->id() )
+            new FountainId( $request->id() )
         );
 
         $this->fountainRepository->delete($fountain);

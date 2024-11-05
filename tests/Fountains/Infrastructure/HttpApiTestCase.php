@@ -2,7 +2,6 @@
 
 namespace App\Tests\Fountains\Infrastructure;
 
-use App\Authors\Infrastructure\Persistence\DoctrineAuthorRepository;
 use App\Fountains\Application\Create\DTO\CreateFountainRequest;
 use App\Fountains\Application\Create\DTO\FountainRequest;
 use App\Fountains\Application\Create\FountainCreator;

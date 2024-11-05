@@ -15,7 +15,7 @@ class UserFinder
 
     public function __invoke(FindUserRequest $request): FindUserResponse
     {
-        $user = $this->userFinder->__invoke(UserId::fromString($request->id()));
+        $user = $this->userFinder->__invoke(new UserId($request->id()));
 
         return new FindUserResponse(
             $user->id()->getValue(),

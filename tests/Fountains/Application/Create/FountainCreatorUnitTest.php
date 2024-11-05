@@ -44,7 +44,7 @@ class FountainCreatorUnitTest extends FountainsUnitTestCase
 
         $this->userFinder->expects(self::exactly(1))
             ->method('__invoke')
-            ->with(UserId::fromString($user->id()->getValue()))
+            ->with(new UserId($user->id()->getValue()))
             ->willReturn($user);
 
         $this->shouldSave($fountain);

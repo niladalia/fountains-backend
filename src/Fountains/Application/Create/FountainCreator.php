@@ -23,7 +23,7 @@ class FountainCreator
     {
         $userId = $fountainRequest->user_id();
 
-        $user = $userId ? $this->finder->__invoke(UserId::fromString($userId)) : null;
+        $user = $userId ? $this->finder->__invoke(new UserId($userId)) : null;
 
         $fountain = CreateFountainFactory::create($fountainRequest, $user);
 
