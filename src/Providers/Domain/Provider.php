@@ -30,23 +30,9 @@ class Provider extends AggregateRoot
         return $this->name;
     }
 
-    public function setName(ProviderName $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
     public function url(): ProviderUrl
     {
         return $this->url;
-    }
-
-    public function setUrl(ProviderUrl $url): self
-    {
-        $this->url = $url;
-
-        return $this;
     }
 
     public function toArray(): array

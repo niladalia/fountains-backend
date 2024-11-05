@@ -10,6 +10,9 @@ class ProviderFinder
 {
     public function __construct(protected ProviderRepository $providerRepository) { }
 
+    /*
+     * We use name as primary key in provider's table that's why we look for name
+     */
     public function __invoke(ProviderName $providerName): Provider
     {
         return $this->providerRepository->findByName($providerName);
