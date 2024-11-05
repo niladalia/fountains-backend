@@ -22,6 +22,11 @@ class User extends AggregateRoot
         $this->fountains = [];
     }
 
+    /*
+     * Requiring an implementation of DoctrineUniqueEmailSpecification ensures
+     * that a unique email is provided, preventing the creation of Users with
+     * duplicate emails.
+     */
     public static function create(
         UserId $id,
         UserEmail $email,
@@ -43,10 +48,9 @@ class User extends AggregateRoot
                 $user->email()->getValue()
             )
         );
-
         return $user;
-
     }
+
     public function id(): UserId
     {
         return $this->id;

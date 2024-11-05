@@ -21,17 +21,4 @@ abstract class ApiController extends AbstractController
     {
         Validator::validate($data, $constraints);
     }
-
-    protected function parseDateTime(?string $dateString): ?DateTime
-    {
-        if ($dateString === null) {
-            return null;
-        }
-
-        try {
-            return new DateTime($dateString);
-        } catch (\Exception $e) {
-            throw new \InvalidArgumentException("Invalid date format for '$dateString'");
-        }
-    }
 }

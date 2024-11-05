@@ -4,6 +4,7 @@ namespace App\Fountains\Infrastructure\Controllers;
 
 use App\Fountains\Application\Create\DTO\CreateFountainRequest;
 use App\Fountains\Application\Create\FountainCreator;
+use App\Shared\Domain\Utils\DateTimeUtils;
 use App\Shared\Domain\Utils\Uuid;
 use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Shared\Infrastructure\Symfony\Validation\FountainConstraints;
@@ -20,7 +21,7 @@ class FountainsPostController extends ApiController
 
         $this->validateRequest($requestData, $this->constraints());
 
-        $providerUpdatedAt = $this->parseDateTime($requestData['provider_updated_at'] ?? null);
+        $providerUpdatedAt = DateTimeUtils::parseDateTime(($requestData['provider_updated_at'] ?? null));
         $createFountainRequest = new CreateFountainRequest(
             Uuid::generate()->getValue(),
             $requestData['lat'],
