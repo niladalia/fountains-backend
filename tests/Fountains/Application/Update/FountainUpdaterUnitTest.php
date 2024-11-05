@@ -2,7 +2,7 @@
 
 namespace App\Tests\Fountains\Application\Update;
 
-use App\Fountains\Application\Find\FountainFinder;
+use App\Fountains\Domain\Services\Find\FountainFinder;
 use App\Fountains\Application\Update\FountainUpdater;
 use App\Fountains\Domain\Exceptions\FountainNotFound;
 use App\Fountains\Domain\Fountain;
@@ -28,7 +28,7 @@ class FountainUpdaterUnitTest extends FountainsUnitTestCase
         $this->fountainFinder =  $this->createMock(FountainFinder::class);
         $this->userFinder = $this->createMock(UserFinder::class);
 
-        $this->fountainUpdater = new FountainUpdater($this->fountainFinder,$this->userFinder);
+        $this->fountainUpdater = new FountainUpdater($this->fountainFinder,$this->repository());
         // We create a fountain so we can use it as the one we are going to be updating during the tests
         $this->uuid = FountainIdMother::create();
         $this->fountain = FountainMother::create($this->uuid);

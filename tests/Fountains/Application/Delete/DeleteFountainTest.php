@@ -2,7 +2,7 @@
 
 namespace App\Tests\Fountains\Application\Delete;
 
-use App\Fountains\Application\Find\FountainFinder;
+use App\Fountains\Domain\Services\Find\FountainFinder;
 use App\Fountains\Application\Delete\DeleteFountain;
 use App\Fountains\Application\Delete\DTO\DeleteFountainRequest;
 use App\Fountains\Domain\Fountain;

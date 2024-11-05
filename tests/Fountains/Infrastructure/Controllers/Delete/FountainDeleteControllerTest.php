@@ -10,11 +10,13 @@ use App\Tests\Fountains\Domain\ValueObject\FountainIdMother;
 use App\Tests\Fountains\Infrastructure\HttpApiTestCase;
 
 class FountainDeleteControllerTest extends HttpApiTestCase
-{    private FountainId $id;
+{
+    private FountainId $id;
+
     public function setUp(): void
     {
         parent::setUp();
-
+        $this->auth();
         $this->id = FountainIdMother::create();
 
         $this->createFountain(
@@ -36,10 +38,5 @@ class FountainDeleteControllerTest extends HttpApiTestCase
         );
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
-    }
-
-
-    private function providersRepository(): ProviderRepository{
-        return static::getContainer()->get(ProviderRepository::class);
     }
 }

@@ -19,6 +19,9 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class HttpApiTestCase extends WebTestCase
 {
     protected $client;
+    public const DEFAULT_EMAIL = 'test@test.com';
+    public const DEFAULT_PASS = 'TestPass';
+    private ?string $token = null;
 
     public function setUp(): void
     {
@@ -42,9 +45,7 @@ class HttpApiTestCase extends WebTestCase
             $uri,
             [],
             [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-            ],
+            $this->headers(),
             json_encode($data)
         );
     }
@@ -56,11 +57,21 @@ class HttpApiTestCase extends WebTestCase
             $uri,
             [],
             [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-            ],
+            $this->headers(),
             ''
         );
+    }
+
+    private function headers(){
+        $headers = [
+            'CONTENT_TYPE' => 'application/json',
+        ];
+
+        if ($this->token) {
+            $headers['HTTP_Authorization'] = 'Bearer ' . $this->token;
+        }
+
+        return $headers;
     }
 
     protected function clearDatabase(): void
@@ -76,15 +87,32 @@ class HttpApiTestCase extends WebTestCase
      */
     protected function createFountain(Fountain $fountain): void
     {
-
-        $fountainRepository = static::getContainer()->get(DoctrineFountainRepository::class);
-        $fountainRepository->save($fountain);
-       /* $fountainRepository = $this->createMock(FountainRepository::class);
-
-        $fountainCreator = new FountainCreator($fountainRepository);
-
-        $fountainCreator->__invoke($fountainRequest);
-       */
+        $this->repository(DoctrineFountainRepository::class)->save($fountain);
     }
 
+    protected function auth(string $username = self::DEFAULT_EMAIL, string $password = self::DEFAULT_PASS): void
+    {
+        $this->post('/api/auth/register', [
+            'email' => $username ?: self::DEFAULT_EMAIL,
+            'password' => $password ?: self::DEFAULT_PASS,
+            'name' => "name"
+        ]);
+
+        $this->post('/api/auth/login', [
+            'email' => $username ?: self::DEFAULT_EMAIL,
+            'password' => $password ?: self::DEFAULT_PASS,
+        ]);
+
+        /** @var string $content */
+        $content = $this->client->getResponse()->getContent();
+
+        $response = \json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+
+        $this->token = $response['token'];
+    }
+
+    protected function repository(string $class)
+    {
+        return static::getContainer()->get($class);
+    }
 }

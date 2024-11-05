@@ -2,9 +2,9 @@
 
 namespace App\Fountains\Application\Update;
 
-use App\Fountains\Domain\FountainRepository;
-use App\Fountains\Domain\Services\FountainFinder;
 use App\Fountains\Application\Update\DTO\UpdateFountainRequest;
+use App\Fountains\Domain\FountainRepository;
+use App\Fountains\Domain\Services\Find\FountainFinder;
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
 use App\Fountains\Domain\ValueObject\FountainAccess;

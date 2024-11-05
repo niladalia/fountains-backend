@@ -4,15 +4,18 @@ namespace App\Tests\Fountains\Infrastructure\Controllers;
 
 use App\Providers\Domain\ProviderRepository;
 use App\Tests\Fountains\Infrastructure\ApiTestCase;
+use App\Tests\Fountains\Infrastructure\Controllers\Create\FountainHttpRequestBuilder;
+use App\Tests\Fountains\Infrastructure\HttpApiTestCase;
 use App\Tests\Users\Domain\UserMother;
+use App\Users\Domain\EventHandler\SendWelcomeEmailHandler;
 use App\Users\Domain\UserRepository;
 use App\Users\Infrastructure\Persistence\Doctrine\Repository\DoctrineUserRepository;
 use PHPUnit\Framework\Attributes\DataProvider;
 use App\Tests\Providers\Domain\ProviderMother;
 use App\Tests\Providers\Domain\ProviderNameMother;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
+use Symfony\Component\Messenger\MessageBusInterface;
 
-class FountainPostControllerTest extends ApiTestCase
+class FountainPostControllerTest extends HttpApiTestCase
 {
     private UserRepository $userRepository;
 
@@ -31,7 +34,7 @@ class FountainPostControllerTest extends ApiTestCase
 
         $this->userRepository->save($user);
 
-        $request = (new FountainHttpRequestBuilder)
+        $request = (new FountainHttpRequestBuilder())
                     ->setUserRequest()
                     ->setUserId($user->id()->getValue())
                     ->build();
@@ -40,7 +43,7 @@ class FountainPostControllerTest extends ApiTestCase
             '/api/fountains',
             $request
         );
-        var_dump($client->getResponse()->getContent());
+
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
@@ -55,7 +58,7 @@ class FountainPostControllerTest extends ApiTestCase
 
         $providerRep->save($provider);
 
-        $request = (new FountainHttpRequestBuilder)
+        $request = (new FountainHttpRequestBuilder())
             ->setProviderName($providerName->getValue())
             ->setProviderRequest()
             ->build();
@@ -78,7 +81,7 @@ class FountainPostControllerTest extends ApiTestCase
 
         $this->userRepository->save($user);
 
-        $request = (new FountainHttpRequestBuilder)
+        $request = (new FountainHttpRequestBuilder())
             ->setLat($invalidLat)
             ->setUserRequest()
             ->build();
@@ -95,7 +98,7 @@ class FountainPostControllerTest extends ApiTestCase
     public function testCreateFountainWithMissingData(){
         $client = $this->client;
 
-        $request = (new FountainHttpRequestBuilder)
+        $request = (new FountainHttpRequestBuilder())
             ->setUserRequest()
             ->build();
 

@@ -2,10 +2,11 @@
 
 namespace App\Tests\Fountains\Application\Find;
 
+use App\Fountains\Application\Delete\DTO\DeleteFountainRequest;
 use App\Fountains\Application\Find\FountainFinder;
-
+use App\Fountains\Application\Find\FountainResponseFactory;
 use App\Fountains\Domain\Exceptions\FountainNotFound;
-use App\Fountains\Domain\Services\FountainFinder as DomainFinder;
+use App\Fountains\Domain\Services\Find\FountainFinder as DomainFinder;
 use App\Tests\Fountains\Application\Find\DTO\FountainFinderRequestMother;
 use App\Tests\Fountains\Domain\FountainMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainIdMother;
@@ -19,15 +20,17 @@ class FountainFinderTest extends FountainsUnitTestCase
     public function setUp(): void
     {
         $this->domainFountainFinder = $this->createMock(DomainFinder::class);
-
-        $this->finder = new FountainFinder($this->domainFountainFinder);
+        $this->finder = new FountainFinder($this->domainFountainFinder, new FountainResponseFactory());
     }
 
     private function domainFinderShouldFind($id){
+
+        $fountainId = FountainIdMother::create($id);
+
         return $this->domainFountainFinder
             ->expects($this->once())
             ->method('__invoke')
-            ->with($id);
+            ->with($fountainId);
     }
 
 
@@ -36,13 +39,14 @@ class FountainFinderTest extends FountainsUnitTestCase
 
         $uuid = FountainIdMother::create();
         $fountain = FountainMother::create($uuid);
+        $fountainRequest = FountainFinderRequestMother::create($uuid->getValue());
 
         $this->domainFinderShouldFind($uuid)->willReturn($fountain);
 
-        $fountainFound = $this->finder->__invoke($uuid);
+        $fountainFound = $this->finder->__invoke($fountainRequest);
 
-        $this->assertEquals($fountainFound->name(), $fountain->name());
-        $this->assertEquals($fountainFound->id(), $fountain->id());
+        $this->assertEquals($fountainFound->data()['name'], $fountain->name());
+        $this->assertEquals($fountainFound->data()['id'], $fountain->id());
     }
 
 
