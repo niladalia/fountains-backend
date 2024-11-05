@@ -2,12 +2,11 @@
 
 namespace App\Providers\Infrastructure\Controllers;
 
+use App\Providers\Application\Create\DTO\CreateProviderRequest;
+use App\Providers\Application\Create\DTO\CreateProviderResponse;
 use App\Providers\Application\Create\ProviderCreator;
-use App\Providers\Application\Create\CreateProviderRequest;
-
 use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Shared\Infrastructure\Symfony\Validation\ProviderConstraints;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -25,9 +24,10 @@ class ProvidersPostController extends ApiController
             $requestData['url']
         );
 
-        $created = $providerCreator->createIfNotExists($providerRequest);
+        /** @var CreateProviderResponse $created */
+        $creatorResponse = $providerCreator->__invoke($providerRequest);
 
-        return new Response('', $created ? Response::HTTP_CREATED : Response::HTTP_OK);
+        return new Response('', $creatorResponse->isCreated() ? Response::HTTP_CREATED : Response::HTTP_OK);
     }
 
     protected function constraints(): Assert\Collection

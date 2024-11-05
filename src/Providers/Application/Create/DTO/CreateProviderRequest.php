@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\Application\Create;
+namespace App\Providers\Application\Create\DTO;
 
 class CreateProviderRequest
 {
