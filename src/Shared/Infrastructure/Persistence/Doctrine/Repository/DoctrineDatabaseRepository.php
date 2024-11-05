@@ -40,52 +40,9 @@ abstract class DoctrineDatabaseRepository extends ServiceEntityRepository implem
         $em->clear();
     }
 
-    public function startTransaction(): void
-    {
-        $this->getEntityManager()->beginTransaction();
-    }
-
-    public function endTransaction(): void
-    {
-        $this->getEntityManager()->commit();
-    }
-
     public function rollback(): void
     {
         $this->getEntityManager()->rollback();
-    }
-
-    public function runInTransaction(callable $f): void
-    {
-        $this->getEntityManager()->wrapInTransaction($f);
-    }
-
-    public function processInBatches(array $items, callable $process, int $batchSize = 100, ?callable $onApply = null): void
-    {
-        $apply = function() use ($onApply) {
-            $this->apply();
-
-            if ($onApply !== null) {
-                $onApply();
-            }
-        };
-
-        $this->runInTransaction(function() use ($items, $process, $batchSize, $apply) {
-            $count = 0;
-
-            foreach ($items as $item) {
-                $process($item);
-
-                $count++;
-
-                if ($count % $batchSize === 0) {
-                    // Apply changes to the database periodically
-                    $apply();
-                }
-            }
-
-            $apply(); // Apply remaining changes
-        });
     }
 
     protected function getConnection(): Connection
