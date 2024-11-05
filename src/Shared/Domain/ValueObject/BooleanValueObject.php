@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
-abstract class BooleanValueObject extends ValueObject
+abstract class BooleanValueObject
 {
-    public function __construct(?bool $value = null)
-    {
-        parent::__construct($value);
-    }
+    public function __construct(protected ?bool $value = null) {}
 
     public function getValue(): ?bool
     {

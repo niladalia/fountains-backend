@@ -6,12 +6,9 @@ namespace App\Shared\Domain\ValueObject;
 
 use DateTime;
 
-abstract class DateTimeValueObject extends ValueObject
+abstract class DateTimeValueObject
 {
-    public function __construct(?DateTime $value = null)
-    {
-        parent::__construct($value);
-    }
+    public function __construct(protected ?DateTime $value = null) {}
 
     public function getValue(): ?DateTime
     {

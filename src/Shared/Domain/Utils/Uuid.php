@@ -10,17 +10,13 @@ use Stringable;
 
 class Uuid implements Stringable
 {
-    protected function __construct(protected string $value)
+    public function __construct(protected string $value)
     {
-        /*
-          This class is trusted,
-          to improve performance do not validate when using a protected constructor.
-        */
+        $this->ensureIsValidUuid($value);
     }
 
     public static final function fromString(string $value): static
     {
-        // value is not trusted, so validate here
         $uuid = new static($value);
         static::ensureIsValidUuid($uuid->value);
         return $uuid;
@@ -28,7 +24,6 @@ class Uuid implements Stringable
 
     public static function generate(): static
     {
-        // RamseyUuid::uuid4 is a valid Uuid, so call constructor without validation
         return new static(RamseyUuid::uuid4()->toString());
     }
 

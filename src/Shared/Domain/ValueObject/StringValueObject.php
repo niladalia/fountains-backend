@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
-abstract class StringValueObject extends ValueObject implements \Stringable
+abstract class StringValueObject implements \Stringable
 {
-    public function __construct(?string $value = null)
-    {
-        parent::__construct($value);
-    }
+    public function __construct(protected ?string $value = null) {}
 
     public function getValue(): ?string
     {
