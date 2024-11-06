@@ -30,11 +30,21 @@ This backend supports a smartphone app that helps users find nearby public fount
 2. Run migrations :
 
         make run-migrations
+3. Generate keys
 
-3. Access http://localhost:83/api/fountains to check everything is working.
+        mkdir -p config/jwt
+
+        openssl genpkey -algorithm RSA -out config/jwt/private.pem -pkeyopt rsa_keygen_bits:2048
+
+        openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+        
+        chmod -R 777 config/jwt/
+
+
+3. Access XXXX to check everything is working.
 
 ###  Tests
 
 1. Execute Phpunit and Behat tests:
 
-        make run-tests
+        make run-test
