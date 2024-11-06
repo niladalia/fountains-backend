@@ -20,12 +20,12 @@ This backend supports a smartphone app that helps users find nearby public fount
 
 1. Create a local .env file
 
-        cp .env .env.local .env.test
+       cp .env .env.local && cp .env .env.test
 ### Project setup
 
 1. Install all dependencies :
 
-        make build-project
+        make build
 
 2. Run migrations :
 

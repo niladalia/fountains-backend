@@ -17,8 +17,8 @@ services:
             - '../src/AggregateRoot/'
             - '../src/Kernel.php'
 
-    App\Command\GoogleAuthCommand:
-      tags: ['console.command']
+ #   App\Command\GoogleAuthCommand:
+ #     tags: ['console.command']
 
     App\Shared\Infrastructure\Symfony\ApiExceptionListener:
         arguments:
