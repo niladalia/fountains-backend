@@ -1,139 +1,40 @@
 # Fountains Backend
+<p align="center">
+This backend supports a smartphone app that helps users find nearby public fountains. The app is interactive, allowing users to create, edit, comment on, and rate fountain listings, building a community-driven directory. The project is built with Domain-Driven Design (DDD) principles and follows a Hexagonal architecture for flexibility and maintainability.
+</p>
 
-## Install
+## Installation and configuration
 
-### [Setup environment](https://symfony.com/doc/current/configuration.html#configuration-based-on-environment-variables)
+### Clone repository
 
-```sh
-cp .env .env.local
-```
+1. Clone this project into a machine with
+   Docker installed
 
-- Edit `APP_ENV` to [select active environment](https://symfony.com/doc/current/configuration.html#selecting-the-active-environment) (`dev` or `prod`)
-- Edit [other values](https://symfony.com/doc/current/configuration.html#overriding-environment-values-via-env-local) as needed
+       git clone https://github.com/niladalia/fountains-backend.git
 
-#### Regenerate `APP_SECRET`
+2. Move to the project folder:
 
-```sh
-php bin/console regenerate-app-secret
+        cd fountains-backend
 
-# Docker
-docker exec -it fountains_php php bin/console regenerate-app-secret
-```
+### Environment configuration
 
-## Run
+1. Create a local .env file
 
-Run docker containers (php server, nginx, database...) with [docker compose](https://docs.docker.com/compose/install/)
+        cp .env .env.local .env.test
+### Project setup
 
-```sh
-make build-project
-```
+1. Install all dependencies :
 
-To execute migrations (first time or with new migrations):
+        make build-project
 
-```sh
-make run-migrations # input yes
-```
+2. Run migrations :
 
-**Endpoint**: http://localhost:8000/api/fountains
+        make run-migrations
 
-Port configurable with `NGINX_PORT` in `.env.local`
+3. Access http://localhost:83/api/fountains to check everything is working.
 
-To stop all containers:
+###  Tests
 
-```sh
-make stop-project
-```
+1. Execute Phpunit and Behat tests:
 
-To start again all containers:
-
-```sh
-make start-project
-```
-
-To restart containers:
-
-```sh
-make restart-project
-```
-
-To delete all containers:
-
-```sh
-docker compose down
-docker compose down --rmi all # This also removes fountains-back images
-```
-
-To also delete database and other data volumes:
-
-```sh
-docker compose down --volumes --remove-orphans  # CAUTION (!) This deletes all data!
-
-docker system prune -a # This removes unused images and containers (to clear storage)
-```
-
-### Debugging
-
-```sh
-# See container logs
-docker logs -f -t --tail 1000 fountains_php
-docker logs -f -t --tail 1000 fountains_db
-docker logs -f -t --tail 1000 fountains_nginx
-
-# See merged docker-compose.yml variables
-docker compose --env-file .env --env-file .env.local config
-
-# Log in to the database
-docker exec -it fountains_db bash
-PGPASSWORD=$POSTGRES_PASSWORD psql -U $POSTGRES_USER -d $POSTGRES_DB
-```
-
-#### Migrations
-
-```sh
-# Show current migrations
-make list-migrations
-make status-migrations
-
-# Revert up to a specific migration
-docker exec -it fountains_php php bin/console doctrine:migrations:migrate DoctrineMigrations\\Version20240613092837
-
-# Undo specific migration only
-docker exec -it fountains_php php bin/console doctrine:migrations:execute --down DoctrineMigrations\\Version20240613092837
-
-# Undo all migrations
-docker exec -it fountains_php php bin/console doctrine:migrations:migrate 0
-```
-
-#### SQL
-
-Useful queries for debugging:
-
-```sql
--- Count fountains
-SELECT COUNT(*) FROM fountains;
-
--- Last updated fountains
-SELECT * FROM fountains ORDER BY updated_at DESC LIMIT 5;
-
--- Get one fountain by provider id
-SELECT * FROM fountains WHERE provider_name = 'OpenStreetMap' AND provider_id = 'node:430607924';
-
--- Database size
-SELECT
-  pg_database.datname AS database_name,
-  pg_size_pretty(pg_database_size(pg_database.datname)) AS database_size
-FROM
-  pg_database
-WHERE
-  pg_database.datname = current_database();
-
--- Index size
-SELECT
-  indexrelname AS indexname,
-  pg_size_pretty(pg_relation_size(indexrelid)) AS index_size,
-  pg_size_pretty(pg_total_relation_size(indexrelid)) AS total_index_size
-FROM         
-  pg_stat_user_indexes
-WHERE                                      
-  schemaname = 'public';
-```
+        make run-tests
