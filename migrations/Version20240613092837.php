@@ -64,7 +64,7 @@ final class Version20240613092837 extends AbstractMigration
                 )
             );
         ");
-        
+
         $this->addSql("CREATE INDEX idx_fountains_geom ON fountains USING GIST((geo_point::geometry));"); // bbox
         $this->addSql("CREATE INDEX idx_fountains_geo_point ON fountains USING GIST(geo_point);"); // radius
     }
