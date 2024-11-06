@@ -30,6 +30,9 @@ This backend supports a smartphone app that helps users find nearby public fount
 2. Run migrations :
 
         make run-migrations
+
+        make prepare-test-db
+
 3. Generate keys
 
         mkdir -p config/jwt
