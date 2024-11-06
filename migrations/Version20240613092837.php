@@ -66,7 +66,7 @@ final class Version20240613092837 extends AbstractMigration
         ");
 
         $this->addSql('
-            ALTER TABLE your_table_name
+            ALTER TABLE fountains
             ALTER COLUMN provider_updated_at DROP NOT NULL;'
         );
 
