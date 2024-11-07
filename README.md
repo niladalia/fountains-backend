@@ -23,15 +23,9 @@ This backend supports a smartphone app that helps users find nearby public fount
        cp .env .env.local && cp .env .env.test
 ### Project setup
 
-1. Install all dependencies :
+1. Install all dependencies and prepare DB :
 
         make build
-
-2. Run migrations :
-
-        make run-migrations
-
-        make prepare-test-db
 
 3. Generate keys
 

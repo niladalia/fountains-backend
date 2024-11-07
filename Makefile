@@ -1,6 +1,8 @@
 build:
 	docker compose --env-file .env --env-file .env.local up --build -d
 	docker exec -it fountains_app_php composer install
+	make run-migrations
+	make prepare-test-db
 
 start:
 	docker compose --env-file .env --env-file .env.local up -d
