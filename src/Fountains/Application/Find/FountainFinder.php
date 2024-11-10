@@ -9,18 +9,15 @@ use App\Fountains\Domain\ValueObject\FountainId;
 
 class FountainFinder
 {
-
-
     public function __construct(
         private DomainFountainFinder $finder,
-        private FountainResponseFactory $responseConverter
-    )
-    { }
+        private FountainResponseFactory $responseConverter,
+    ) {}
 
     public function __invoke(FindFountainRequest $findFountainRequest): FountainResponse
     {
         $fountain = $this->finder->__invoke(
-            new FountainId($findFountainRequest->getId())
+            new FountainId($findFountainRequest->getId()),
         );
         return  $this->responseConverter->__invoke($fountain);
     }

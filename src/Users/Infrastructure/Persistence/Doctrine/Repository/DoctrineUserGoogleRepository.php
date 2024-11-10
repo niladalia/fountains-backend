@@ -7,7 +7,6 @@ use App\Users\Domain\UserGoogleRepository;
 
 class DoctrineUserGoogleRepository extends DoctrineDatabaseRepository implements UserGoogleRepository
 {
-
     public function saveGoogleAccount(string $userId, string $googleId): void
     {
         $connection = $this->entityManager->getConnection();

@@ -7,10 +7,8 @@ class GoogleUserDTO
     public function __construct(
         private string $googleId,
         private string $email,
-        private string $name
-
-    )
-    { }
+        private string $name,
+    ) {}
 
     public function googleId(): string
     {
@@ -22,7 +20,8 @@ class GoogleUserDTO
         return $this->name;
     }
 
-    public function email(): string{
+    public function email(): string
+    {
         return $this->email;
     }
 }

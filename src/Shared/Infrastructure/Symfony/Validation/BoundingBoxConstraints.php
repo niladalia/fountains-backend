@@ -10,7 +10,7 @@ class BoundingBoxConstraints extends ValidationConstraints
             'south_lat' => CoordinatesConstraints::latitude(),
             'west_long' => CoordinatesConstraints::longitude(),
             'north_lat' => CoordinatesConstraints::latitude(),
-            'east_long' => CoordinatesConstraints::longitude()
+            'east_long' => CoordinatesConstraints::longitude(),
         ];
     }
 }

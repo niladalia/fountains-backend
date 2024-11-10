@@ -17,8 +17,8 @@ class User extends AggregateRoot
     public function __construct(
         private UserId $id,
         private UserEmail $email,
-        private UserPassword $password
-    ){
+        private UserPassword $password,
+    ) {
         $this->fountains = [];
     }
 
@@ -31,22 +31,21 @@ class User extends AggregateRoot
         UserId $id,
         UserEmail $email,
         UserPassword $password,
-        DoctrineUniqueEmailSpecification $uniqueEmailSpecification
-    )
-    {
+        DoctrineUniqueEmailSpecification $uniqueEmailSpecification,
+    ) {
         $uniqueEmailSpecification->checkUnique($email);
 
         $user =  new self(
             $id,
             $email,
-            $password
+            $password,
         );
 
         $user->addDomainEvent(
             new UserCreatedDomainEvent(
                 $user->id()->getValue(),
-                $user->email()->getValue()
-            )
+                $user->email()->getValue(),
+            ),
         );
         return $user;
     }
@@ -76,7 +75,7 @@ class User extends AggregateRoot
         return [
             "id" => $this->id()->getValue(),
             "email" => $this->email()->getValue(),
-            "fountains" => $this->fountains()->toSmallArray()
+            "fountains" => $this->fountains()->toSmallArray(),
         ];
     }
 }

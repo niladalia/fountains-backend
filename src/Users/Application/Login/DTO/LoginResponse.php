@@ -6,9 +6,8 @@ class LoginResponse
 {
     public function __construct(
         private string $id,
-        private string $email
-    )
-    { }
+        private string $email,
+    ) {}
 
     public function email(): string
     {

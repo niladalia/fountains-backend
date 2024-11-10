@@ -44,11 +44,10 @@ class FountainsFilterRequestBuilder
 
     public function build(): FountainsFilterRequest
     {
-        return new FountainsFilterRequest
-        (
+        return new FountainsFilterRequest(
             $this->limit,
             $this->offset,
-            $this->boundingBoxFilter
+            $this->boundingBoxFilter,
         );
     }
 }

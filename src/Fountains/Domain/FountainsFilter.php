@@ -2,14 +2,13 @@
 
 namespace App\Fountains\Domain;
 
-
 class FountainsFilter
 {
     public function __construct(
         private ?int $limit = null,
         private ?int $offset = null,
-        private ?BoundingBox $boundingBox = null
-    ) { }
+        private ?BoundingBox $boundingBox = null,
+    ) {}
 
     public function limit(): ?int
     {

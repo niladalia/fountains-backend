@@ -17,7 +17,7 @@ class FountainCreatedDomainEventMother
             $aggregateId,
             $lat,
             $long,
-            $name
+            $name,
         );
     }
 
@@ -27,7 +27,7 @@ class FountainCreatedDomainEventMother
             $fountain->id()->getValue(),
             $fountain->lat()->getValue(),
             $fountain->long()->getValue(),
-            $fountain->name()->getValue()
+            $fountain->name()->getValue(),
         );
     }
 }

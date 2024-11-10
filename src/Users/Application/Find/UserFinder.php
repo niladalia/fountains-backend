@@ -9,9 +9,7 @@ use App\Users\Domain\ValueObject\UserId;
 
 class UserFinder
 {
-    public function __construct(private DomainUserFinder $userFinder)
-    {
-    }
+    public function __construct(private DomainUserFinder $userFinder) {}
 
     public function __invoke(FindUserRequest $request): FindUserResponse
     {
@@ -20,7 +18,7 @@ class UserFinder
         return new FindUserResponse(
             $user->id()->getValue(),
             $user->email()->getValue(),
-            $user->fountains()->toSmallArray()
+            $user->fountains()->toSmallArray(),
         );
     }
 }

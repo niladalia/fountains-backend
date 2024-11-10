@@ -12,7 +12,8 @@ class FountainProviderIdMother
         return new FountainProviderId($value);
     }
 
-    public static function generate(){
+    public static function generate()
+    {
 
         return self::create(Factory::create()->text(50));
 

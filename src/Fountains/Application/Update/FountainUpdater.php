@@ -26,13 +26,13 @@ class FountainUpdater
 {
     public function __construct(
         private FountainFinder $fountainFinder,
-        private FountainRepository $repository
-    ) { }
+        private FountainRepository $repository,
+    ) {}
 
     public function __invoke(UpdateFountainRequest $updateRequest)
     {
         $fountain = $this->fountainFinder->__invoke(
-            new FountainId($updateRequest->id())
+            new FountainId($updateRequest->id()),
         );
 
         $fountain->update(
@@ -50,7 +50,7 @@ class FountainUpdater
             new FountainAccessWheelchair($updateRequest->access_wheelchair()),
             $updateRequest->access() !== null ? FountainAccess::fromString($updateRequest->access()) : $fountain->access(),
             new FountainFee($updateRequest->fee()),
-            new FountainAddress($updateRequest->address())
+            new FountainAddress($updateRequest->address()),
         );
 
         $this->repository->save($fountain);

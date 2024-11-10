@@ -9,16 +9,15 @@ use App\Fountains\Domain\ValueObject\FountainId;
 
 class DeleteFountain
 {
-
     public function __construct(
         private FountainRepository $fountainRepository,
-        private FountainFinder $finder
+        private FountainFinder $finder,
     ) {}
 
     public function __invoke(DeleteFountainRequest $request): void
     {
         $fountain = $this->finder->__invoke(
-            new FountainId( $request->id() )
+            new FountainId($request->id()),
         );
 
         $this->fountainRepository->delete($fountain);

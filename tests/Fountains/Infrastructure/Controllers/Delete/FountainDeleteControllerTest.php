@@ -19,20 +19,21 @@ class FountainDeleteControllerTest extends HttpApiTestCase
 
         $this->createFountain(
             FountainMother::create(
-                $this->id
-            )
+                $this->id,
+            ),
         );
 
     }
 
-    public function testDeleteFountain(){
+    public function testDeleteFountain()
+    {
 
         $id =  $this->id->getValue();
 
         $client = $this->client;
 
         $this->delete(
-            "/api/$id/fountain"
+            "/api/$id/fountain",
         );
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());

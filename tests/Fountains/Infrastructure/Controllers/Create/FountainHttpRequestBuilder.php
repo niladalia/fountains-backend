@@ -176,12 +176,14 @@ class FountainHttpRequestBuilder
         return $this;
     }
 
-    public function setUserRequest(){
+    public function setUserRequest()
+    {
         $this->userRequest = true;
         return $this;
     }
 
-    public function setProviderRequest(){
+    public function setProviderRequest()
+    {
         $this->providerRequest = true;
         return $this;
     }
@@ -226,7 +228,7 @@ class FountainHttpRequestBuilder
             "provider_id" => $this->provider_id,
             "provider_updated_at" => $this->provider_updated_at,
             "provider_url" => $this->provider_url,
-            "user_id" => $this->user_id
+            "user_id" => $this->user_id,
         ];
     }
 }

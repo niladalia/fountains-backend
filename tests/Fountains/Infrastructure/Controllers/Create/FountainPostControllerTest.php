@@ -22,7 +22,8 @@ class FountainPostControllerTest extends HttpApiTestCase
         $this->userRepository = static::getContainer()->get(DoctrineUserRepository::class);
     }
 
-    public function testCreateFountainPost(){
+    public function testCreateFountainPost()
+    {
 
         $client = $this->client;
 
@@ -37,13 +38,14 @@ class FountainPostControllerTest extends HttpApiTestCase
 
         $this->post(
             '/api/fountains',
-            $request
+            $request,
         );
 
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
 
-    public function testCreateFountainWithProvider(){
+    public function testCreateFountainWithProvider()
+    {
         $client = $this->client;
 
         $providerName = ProviderNameMother::create("GeoMap");
@@ -61,7 +63,7 @@ class FountainPostControllerTest extends HttpApiTestCase
 
         $this->post(
             '/api/fountains',
-            $request
+            $request,
         );
 
 
@@ -69,7 +71,8 @@ class FountainPostControllerTest extends HttpApiTestCase
     }
 
     #[DataProvider('invalidLatitudesProvider')]
-    public function testCreateFountainWithInvalidData($invalidLat){
+    public function testCreateFountainWithInvalidData($invalidLat)
+    {
         $client = $this->client;
 
         $user = UserMother::create();
@@ -84,13 +87,14 @@ class FountainPostControllerTest extends HttpApiTestCase
 
         $this->post(
             '/api/fountains',
-            $request
+            $request,
         );
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 
-    public function testCreateFountainWithMissingData(){
+    public function testCreateFountainWithMissingData()
+    {
         $client = $this->client;
 
         $request = (new FountainHttpRequestBuilder())
@@ -101,7 +105,7 @@ class FountainPostControllerTest extends HttpApiTestCase
 
         $this->post(
             '/api/fountains',
-            $request
+            $request,
         );
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
@@ -114,12 +118,13 @@ class FountainPostControllerTest extends HttpApiTestCase
             ['abc'],
             [111.1],
             ['1b2b1'],
-            [-90.1]
+            [-90.1],
 
         ];
     }
 
-    private function providersRepository(): ProviderRepository{
+    private function providersRepository(): ProviderRepository
+    {
         return static::getContainer()->get(ProviderRepository::class);
     }
 }

@@ -4,7 +4,7 @@ namespace App\Tests\Fountains\Domain\ValueObject;
 
 use App\Fountains\Domain\ValueObject\FountainType;
 
-enum FountainTypeMother : string
+enum FountainTypeMother: string
 {
     case NATURAL = 'natural';
     case TAP_WATER = 'tap_water';

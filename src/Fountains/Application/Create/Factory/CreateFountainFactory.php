@@ -30,20 +30,18 @@ use App\Users\Domain\User;
 
 abstract class CreateFountainFactory
 {
-
     public static function create(CreateFountainRequest $fountainRequest, ?User $user = null): Fountain
     {
         return self::createFountain(
             $fountainRequest,
-            $user
+            $user,
         );
     }
 
     private static function createFountain(
         FountainRequest $fountainRequest,
-        ?User $user = null
-    ): Fountain
-    {
+        ?User $user = null,
+    ): Fountain {
         return Fountain::create(
             new FountainId($fountainRequest->id()),
             new FountainLat($fountainRequest->lat()),
@@ -66,7 +64,7 @@ abstract class CreateFountainFactory
             new FountainProviderId($fountainRequest->provider_id()),
             new FountainProviderUpdatedAt($fountainRequest->provider_updated_at()),
             new FountainProviderUrl($fountainRequest->provider_url()),
-            $user
+            $user,
         );
     }
 }

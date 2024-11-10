@@ -35,7 +35,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
     {
         return $this->findOneBy([
             'lat.value' => $lat->getValue(),
-            'long.value' => $long->getValue()
+            'long.value' => $long->getValue(),
         ]);
     }
 
@@ -44,7 +44,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         $findFountainsByFilter = new FindFountainsByFilter($this->getConnection());
 
         return $this->executeFountainsQuery(
-            $findFountainsByFilter->filter($filter)
+            $findFountainsByFilter->filter($filter),
         );
     }
 
@@ -53,7 +53,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         $findFountainsByRadius = new FindFountainsByRadius($this->getConnection());
 
         return $this->executeFountainsQuery(
-            $findFountainsByRadius->filter($radiusFilter)
+            $findFountainsByRadius->filter($radiusFilter),
         );
     }
 
@@ -62,7 +62,7 @@ class DoctrineFountainRepository extends DoctrineDatabaseRepository implements F
         $findFountainsByBoundingBox = new FindFountainsByBoundingBox($this->getConnection());
 
         return $this->executeFountainsQuery(
-            $findFountainsByBoundingBox->filter($boundingBox)
+            $findFountainsByBoundingBox->filter($boundingBox),
         );
     }
 

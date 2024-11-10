@@ -26,11 +26,10 @@ class FountainResponse
         private ?string $provider_id,
         private ?string $provider_updated_at,
         private ?string $provider_url,
-        private ?string $userId
-    )
-    { }
+        private ?string $userId,
+    ) {}
 
-    public function data():array
+    public function data(): array
     {
         return [
             'id' => $this->id,
@@ -54,7 +53,7 @@ class FountainResponse
             'provider_id' => $this->provider_id,
             'provider_updated_at' => $this->provider_updated_at,
             'provider_url' => $this->provider_url,
-            'userId' => $this->userId
+            'userId' => $this->userId,
         ];
     }
 }

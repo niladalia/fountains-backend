@@ -9,6 +9,6 @@ class FountainIdMother
 {
     public static function create(?string $value = null): FountainId
     {
-        return new FountainId($value ? Uuid::fromString($value) :  Uuid::generate());
+        return new FountainId($value ? Uuid::fromString($value) : Uuid::generate());
     }
 }

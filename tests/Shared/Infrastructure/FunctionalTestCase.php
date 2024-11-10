@@ -2,7 +2,4 @@
 
 namespace App\Tests\Shared\Infrastructure;
 
-class FunctionalTestCase
-{
-
-}
+class FunctionalTestCase {}

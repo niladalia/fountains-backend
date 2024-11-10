@@ -2,7 +2,6 @@
 
 namespace App\Fountains\Application\Create\DTO;
 
-
 abstract class FountainRequest
 {
     public function __construct(
@@ -21,7 +20,7 @@ abstract class FountainRequest
         private ?bool $access_wheelchair = null,
         private ?string $access = null,
         private ?bool $fee = null,
-        private ?string $address = null
+        private ?string $address = null,
     ) {}
 
     public function id(): string

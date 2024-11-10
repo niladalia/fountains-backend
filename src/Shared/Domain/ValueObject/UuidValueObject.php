@@ -6,4 +6,4 @@ namespace App\Shared\Domain\ValueObject;
 
 use App\Shared\Domain\Utils\Uuid;
 
-class UuidValueObject extends Uuid implements \Stringable { }
+class UuidValueObject extends Uuid implements \Stringable {}

@@ -27,8 +27,6 @@ use App\Tests\Fountains\Domain\ValueObject\FountainSafeWaterMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainTypeMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainUpdatedAtMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainWebsiteMother;
-
-
 use App\Fountains\Domain\ValueObject\FountainAccesBottles;
 use App\Fountains\Domain\ValueObject\FountainAccesPets;
 use App\Fountains\Domain\ValueObject\FountainAccess;
@@ -59,30 +57,30 @@ use App\Users\Domain\ValueObject\UserId;
 class FountainMother
 {
     public static function create(
-         ?FountainId                $id = null,
-         ?FountainLat               $lat = null,
-         ?FountainLong              $long = null,
-         ?FountainName              $name = null,
-         ?FountainType              $type = null,
-         ?FountainPicture           $picture = null,
-         ?FountainDescription       $description = null,
-         ?FountainOperationalStatus $operational_status = null,
-         ?FountainSafeWater         $safe_water = null,
-         ?FountainLegalWater        $legal_water = null,
-         ?FountainAccesBottles      $access_bottles = null,
-         ?FountainAccesPets         $access_pets = null,
-         ?FountainAccessWheelchair  $access_wheelchair = null,
-         ?FountainAccess            $access = null,
-         ?FountainFee               $fee = null,
-         ?FountainAddress           $address = null,
-         ?FountainWebsite           $website = null,
-         ?FountainProviderName      $provider_name = null,
-         ?FountainProviderId        $provider_id = null,
-         ?FountainProviderUpdatedAt $provider_updated_at = null,
-         ?FountainProviderUrl       $provider_url = null,
-         ?FountainCreatedAt         $created_at = null,
-         ?FountainUpdatedAt         $updated_a = null,
-         ?User                      $user = null,
+        ?FountainId                $id = null,
+        ?FountainLat               $lat = null,
+        ?FountainLong              $long = null,
+        ?FountainName              $name = null,
+        ?FountainType              $type = null,
+        ?FountainPicture           $picture = null,
+        ?FountainDescription       $description = null,
+        ?FountainOperationalStatus $operational_status = null,
+        ?FountainSafeWater         $safe_water = null,
+        ?FountainLegalWater        $legal_water = null,
+        ?FountainAccesBottles      $access_bottles = null,
+        ?FountainAccesPets         $access_pets = null,
+        ?FountainAccessWheelchair  $access_wheelchair = null,
+        ?FountainAccess            $access = null,
+        ?FountainFee               $fee = null,
+        ?FountainAddress           $address = null,
+        ?FountainWebsite           $website = null,
+        ?FountainProviderName      $provider_name = null,
+        ?FountainProviderId        $provider_id = null,
+        ?FountainProviderUpdatedAt $provider_updated_at = null,
+        ?FountainProviderUrl       $provider_url = null,
+        ?FountainCreatedAt         $created_at = null,
+        ?FountainUpdatedAt         $updated_a = null,
+        ?User                      $user = null,
     ): Fountain {
         return new Fountain(
             $id ?? FountainIdMother::create(),
@@ -108,13 +106,13 @@ class FountainMother
             $provider_url ?? FountainProviderUrlMother::create(),
             $created_at ?? FountainCreatedAtMother::create(),
             $updated_at ?? FountainUpdatedAtMother::create(),
-            $user
+            $user,
         );
     }
 
     public static function fromRequest(CreateFountainRequest $request): Fountain
     {
-        $user = $request->user_id() ? UserMother::create(new UserId($request->user_id() )) : null;
+        $user = $request->user_id() ? UserMother::create(new UserId($request->user_id())) : null;
 
         return self::create(
             FountainIdMother::create($request->id()),
@@ -140,7 +138,7 @@ class FountainMother
             FountainProviderUrlMother::create($request->provider_url()),
             FountainCreatedAtMother::create(),
             FountainUpdatedAtMother::create(),
-            $user
+            $user,
         );
     }
 

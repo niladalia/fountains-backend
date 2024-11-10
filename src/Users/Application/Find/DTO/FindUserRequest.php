@@ -5,9 +5,8 @@ namespace App\Users\Application\Find\DTO;
 class FindUserRequest
 {
     public function __construct(
-        private string $id
-    )
-    { }
+        private string $id,
+    ) {}
 
     public function id(): string
     {

@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-enum FountainLegalWater : string
+enum FountainLegalWater: string
 {
     case TREATED = 'treated';
     case UNTREATED = 'untreated';

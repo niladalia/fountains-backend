@@ -33,13 +33,13 @@ class DeleteFountainTest extends FountainsUnitTestCase
               ->with($id)
               ->willReturn($fountain);
 
-          $this->shouldDelete($fountain);
+        $this->shouldDelete($fountain);
 
-               $this->deleter->__invoke(
-              new DeleteFountainRequest(
-                  $id->getValue()
-              )
-          );
+        $this->deleter->__invoke(
+            new DeleteFountainRequest(
+                $id->getValue(),
+            ),
+        );
 
         $this->assertNull($this->repository()->findById($id));
     }
@@ -51,6 +51,6 @@ class DeleteFountainTest extends FountainsUnitTestCase
         $this->repository()
             ->expects(self::once())
             ->method('delete')
-            ->with($this->isSimilar($fountain, ['created_at','updated_at']));
+            ->with($this->isSimilar($fountain, ['created_at', 'updated_at']));
     }
 }

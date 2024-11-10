@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-enum FountainAccess : string
+enum FountainAccess: string
 {
     case YES = 'yes';
     case PERMISSIVE = 'permissive';

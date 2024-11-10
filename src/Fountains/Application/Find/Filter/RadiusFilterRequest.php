@@ -5,10 +5,10 @@ namespace App\Fountains\Application\Find\Filter;
 class RadiusFilterRequest
 {
     public function __construct(
-      private float $lat,
-      private float $long,
-      private float $radius
-    ) { }
+        private float $lat,
+        private float $long,
+        private float $radius,
+    ) {}
 
     public function lat(): float
     {

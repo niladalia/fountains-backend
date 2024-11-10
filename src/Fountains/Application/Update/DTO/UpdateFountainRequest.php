@@ -22,13 +22,25 @@ class UpdateFountainRequest extends FountainRequest
         ?bool $access_wheelchair = null,
         ?string $access = null,
         ?bool $fee = null,
-        ?string $address = null
+        ?string $address = null,
     ) {
         parent::__construct(
-            $id, $lat, $long, $name, $type, $picture, $description,
-            $operational_status, $safe_water, $legal_water,
-            $access_bottles, $access_pets, $access_wheelchair,
-            $access, $fee, $address
+            $id,
+            $lat,
+            $long,
+            $name,
+            $type,
+            $picture,
+            $description,
+            $operational_status,
+            $safe_water,
+            $legal_water,
+            $access_bottles,
+            $access_pets,
+            $access_wheelchair,
+            $access,
+            $fee,
+            $address,
         );
     }
 }

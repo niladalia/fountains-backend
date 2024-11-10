@@ -3,7 +3,6 @@
 namespace App\Providers\Domain;
 
 use App\Providers\Domain\ValueObject\ProviderName;
-
 use App\Shared\Domain\Repository\DatabaseRepository;
 
 /**

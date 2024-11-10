@@ -10,9 +10,8 @@ class UserCreatedDomainEvent extends DomainEvent
         private string $aggregateId,
         private string $email,
         string $eventId = null,
-        string $occurredOn = null
-    )
-    {
+        string $occurredOn = null,
+    ) {
         parent::__construct($aggregateId, $eventId, $occurredOn);
     }
 
@@ -25,7 +24,7 @@ class UserCreatedDomainEvent extends DomainEvent
         string $aggregateId,
         array  $body,
         string $eventId,
-        string $occurredOn
+        string $occurredOn,
     ): DomainEvent {
         return new self($aggregateId, $body['email'], $eventId, $occurredOn);
     }

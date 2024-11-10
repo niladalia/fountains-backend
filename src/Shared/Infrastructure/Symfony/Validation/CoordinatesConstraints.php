@@ -11,7 +11,7 @@ abstract class CoordinatesConstraints
         return [
             new Assert\NotBlank(),
             new Assert\Type('numeric'),
-            new Assert\Range(['min' => -90, 'max' => 90])
+            new Assert\Range(['min' => -90, 'max' => 90]),
         ];
     }
 
@@ -20,7 +20,7 @@ abstract class CoordinatesConstraints
         return [
             new Assert\NotBlank(),
             new Assert\Type('numeric'),
-            new Assert\Range(['min' => -180, 'max' => 180])
+            new Assert\Range(['min' => -180, 'max' => 180]),
         ];
     }
 }

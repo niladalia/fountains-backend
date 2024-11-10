@@ -3,16 +3,15 @@
 namespace App\Fountains\Infrastructure\Persistence\Doctrine\Filter;
 
 use App\Fountains\Domain\FountainsFilter;
-
 use Doctrine\DBAL\Statement;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\ParameterType;
 
 class FindFountainsByFilter
 {
-    const SELECT_FOUNTAINS = 'SELECT * FROM fountains';
+    public const SELECT_FOUNTAINS = 'SELECT * FROM fountains';
 
-    public function __construct(private Connection $connection) { }
+    public function __construct(private Connection $connection) {}
 
     public function filter(FountainsFilter $filter): Statement
     {

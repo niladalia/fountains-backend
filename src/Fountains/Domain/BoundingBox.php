@@ -8,11 +8,11 @@ use App\Shared\Domain\ValueObject\CoordinatesLong;
 class BoundingBox
 {
     public function __construct(
-      private CoordinatesLat $southLat,
-      private CoordinatesLong $westLong,
-      private CoordinatesLat $northLat,
-      private CoordinatesLong $eastLong
-    ) { }
+        private CoordinatesLat $southLat,
+        private CoordinatesLong $westLong,
+        private CoordinatesLat $northLat,
+        private CoordinatesLong $eastLong,
+    ) {}
 
     public function southLat(): CoordinatesLat
     {

@@ -6,15 +6,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserAdapter implements UserInterface
 {
-
-    public function __construct(private string $id, private string $email)
-    {
-    }
+    public function __construct(private string $id, private string $email) {}
 
 
     public static function create(string $id, string $email): self
     {
-        return new self( $id,  $email);
+        return new self($id, $email);
     }
 
     public function getUserIdentifier(): string

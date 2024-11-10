@@ -9,12 +9,12 @@ use App\Fountains\Application\Find\Filter\BoundingBoxFilter;
 
 class FountainsFinderByBbox
 {
-    public function __construct(private FountainRepository $fountainRepository) { }
+    public function __construct(private FountainRepository $fountainRepository) {}
 
     public function __invoke(BoundingBoxFilter $filter): Fountains
     {
         return $this->fountainRepository->findByBoundingBox(
-            BoundingBoxFactory::fromBoundingBoxFilter($filter)
+            BoundingBoxFactory::fromBoundingBoxFilter($filter),
         );
     }
 }

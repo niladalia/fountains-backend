@@ -18,8 +18,8 @@ class UserCreator
         private UserRepository $userRepository,
         private UniqueEmailSpecificationInterface $uniqueEmailSpecification,
         private PasswordHasherRepository $passwordHasher,
-        private EventBus $eventBus
-    ) { }
+        private EventBus $eventBus,
+    ) {}
 
     public function __invoke(CreateUserRequest $userRequest): void
     {
@@ -27,9 +27,9 @@ class UserCreator
             UserId::generate(),
             new UserEmail($userRequest->email()),
             new UserPassword(
-                $this->passwordHasher->hash($userRequest->password())
+                $this->passwordHasher->hash($userRequest->password()),
             ),
-            $this->uniqueEmailSpecification
+            $this->uniqueEmailSpecification,
         );
 
         $this->userRepository->save($user);

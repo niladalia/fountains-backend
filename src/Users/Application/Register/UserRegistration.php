@@ -6,12 +6,11 @@ use App\Users\Application\Create\DTO\CreateUserRequest;
 use App\Users\Application\Create\UserCreator;
 use App\Users\Application\Register\DTO\RegisterUserRequest;
 
-
 class UserRegistration
 {
     public function __construct(
-        private UserCreator $userCreator
-    ) { }
+        private UserCreator $userCreator,
+    ) {}
 
     public function __invoke(RegisterUserRequest $registrationRequest): void
     {
@@ -20,8 +19,8 @@ class UserRegistration
             new CreateUserRequest(
                 $registrationRequest->email(),
                 $registrationRequest->password(),
-                $registrationRequest->name()
-            )
+                $registrationRequest->name(),
+            ),
         );
     }
 }

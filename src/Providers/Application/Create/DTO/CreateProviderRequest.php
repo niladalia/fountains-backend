@@ -6,8 +6,8 @@ class CreateProviderRequest
 {
     public function __construct(
         private string $name,
-        private ?string $url
-    ) { }
+        private ?string $url,
+    ) {}
 
     public function name(): string
     {

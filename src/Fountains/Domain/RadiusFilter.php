@@ -8,10 +8,10 @@ use App\Shared\Domain\ValueObject\CoordinatesLong;
 class RadiusFilter
 {
     public function __construct(
-      private CoordinatesLat $lat,
-      private CoordinatesLong $long,
-      private float $radius
-    ) { }
+        private CoordinatesLat $lat,
+        private CoordinatesLong $long,
+        private float $radius,
+    ) {}
 
     public function lat(): CoordinatesLat
     {

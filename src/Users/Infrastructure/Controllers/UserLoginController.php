@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class UserLoginController extends ApiController
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -29,15 +28,15 @@ class UserLoginController extends ApiController
         $loginResponse = $userLogin->__invoke(
             new LoginUserRequest(
                 $requestData['email'],
-                $requestData['password']
-            )
+                $requestData['password'],
+            ),
         );
 
         $token = $getAuthToken->__invoke(
             new TokenGeneratorRequest(
                 $loginResponse->id(),
-                $loginResponse->email()
-            )
+                $loginResponse->email(),
+            ),
         );
 
         return $this->json(['token' => $token], Response::HTTP_OK);

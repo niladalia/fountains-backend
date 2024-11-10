@@ -8,9 +8,9 @@ use Doctrine\DBAL\Statement;
 
 class FindFountainsByRadius
 {
-    const RADIUS_FILTER = 'ST_DWithin(geo_point, ST_SetSRID(ST_MakePoint(:long, :lat), 4326)::geography, :radius);';
+    public const RADIUS_FILTER = 'ST_DWithin(geo_point, ST_SetSRID(ST_MakePoint(:long, :lat), 4326)::geography, :radius);';
 
-    public function __construct(private Connection $connection) { }
+    public function __construct(private Connection $connection) {}
 
     public function filter(RadiusFilter $radiusFilter): Statement
     {
@@ -21,7 +21,7 @@ class FindFountainsByRadius
         return self::bindRadius($filterByRadiusStatement, $radiusFilter);
     }
 
-    static function bindRadius(Statement $stmt, RadiusFilter $radiusFilter): Statement
+    public static function bindRadius(Statement $stmt, RadiusFilter $radiusFilter): Statement
     {
         $stmt->bindValue('long', $radiusFilter->long()->getValue());
         $stmt->bindValue('lat', $radiusFilter->lat()->getValue());

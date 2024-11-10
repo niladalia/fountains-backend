@@ -8,7 +8,7 @@ class ProviderConstraints extends ValidationConstraints
     {
         return [
             'name' => self::type('string'),
-            'url' => self::optional(self::type('string'))
+            'url' => self::optional(self::type('string')),
         ];
     }
 }

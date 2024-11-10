@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-enum FountainSafeWater : string
+enum FountainSafeWater: string
 {
     case YES = 'yes';
     case PROBABLY = 'probably';

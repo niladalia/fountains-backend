@@ -27,10 +27,11 @@ class FountainsUnitTestCase extends KernelTestCase
         $this->repository()
             ->expects(self::once())
             ->method('save')
-            ->with($this->isSimilar($fountain, ['created_at','updated_at','domainEvents']));
+            ->with($this->isSimilar($fountain, ['created_at', 'updated_at', 'domainEvents']));
     }
 
-    protected function shouldFind(Fountain $fountain, FountainId $id): void{
+    protected function shouldFind(Fountain $fountain, FountainId $id): void
+    {
         $this->repository()
             ->expects(self::once())
             ->method('findById')
@@ -43,7 +44,7 @@ class FountainsUnitTestCase extends KernelTestCase
         $this->repository()
             ->expects(self::once())
             ->method('delete')
-            ->with($this->isSimilar($fountain, ['created_at','updated_at']));
+            ->with($this->isSimilar($fountain, ['created_at', 'updated_at']));
     }
 
     protected function shouldPublishDomainEvent(DomainEvent $event): void

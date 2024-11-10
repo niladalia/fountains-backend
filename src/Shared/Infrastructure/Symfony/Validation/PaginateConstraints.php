@@ -11,12 +11,12 @@ class PaginateConstraints extends ValidationConstraints
         return [
             'limit' => new Assert\Optional([
                 new Assert\Type('digit'),
-                new Assert\Range(['min' => 0])
+                new Assert\Range(['min' => 0]),
             ]),
             'offset' => new Assert\Optional([
                 new Assert\Type('digit'),
-                new Assert\Range(['min' => 0])
-            ])
+                new Assert\Range(['min' => 0]),
+            ]),
         ];
     }
 }

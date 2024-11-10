@@ -10,8 +10,8 @@ class Provider extends AggregateRoot
 {
     public function __construct(
         private ProviderName $name,
-        private ProviderUrl $url
-    ) { }
+        private ProviderUrl $url,
+    ) {}
 
     public static function create(
         ProviderName $name,
@@ -19,7 +19,7 @@ class Provider extends AggregateRoot
     ): self {
         $provider = new self(
             $name,
-            $url
+            $url,
         );
 
         return $provider;

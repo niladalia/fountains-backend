@@ -10,11 +10,11 @@ class ProviderMother
 {
     public static function create(
         ?ProviderName $name = null,
-        ?ProviderUrl $url = null
-    ):Provider {
+        ?ProviderUrl $url = null,
+    ): Provider {
         return new Provider(
             $name ?? ProviderNameMother::create(),
-            $url ?? ProviderUrlMother::create()
+            $url ?? ProviderUrlMother::create(),
         );
     }
 }

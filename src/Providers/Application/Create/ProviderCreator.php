@@ -14,8 +14,8 @@ class ProviderCreator
 {
     public function __construct(
         protected ProviderRepository $providerRepository,
-        private ProviderFinder $finder
-    ) { }
+        private ProviderFinder $finder,
+    ) {}
 
     /*
      * This service is used exclusively by the POST /provider controller, which
@@ -26,7 +26,7 @@ class ProviderCreator
     public function __invoke(CreateProviderRequest $providerRequest): CreateProviderResponse
     {
         $existingProvider = $this->finder->__invoke(
-            new ProviderName($providerRequest->name())
+            new ProviderName($providerRequest->name()),
         );
 
         if ($existingProvider) {
@@ -35,7 +35,7 @@ class ProviderCreator
 
         $provider = Provider::create(
             new ProviderName($providerRequest->name()),
-            new ProviderUrl($providerRequest->url())
+            new ProviderUrl($providerRequest->url()),
         );
 
         $this->providerRepository->save($provider);

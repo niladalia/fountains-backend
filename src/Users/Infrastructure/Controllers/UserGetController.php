@@ -4,7 +4,6 @@ namespace App\Users\Infrastructure\Controllers;
 
 use App\Shared\Infrastructure\Symfony\ApiController;
 use App\Users\Application\Find\DTO\FindUserRequest;
-
 use App\Users\Application\Find\DTO\FindUserResponse;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Users\Application\Find\UserFinder;
@@ -20,14 +19,14 @@ class UserGetController extends ApiController
 
     public function __invoke(UserInterface $user, UserFinder $finder)
     {
-     /** @var FindUserResponse $userData */
-     $userData = $finder->__invoke(
-         new FindUserRequest($user->getUserIdentifier())
-     );
+        /** @var FindUserResponse $userData */
+        $userData = $finder->__invoke(
+            new FindUserRequest($user->getUserIdentifier()),
+        );
 
-     return new JsonResponse(
-         $userData->data(),
-         200
+        return new JsonResponse(
+            $userData->data(),
+            200,
         );
 
     }

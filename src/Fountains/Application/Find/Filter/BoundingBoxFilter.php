@@ -5,11 +5,11 @@ namespace App\Fountains\Application\Find\Filter;
 class BoundingBoxFilter
 {
     public function __construct(
-      private float $southLat,
-      private float $westLong,
-      private float $northLat,
-      private float $eastLong
-    ) { }
+        private float $southLat,
+        private float $westLong,
+        private float $northLat,
+        private float $eastLong,
+    ) {}
 
     public function southLat(): float
     {

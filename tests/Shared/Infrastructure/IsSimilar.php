@@ -48,7 +48,7 @@ class IsSimilar extends Constraint
     {
         return sprintf(
             'two objects are equal excluding specified attributes, but the field "%s" was different',
-            $this->differentField
+            $this->differentField,
         );
     }
 
@@ -56,7 +56,7 @@ class IsSimilar extends Constraint
     {
         return sprintf(
             'two objects are equal excluding specified attributes, but the field "%s" was different',
-            $this->differentField
+            $this->differentField,
         );
     }
 }

@@ -11,7 +11,7 @@ class RadiusConstraints extends ValidationConstraints
         return [
             'lat' => CoordinatesConstraints::latitude(),
             'long' => CoordinatesConstraints::longitude(),
-            'radius' => $this->radius()
+            'radius' => $this->radius(),
         ];
     }
 
@@ -20,7 +20,7 @@ class RadiusConstraints extends ValidationConstraints
         return [
             new Assert\NotBlank(),
             new Assert\Type('numeric'),
-            new Assert\Range(['min' => 0])
+            new Assert\Range(['min' => 0]),
         ];
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Fountains\Domain\Exceptions;
+
 use DomainException;
 
 class FountainNotFound extends DomainException

@@ -4,7 +4,7 @@ namespace App\Tests\Fountains\Domain\ValueObject;
 
 use App\Fountains\Domain\ValueObject\FountainSafeWater;
 
-enum FountainSafeWaterMother : string
+enum FountainSafeWaterMother: string
 {
     case YES = 'yes';
     case PROBABLY = 'probably';

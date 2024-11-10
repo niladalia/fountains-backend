@@ -9,8 +9,7 @@ use Google_Service_Oauth2;
 
 class GoogleOAuthClient implements GoogleOAuthClientInterface
 {
-    public function __construct(private Google_Client $googleClient)
-    { }
+    public function __construct(private Google_Client $googleClient) {}
 
     public function fetchUserData(UserGoogleAuthCode $authCode): GoogleUserDTO
     {
@@ -29,7 +28,7 @@ class GoogleOAuthClient implements GoogleOAuthClientInterface
         return new GoogleUserDTO(
             $googleUser->getId(),
             $googleUser->getEmail(),
-            $googleUser->getName()
+            $googleUser->getName(),
         );
     }
 }

@@ -56,8 +56,8 @@ class Fountain extends AggregateRoot
         private FountainProviderUrl       $provider_url,
         private FountainCreatedAt         $created_at,
         private FountainUpdatedAt         $updated_at,
-        private ?User                     $user
-    ) { }
+        private ?User                     $user,
+    ) {}
 
     public static function create(
         FountainId                $id,
@@ -82,8 +82,7 @@ class Fountain extends AggregateRoot
         ?FountainProviderUpdatedAt $provider_updated_at,
         ?FountainProviderUrl       $provider_url,
         ?User                      $user,
-    ): self
-    {
+    ): self {
         $now = DateTimeUtils::now();
         $created_at = new FountainCreatedAt($now);
         $updated_at = new FountainUpdatedAt($now);
@@ -112,11 +111,11 @@ class Fountain extends AggregateRoot
             $provider_url,
             $created_at,
             $updated_at,
-            $user
+            $user,
         );
 
         $fountain->addDomainEvent(
-            new FountainCreatedDomainEvent($id->getValue(), $lat->getValue(), $long->getValue(), $name->getValue())
+            new FountainCreatedDomainEvent($id->getValue(), $lat->getValue(), $long->getValue(), $name->getValue()),
         );
 
         return $fountain;
@@ -137,7 +136,7 @@ class Fountain extends AggregateRoot
         FountainAccessWheelchair  $access_wheelchair,
         FountainAccess            $access,
         FountainFee               $fee,
-        FountainAddress           $address
+        FountainAddress           $address,
     ): void {
         $this->updateName($name);
         $this->updateLat($lat);
@@ -168,7 +167,7 @@ class Fountain extends AggregateRoot
 
     public function updateName(FountainName $name): void
     {
-        if ($this->name === $name){
+        if ($this->name === $name) {
             return;
         }
         $this->name = $name;
@@ -181,7 +180,7 @@ class Fountain extends AggregateRoot
 
     public function updateLat(FountainLat $lat): void
     {
-        if ($this->lat === $lat){
+        if ($this->lat === $lat) {
             return;
         }
         $this->lat = $lat;
@@ -194,7 +193,7 @@ class Fountain extends AggregateRoot
 
     public function updateLong(FountainLong $long): void
     {
-        if ($this->long === $long){
+        if ($this->long === $long) {
             return;
         }
         $this->long = $long;
@@ -207,7 +206,7 @@ class Fountain extends AggregateRoot
 
     public function updatePicture(FountainPicture $picture): void
     {
-        if ($this->picture === $picture){
+        if ($this->picture === $picture) {
             return;
         }
         $this->picture = $picture;
@@ -220,7 +219,7 @@ class Fountain extends AggregateRoot
 
     public function updateType(FountainType $type): void
     {
-        if ($this->type === $type){
+        if ($this->type === $type) {
             return;
         }
         $this->type = $type;
@@ -233,7 +232,7 @@ class Fountain extends AggregateRoot
 
     public function updateDescription(FountainDescription $description): void
     {
-        if ($this->description === $description){
+        if ($this->description === $description) {
             return;
         }
         $this->description = $description;
@@ -246,7 +245,7 @@ class Fountain extends AggregateRoot
 
     public function updateOperationalStatus(FountainOperationalStatus $operational_status): void
     {
-        if ($this->operational_status === $operational_status){
+        if ($this->operational_status === $operational_status) {
             return;
         }
         $this->operational_status = $operational_status;
@@ -259,7 +258,7 @@ class Fountain extends AggregateRoot
 
     public function updateSafeWater(FountainSafeWater $safe_water): void
     {
-        if ($this->safe_water === $safe_water){
+        if ($this->safe_water === $safe_water) {
             return;
         }
         $this->safe_water = $safe_water;
@@ -272,7 +271,7 @@ class Fountain extends AggregateRoot
 
     public function updateLegalWater(FountainLegalWater $legal_water): void
     {
-        if ($this->legal_water === $legal_water){
+        if ($this->legal_water === $legal_water) {
             return;
         }
         $this->legal_water = $legal_water;
@@ -285,7 +284,7 @@ class Fountain extends AggregateRoot
 
     public function updateAccesBottles(FountainAccesBottles $access_bottles): void
     {
-        if ($this->access_bottles === $access_bottles){
+        if ($this->access_bottles === $access_bottles) {
             return;
         }
         $this->access_bottles = $access_bottles;
@@ -298,7 +297,7 @@ class Fountain extends AggregateRoot
 
     public function updateAccesPets(FountainAccesPets $access_pets): void
     {
-        if ($this->access_pets === $access_pets){
+        if ($this->access_pets === $access_pets) {
             return;
         }
         $this->access_pets = $access_pets;
@@ -311,7 +310,7 @@ class Fountain extends AggregateRoot
 
     public function updateAccessWheelchair(FountainAccessWheelchair $access_wheelchair): void
     {
-        if ($this->access_wheelchair === $access_wheelchair){
+        if ($this->access_wheelchair === $access_wheelchair) {
             return;
         }
         $this->access_wheelchair = $access_wheelchair;
@@ -324,7 +323,7 @@ class Fountain extends AggregateRoot
 
     public function updateAccess(FountainAccess $access): void
     {
-        if ($this->access === $access){
+        if ($this->access === $access) {
             return;
         }
         $this->access = $access;
@@ -337,7 +336,7 @@ class Fountain extends AggregateRoot
 
     public function updateFee(FountainFee $fee): void
     {
-        if ($this->fee === $fee){
+        if ($this->fee === $fee) {
             return;
         }
         $this->fee = $fee;
@@ -350,7 +349,7 @@ class Fountain extends AggregateRoot
 
     public function updateAddress(FountainAddress $address): void
     {
-        if ($this->address === $address){
+        if ($this->address === $address) {
             return;
         }
         $this->address = $address;
@@ -422,10 +421,10 @@ class Fountain extends AggregateRoot
             'provider_url' => $this->provider_url()->getValue(),
             'user_id' => $this->user() ? $this->user->id()->getValue() : null,
             'updated_at' => $this->updated_at()->formatISO(),
-            'created_at' => $this->created_at()->formatISO()
+            'created_at' => $this->created_at()->formatISO(),
         ];
 
-        return array_filter($result, function($value) {
+        return array_filter($result, function ($value) {
             return $value !== null;
         });
     }

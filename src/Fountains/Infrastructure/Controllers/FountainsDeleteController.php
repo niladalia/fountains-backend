@@ -15,7 +15,7 @@ class FountainsDeleteController extends ApiController
     public function __invoke(string $id, DeleteFountain $fountainDeleter): Response
     {
         $fountainDeleter->__invoke(
-            new DeleteFountainRequest($id)
+            new DeleteFountainRequest($id),
         );
 
         return new JsonResponse('', Response::HTTP_NO_CONTENT);

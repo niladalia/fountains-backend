@@ -31,7 +31,7 @@ final class FountainResponseFactory
             $fountain->provider_id()->getValue(),
             $fountain->provider_updated_at()->getValue(),
             $fountain->provider_url()->getValue(),
-            $fountain->user() ? $fountain->user()->id()->getValue() : null
+            $fountain->user() ? $fountain->user()->id()->getValue() : null,
         );
     }
 }

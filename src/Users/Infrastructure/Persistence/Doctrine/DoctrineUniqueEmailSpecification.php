@@ -9,9 +9,7 @@ use App\Users\Domain\ValueObject\UserEmail;
 
 class DoctrineUniqueEmailSpecification implements UniqueEmailSpecificationInterface
 {
-    public function __construct(private UserRepository $repository)
-    {
-    }
+    public function __construct(private UserRepository $repository) {}
 
     public function checkUnique(UserEmail $email): bool
     {

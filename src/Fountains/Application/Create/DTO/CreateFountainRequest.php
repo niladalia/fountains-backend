@@ -28,7 +28,7 @@ class CreateFountainRequest extends FountainRequest
         private ?string $provider_id = null,
         private ?DateTime $provider_updated_at = null,
         private ?string $provider_url = null,
-        private ?string $user_id = null
+        private ?string $user_id = null,
     ) {
         parent::__construct(
             $id,
@@ -46,7 +46,7 @@ class CreateFountainRequest extends FountainRequest
             $access_wheelchair,
             $access,
             $fee,
-            $address
+            $address,
         );
     }
 

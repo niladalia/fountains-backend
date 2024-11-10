@@ -4,7 +4,7 @@ namespace App\Tests\Fountains\Domain\ValueObject;
 
 use App\Fountains\Domain\ValueObject\FountainLegalWater;
 
-enum FountainLegalWaterMother : string
+enum FountainLegalWaterMother: string
 {
     case TREATED = 'treated';
     case UNTREATED = 'untreated';

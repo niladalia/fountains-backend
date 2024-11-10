@@ -15,9 +15,8 @@ class UserGoogleAuthenticator
     public function __construct(
         private UserRepository $userRepository,
         private GoogleOAuthClientInterface $googleOauth,
-        private UserCreator $creator
-    )
-    { }
+        private UserCreator $creator,
+    ) {}
 
     public function __invoke(GoogleAuthenticatorRequest $request): void
     {
@@ -29,8 +28,8 @@ class UserGoogleAuthenticator
             $this->creator->__invoke(
                 new CreateUserRequest(
                     $googleData->email(),
-                    bin2hex(random_bytes(6))
-                )
+                    bin2hex(random_bytes(6)),
+                ),
             );
         }
     }

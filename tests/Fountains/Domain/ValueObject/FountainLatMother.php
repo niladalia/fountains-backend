@@ -9,6 +9,6 @@ class FountainLatMother
 {
     public static function create(?string $value = null): FountainLat
     {
-        return new FountainLat($value ?? Factory::create()->randomFloat(6,-90,90));
+        return new FountainLat($value ?? Factory::create()->randomFloat(6, -90, 90));
     }
 }

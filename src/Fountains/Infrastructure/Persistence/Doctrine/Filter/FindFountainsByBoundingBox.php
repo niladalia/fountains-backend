@@ -8,10 +8,10 @@ use Doctrine\DBAL\Statement;
 
 class FindFountainsByBoundingBox
 {
-    const BOUNDING_BOX_FILTER = 'geo_point::geometry && ST_MakeEnvelope(:west_long, :south_lat, :east_long, :north_lat, 4326)';
+    public const BOUNDING_BOX_FILTER = 'geo_point::geometry && ST_MakeEnvelope(:west_long, :south_lat, :east_long, :north_lat, 4326)';
 
 
-    public function __construct(private Connection $connection) { }
+    public function __construct(private Connection $connection) {}
 
     public function filter(BoundingBox $boundingBox): Statement
     {
@@ -23,7 +23,7 @@ class FindFountainsByBoundingBox
         return self::bindBoundingBox($filterByBoundingBoxStatement, $boundingBox);
     }
 
-    static function bindBoundingBox(Statement $stmt, BoundingBox $boundingBox): Statement
+    public static function bindBoundingBox(Statement $stmt, BoundingBox $boundingBox): Statement
     {
         $stmt->bindValue('west_long', $boundingBox->westLong()->getValue());
         $stmt->bindValue('south_lat', $boundingBox->southLat()->getValue());

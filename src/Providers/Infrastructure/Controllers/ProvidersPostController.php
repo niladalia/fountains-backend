@@ -21,7 +21,7 @@ class ProvidersPostController extends ApiController
 
         $providerRequest = new CreateProviderRequest(
             $requestData['name'],
-            $requestData['url']
+            $requestData['url'],
         );
 
         /** @var CreateProviderResponse $created */

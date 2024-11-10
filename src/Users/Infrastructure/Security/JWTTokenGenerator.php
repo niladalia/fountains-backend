@@ -8,21 +8,19 @@ use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 
 class JWTTokenGenerator implements AuthTokenGeneratorInterface
 {
-    public function __construct(private JWTTokenManagerInterface $jwtManager)
-    {
-    }
+    public function __construct(private JWTTokenManagerInterface $jwtManager) {}
 
     public function generateToken(TokenGeneratorRequest $tokenRequest): string
     {
         $userAdapter = UserAdapter::create(
             $tokenRequest->id(),
-            $tokenRequest->email()
+            $tokenRequest->email(),
         );
 
         $payload = [
             'email' => $userAdapter->getUsername(),
             'roles' => $userAdapter->getRoles(),
-            'sub' => $userAdapter->getUserIdentifier()
+            'sub' => $userAdapter->getUserIdentifier(),
         ];
 
         return $this->jwtManager->createFromPayload($userAdapter, $payload);

@@ -5,7 +5,7 @@ namespace App\Tests\Fountains\Domain\ValueObject;
 use App\Fountains\Domain\ValueObject\FountainOperationalStatus;
 use Faker\Factory;
 
-class FountainOperationalStatusMother 
+class FountainOperationalStatusMother
 {
     public static function create(?string $value = null): FountainOperationalStatus
     {

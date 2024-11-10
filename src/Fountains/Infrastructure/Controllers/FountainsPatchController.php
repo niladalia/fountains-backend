@@ -36,7 +36,7 @@ class FountainsPatchController extends ApiController
             $requestData['access_wheelchair'] ?? null,
             $requestData['access'] ?? null,
             $requestData['fee'] ?? null,
-            $requestData['address'] ?? null
+            $requestData['address'] ?? null,
         );
 
         $fountainUpdate->__invoke($fountainRequest);

@@ -22,7 +22,8 @@ class FountainFinderTest extends FountainsUnitTestCase
         $this->finder = new FountainFinder($this->domainFountainFinder, new FountainResponseFactory());
     }
 
-    private function domainFinderShouldFind($id){
+    private function domainFinderShouldFind($id)
+    {
 
         $fountainId = FountainIdMother::create($id);
 

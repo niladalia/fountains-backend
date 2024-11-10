@@ -14,9 +14,8 @@ class FountainCreator
     public function __construct(
         private FountainRepository $fountainRepository,
         private UserFinder $finder,
-        private EventBus $eventBus
-    )
-    { }
+        private EventBus $eventBus,
+    ) {}
 
     public function __invoke(CreateFountainRequest $fountainRequest): void
     {

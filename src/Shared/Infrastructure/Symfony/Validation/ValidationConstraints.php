@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class ValidationConstraints
 {
-    protected abstract function fields(): array;
+    abstract protected function fields(): array;
 
     protected function fieldsConstraints(array $options): Assert\Collection
     {
@@ -15,8 +15,8 @@ abstract class ValidationConstraints
                 [
                     'fields' => $this->fields(),
                 ],
-                $options
-            )
+                $options,
+            ),
         );
     }
 
@@ -35,22 +35,22 @@ abstract class ValidationConstraints
         return (new static())->fieldsConstraintsAllowExtraFields($options);
     }
 
-    protected static final function enum(string $enumClass): EnumConstraint
+    final protected static function enum(string $enumClass): EnumConstraint
     {
         return new EnumConstraint(['enum' => $enumClass]);
     }
 
-    protected static final function type(string $type): Assert\Type
+    final protected static function type(string $type): Assert\Type
     {
         return new Assert\Type($type);
     }
 
-    protected static final function optional(mixed $constraint): Assert\Optional
+    final protected static function optional(mixed $constraint): Assert\Optional
     {
         return new Assert\Optional($constraint);
     }
 
-    protected static final function required(mixed $constraint): Assert\Required
+    final protected static function required(mixed $constraint): Assert\Required
     {
         return new Assert\Required($constraint);
     }

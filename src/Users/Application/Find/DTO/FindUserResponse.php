@@ -7,9 +7,8 @@ class FindUserResponse
     public function __construct(
         public string $id,
         private string $email,
-        private array $fountains
-    )
-    { }
+        private array $fountains,
+    ) {}
 
     public function id(): string
     {
@@ -30,7 +29,7 @@ class FindUserResponse
         return [
             'id' => $this->id(),
             'email' => $this->email(),
-            'fountains' => $this->fountains()
+            'fountains' => $this->fountains(),
         ];
     }
 }

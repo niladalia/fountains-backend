@@ -12,13 +12,12 @@ class UserMother
     public static function create(
         ?UserId $id = null,
         ?UserEmail $email = null,
-        ?UserPassword $password = null
-    )
-    {
+        ?UserPassword $password = null,
+    ) {
         return new User(
             $id ?? UserId::generate(),
             $email ?? new UserEmail("change@change.com"),
-            $password ?? new UserPassword("testchange")
+            $password ?? new UserPassword("testchange"),
         );
 
     }

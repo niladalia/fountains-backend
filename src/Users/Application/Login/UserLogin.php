@@ -10,14 +10,12 @@ use App\Users\Domain\Exception\WrongPasswordException;
 use App\Users\Domain\PasswordHasherRepository;
 use App\Users\Domain\ValueObject\UserEmail;
 
-
 class UserLogin
 {
     public function __construct(
         private PasswordHasherRepository $passwordHasher,
-        private UserFinderByEmail $finderByEmail
-
-    ) { }
+        private UserFinderByEmail $finderByEmail,
+    ) {}
 
     public function __invoke(LoginUserRequest $registrationRequest): ?LoginResponse
     {
@@ -26,7 +24,7 @@ class UserLogin
 
         $user = $this->finderByEmail->__invoke(new UserEmail($email));
 
-        if(!$user){
+        if (!$user) {
             UserNotExistException::throw("User with email $email doesn't exist.");
         }
 
@@ -36,13 +34,13 @@ class UserLogin
 
         $success = $this->passwordHasher->verifyPassword($hashedPassword, $givenPassword);
 
-        if(!$success){
+        if (!$success) {
             WrongPasswordException::throw($email);
         }
 
         return new LoginResponse(
             $user->id(),
-            $user->email()
+            $user->email(),
         );
     }
 }

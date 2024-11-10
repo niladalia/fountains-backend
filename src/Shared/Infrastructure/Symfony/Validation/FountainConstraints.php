@@ -26,7 +26,7 @@ class FountainConstraints extends ValidationConstraints
             'access_wheelchair' => self::optional(self::type('bool')),
             'access' => self::optional(self::enum(FountainAccess::class)),
             'fee' => self::optional(self::type('bool')),
-            'address' => self::optional(self::type('string'))
+            'address' => self::optional(self::type('string')),
         ];
     }
 }

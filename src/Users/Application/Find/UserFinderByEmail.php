@@ -9,15 +9,13 @@ use App\Users\Domain\ValueObject\UserEmail;
 
 class UserFinderByEmail
 {
-    public function __construct(private UserRepository $userRepository)
-    {
-    }
+    public function __construct(private UserRepository $userRepository) {}
 
     public function __invoke(UserEmail $email): User
     {
         $user =  $this->userRepository->findByEmail($email);
 
-        if(!$user){
+        if (!$user) {
             UserNotExistException::throw("User with email $email not found");
         }
 

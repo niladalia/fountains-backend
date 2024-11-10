@@ -7,8 +7,8 @@ class FountainsFilterRequest
     public function __construct(
         private ?int $limit = null,
         private ?int $offset = null,
-        private ?BoundingBoxFilter $boundingBoxFilter = null
-    ){ }
+        private ?BoundingBoxFilter $boundingBoxFilter = null,
+    ) {}
 
     public function limit(): ?int
     {

@@ -8,12 +8,13 @@ use App\Shared\Domain\ValueObject\CoordinatesLong;
 
 class BoundingBoxFactory
 {
-    public static function fromBoundingBoxFilter(BoundingBoxFilter $bboxFilter) {
+    public static function fromBoundingBoxFilter(BoundingBoxFilter $bboxFilter)
+    {
         return new BoundingBox(
             new CoordinatesLat($bboxFilter->southLat()),
             new CoordinatesLong($bboxFilter->westLong()),
             new CoordinatesLat($bboxFilter->northLat()),
-            new CoordinatesLong($bboxFilter->eastLong())
+            new CoordinatesLong($bboxFilter->eastLong()),
         );
     }
 }

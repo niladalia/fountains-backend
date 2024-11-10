@@ -44,7 +44,7 @@ class HttpApiTestCase extends WebTestCase
             [],
             [],
             $this->headers(),
-            json_encode($data)
+            json_encode($data),
         );
     }
 
@@ -56,11 +56,12 @@ class HttpApiTestCase extends WebTestCase
             [],
             [],
             $this->headers(),
-            ''
+            '',
         );
     }
 
-    private function headers(){
+    private function headers()
+    {
         $headers = [
             'CONTENT_TYPE' => 'application/json',
         ];
@@ -75,7 +76,7 @@ class HttpApiTestCase extends WebTestCase
     protected function clearDatabase(): void
     {
         $cleaner = new PostgresTestDatabaseCleaner(
-            $this->getContainer()->get(Connection::class)
+            $this->getContainer()->get(Connection::class),
         );
         $cleaner->__invoke();
     }
@@ -93,7 +94,7 @@ class HttpApiTestCase extends WebTestCase
         $this->post('/api/auth/register', [
             'email' => $username ?: self::DEFAULT_EMAIL,
             'password' => $password ?: self::DEFAULT_PASS,
-            'name' => "name"
+            'name' => "name",
         ]);
 
         $this->post('/api/auth/login', [

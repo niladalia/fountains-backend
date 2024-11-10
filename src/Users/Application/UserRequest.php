@@ -7,9 +7,8 @@ class UserRequest
     public function __construct(
         private string $email,
         private string $password,
-        private ?string $name = null
-    )
-    { }
+        private ?string $name = null,
+    ) {}
 
     public function email(): string
     {

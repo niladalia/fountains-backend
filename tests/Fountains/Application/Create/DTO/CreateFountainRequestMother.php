@@ -3,7 +3,6 @@
 namespace App\Tests\Fountains\Application\Create\DTO;
 
 use App\Fountains\Application\Create\DTO\CreateFountainRequest;
-
 use App\Tests\Fountains\Domain\ValueObject\FountainAccesBottlesMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainAccesPetsMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainAccessMother;
@@ -26,9 +25,11 @@ use App\Tests\Fountains\Domain\ValueObject\FountainSafeWaterMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainTypeMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainUserIdMother;
 use App\Tests\Fountains\Domain\ValueObject\FountainWebsiteMother;
+
 class CreateFountainRequestMother
 {
-    public static function create(array $data = []): CreateFountainRequest {
+    public static function create(array $data = []): CreateFountainRequest
+    {
         return new CreateFountainRequest(
             $data['id'] ?? FountainIdMother::create()->getValue(),
             $data['lat'] ?? FountainLatMother::create()->getValue(),
@@ -51,7 +52,7 @@ class CreateFountainRequestMother
             $data['provider_id'] ?? FountainProviderIdMother::create()->getValue(),
             $data['provider_updated_at'] ?? FountainProviderUpdatedAtMother::create()->getValue(),
             $data['provider_url'] ?? FountainProviderUrlMother::create()->getValue(),
-            $data['user_id'] ?? FountainUserIdMother::create()->getValue()
+            $data['user_id'] ?? FountainUserIdMother::create()->getValue(),
         );
     }
 }

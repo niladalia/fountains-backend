@@ -5,6 +5,7 @@ namespace App\Shared\Domain\Event;
 use App\Shared\Domain\Utils\Uuid;
 use DateTimeImmutable;
 use DateTimeInterface;
+
 abstract class DomainEvent
 {
     private readonly string $eventId;

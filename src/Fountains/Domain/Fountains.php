@@ -26,7 +26,7 @@ final class Fountains
     {
         return array_map(fn($fountain) => [
             'id' => $fountain->id()->getValue(),
-            'name' => $fountain->name()->getValue()
+            'name' => $fountain->name()->getValue(),
         ], $this->fountains);
     }
 }

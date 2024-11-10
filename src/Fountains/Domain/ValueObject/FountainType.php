@@ -2,7 +2,7 @@
 
 namespace App\Fountains\Domain\ValueObject;
 
-enum FountainType : string
+enum FountainType: string
 {
     case NATURAL = 'natural';
     case TAP_WATER = 'tap_water';

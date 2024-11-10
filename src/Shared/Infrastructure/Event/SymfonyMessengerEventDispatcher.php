@@ -8,8 +8,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class SymfonyMessengerEventDispatcher implements EventDispatcherInterface
 {
-    public function __construct(private MessageBusInterface $eventBus)
-    { }
+    public function __construct(private MessageBusInterface $eventBus) {}
 
     public function dispatch(DomainEvent ...$domainEvents): void
     {

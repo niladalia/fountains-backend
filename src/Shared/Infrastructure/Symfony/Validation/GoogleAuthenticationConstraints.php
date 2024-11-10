@@ -7,7 +7,7 @@ class GoogleAuthenticationConstraints extends ValidationConstraints
     protected function fields(): array
     {
         return [
-            'code' => self::type('string')
+            'code' => self::type('string'),
         ];
     }
 }

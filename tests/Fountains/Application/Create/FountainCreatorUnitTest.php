@@ -22,7 +22,7 @@ class FountainCreatorUnitTest extends FountainsUnitTestCase
 
         $this->userFinder = $this->createMock(UserFinder::class);
 
-        $this->fountainCreator = new FountainCreator($this->repository(), $this->userFinder,$this->eventBus());
+        $this->fountainCreator = new FountainCreator($this->repository(), $this->userFinder, $this->eventBus());
     }
 
     public function test_it_creates_a_fountain(): void

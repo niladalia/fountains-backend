@@ -34,9 +34,9 @@ final class RabbitMqEventBus implements EventBus
                         'priority' => 0,
                         'message_id' => $domainEvent->eventId(),
                         'timestamp' => $domainEvent->occurredOn(),
-                        'type' => $domainEvent::eventName()
-                    ]
-                )
+                        'type' => $domainEvent::eventName(),
+                    ],
+                ),
             ];
             $this->bus->dispatch($domainEvent, $amqpStamp);
         }

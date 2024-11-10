@@ -13,7 +13,7 @@ abstract class StringValueObject implements \Stringable
         return $this->value;
     }
 
-    function __tostring(): string
+    public function __tostring(): string
     {
         return $this->getValue() ?? '';
     }

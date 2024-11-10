@@ -22,8 +22,8 @@ class UserRegisterController extends ApiController
             new RegisterUserRequest(
                 $requestData['email'],
                 $requestData['password'],
-                $requestData['name']
-            )
+                $requestData['name'],
+            ),
         );
         return new Response('', Response::HTTP_CREATED);
     }

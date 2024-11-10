@@ -29,7 +29,7 @@ class ApiTestCase extends WebTestCase
     protected function clearDatabase(): void
     {
         $cleaner = new PostgresTestDatabaseCleaner(
-            $this->getContainer()->get(Connection::class)
+            $this->getContainer()->get(Connection::class),
         );
         $cleaner->__invoke();
     }

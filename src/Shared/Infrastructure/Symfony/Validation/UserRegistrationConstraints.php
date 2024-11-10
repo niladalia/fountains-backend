@@ -9,7 +9,7 @@ class UserRegistrationConstraints extends ValidationConstraints
         return [
             'email' => EmailConstraint::check(),
             'password' => self::type('string'),
-            'name' => self::type('string')
+            'name' => self::type('string'),
         ];
     }
 }

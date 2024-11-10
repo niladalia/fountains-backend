@@ -15,7 +15,7 @@ class Uuid implements Stringable
         $this->ensureIsValidUuid($value);
     }
 
-    public static final function fromString(string $value): static
+    final public static function fromString(string $value): static
     {
         $uuid = new static($value);
         static::ensureIsValidUuid($uuid->value);

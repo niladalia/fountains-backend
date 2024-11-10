@@ -12,9 +12,8 @@ class FountainCreatedDomainEvent extends DomainEvent
         private float $long,
         private ?string $name,
         string $eventId = null,
-        string $occurredOn = null
-    )
-    {
+        string $occurredOn = null,
+    ) {
         parent::__construct($aggregateId, $eventId, $occurredOn);
     }
 
@@ -37,9 +36,9 @@ class FountainCreatedDomainEvent extends DomainEvent
         string $aggregateId,
         array  $body,
         string $eventId,
-        string $occurredOn
+        string $occurredOn,
     ): DomainEvent {
-        return new self($aggregateId, $body['name'],$body['lat'],$body['long'], $eventId, $occurredOn);
+        return new self($aggregateId, $body['name'], $body['lat'], $body['long'], $eventId, $occurredOn);
     }
 
     public function serialize(): array

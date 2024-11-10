@@ -8,7 +8,7 @@ class UserLoginConstraints extends ValidationConstraints
     {
         return [
             'email' => EmailConstraint::check(),
-            'password' => self::type('string')
+            'password' => self::type('string'),
         ];
     }
 }

@@ -10,7 +10,7 @@ const UTC = new DateTimeZone('UTC');
 
 final class DateTimeUtils
 {
-    private function __construct() { }
+    private function __construct() {}
 
     public static function now(): DateTime
     {

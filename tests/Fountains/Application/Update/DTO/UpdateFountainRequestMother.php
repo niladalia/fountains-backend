@@ -51,7 +51,7 @@ class UpdateFountainRequestMother
         string $provider_id = null,
         DateTime $provider_updated_at = null,
         string $provider_url = null,
-        string $user_id = null
+        string $user_id = null,
     ): UpdateFountainRequest {
         return new UpdateFountainRequest(
             $id ?? FountainIdMother::create()->getValue(),
@@ -75,7 +75,7 @@ class UpdateFountainRequestMother
             $provider_id ?? FountainProviderIdMother::create()->getValue(),
             $provider_updated_at ?? FountainProviderUpdatedAtMother::create()->getValue(),
             $provider_url ?? FountainProviderUrlMother::create()->getValue(),
-            $user_id ?? FountainUserIdMother::create()->getValue()
+            $user_id ?? FountainUserIdMother::create()->getValue(),
         );
     }
 }

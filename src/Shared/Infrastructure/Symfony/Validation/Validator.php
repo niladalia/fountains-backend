@@ -12,7 +12,7 @@ class Validator
     public static function validate(mixed $data, Assert\Collection $constraints): void
     {
         $validator = Validation::createValidator();
-        
+
         $validationErrors = $validator->validate($data, $constraints);
 
         if ($validationErrors->count() == 0) {
@@ -23,10 +23,10 @@ class Validator
 
         foreach ($validationErrors as $violation) {
             $errorsArray[] = [
-                $violation->getPropertyPath() => $violation->getMessage()
+                $violation->getPropertyPath() => $violation->getMessage(),
             ];
         }
-        
+
         throw new HttpException(Response::HTTP_BAD_REQUEST, json_encode($errorsArray));
     }
 }

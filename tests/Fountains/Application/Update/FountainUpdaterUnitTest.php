@@ -28,7 +28,7 @@ class FountainUpdaterUnitTest extends FountainsUnitTestCase
         $this->fountainFinder =  $this->createMock(FountainFinder::class);
         $this->userFinder = $this->createMock(UserFinder::class);
 
-        $this->fountainUpdater = new FountainUpdater($this->fountainFinder,$this->repository());
+        $this->fountainUpdater = new FountainUpdater($this->fountainFinder, $this->repository());
         // We create a fountain so we can use it as the one we are going to be updating during the tests
         $this->uuid = FountainIdMother::create();
         $this->fountain = FountainMother::create($this->uuid);
@@ -45,7 +45,7 @@ class FountainUpdaterUnitTest extends FountainsUnitTestCase
             $this->fountain->id()->getValue(),
             $this->fountain->lat()->getValue(),
             $this->fountain->long()->getValue(),
-            $updated_name->getValue()
+            $updated_name->getValue(),
         );
 
         $this->fountainFinder->expects(self::exactly(1))
@@ -63,7 +63,7 @@ class FountainUpdaterUnitTest extends FountainsUnitTestCase
         // Setup
         $nonExistentId = FountainIdMother::create();
         $updateFountainRequest = UpdateFountainRequestMother::create(
-            $nonExistentId->getValue()
+            $nonExistentId->getValue(),
         );
         $updated_name = $updateFountainRequest->name();
 

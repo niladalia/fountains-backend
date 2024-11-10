@@ -7,7 +7,7 @@ use DateTime;
 
 class FountainProviderUpdatedAtMother
 {
-    public static function create( DateTime $value = null): FountainProviderUpdatedAt
+    public static function create(DateTime $value = null): FountainProviderUpdatedAt
     {
 
         return new FountainProviderUpdatedAt($value);

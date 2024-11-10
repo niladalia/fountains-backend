@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 class ApiExceptionListener
 {
-    public function __construct(private string $appEnv) { }
+    public function __construct(private string $appEnv) {}
 
     public function onKernelException(ExceptionEvent $event)
     {
@@ -29,7 +29,7 @@ class ApiExceptionListener
             'error' => [
                 'status' => $status,
                 'message' => is_array($decodedMessage) ? $decodedMessage : $message,
-            ]
+            ],
         ];
 
         if ($this->appEnv === 'dev') {

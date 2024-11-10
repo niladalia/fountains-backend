@@ -10,7 +10,7 @@ use App\Fountains\Domain\FountainsFilter;
 
 class FountainsFinder
 {
-    public function __construct(private FountainRepository $fountainRepository) { }
+    public function __construct(private FountainRepository $fountainRepository) {}
 
     public function __invoke(FountainsFilterRequest $filterRequest): Fountains
     {
@@ -21,7 +21,7 @@ class FountainsFinder
         $filter = new FountainsFilter(
             $filterRequest->limit(),
             $filterRequest->offset(),
-            $boundingBox
+            $boundingBox,
         );
         return $this->fountainRepository->findByFilter($filter);
     }

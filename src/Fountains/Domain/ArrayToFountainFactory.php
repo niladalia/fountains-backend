@@ -25,7 +25,6 @@ use App\Fountains\Domain\ValueObject\FountainProviderUrl;
 use App\Fountains\Domain\ValueObject\FountainProviderUpdatedAt;
 use App\Fountains\Domain\ValueObject\FountainCreatedAt;
 use App\Fountains\Domain\ValueObject\FountainUpdatedAt;
-
 use App\Shared\Domain\Utils\DateTimeUtils;
 use App\Users\Domain\Services\UserFinder;
 use App\Users\Domain\ValueObject\UserId;
@@ -33,8 +32,7 @@ use DateTime;
 
 class ArrayToFountainFactory
 {
-
-    public function __construct(private UserFinder $finder) { }
+    public function __construct(private UserFinder $finder) {}
 
     public function __invoke(array $data): Fountain
     {
@@ -65,7 +63,7 @@ class ArrayToFountainFactory
             new FountainProviderUrl($data['provider_url']),
             new FountainCreatedAt(new DateTime($data['created_at'])),
             new FountainUpdatedAt(new DateTime($data['updated_at'])),
-            $user
+            $user,
         );
     }
 }
