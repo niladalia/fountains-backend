@@ -27,7 +27,7 @@ This backend supports a smartphone app that helps users find nearby public fount
 
         make build
 
-3. Generate keys
+2. Generate keys
 
         mkdir -p config/jwt
 

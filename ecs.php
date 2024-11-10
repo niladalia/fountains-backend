@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use PhpCsFixer\Fixer\Import\NoUnusedImportsFixer;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
+use Symplify\EasyCodingStandard\ValueObject\Option;
 
 return ECSConfig::configure()
     ->withPaths([
@@ -18,13 +19,8 @@ return ECSConfig::configure()
         NoUnusedImportsFixer::class,
     ])
 
-    // add sets - group of rules
-   // ->withPreparedSets(
-        // arrays: true,
-        // namespaces: true,
-        // spaces: true,
-        // docblocks: true,
-        // comments: true,
-    // )
-     
+    ->withSpacing(indentation: Option::INDENTATION_SPACES, lineEnding: PHP_EOL)
+    ->withPhpCsFixerSets(perCS20: true, doctrineAnnotation: true)
+    ->withPreparedSets(psr12: true);
+
      ;
