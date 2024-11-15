@@ -24,6 +24,7 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "7.1.*",
         "symfony/messenger": "7.1.*",
+        "symfony/monolog-bundle": "^3.10",
         "symfony/password-hasher": "7.1.*",
         "symfony/phpunit-bridge": "^7.1",
         "symfony/runtime": "7.1.*",

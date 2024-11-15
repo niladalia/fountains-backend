@@ -1,0 +1,6 @@
+monolog:
+    handlers:
+        combined:
+            type: stream
+            path: '%kernel.logs_dir%/production.log'
+            level: debug
