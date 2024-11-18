@@ -20,6 +20,11 @@ class UserFinder
         $userId = new UserId($request->id());
 
         $user = $this->userFinder->__invoke($userId);
+
+        /*
+             I decided to create an ACL to avoid coupling between Users and Comment
+        */
+        
         $commentsArray = $this->userCommentsACL->getCommentsForUserId($userId);
 
         return new FindUserResponse(

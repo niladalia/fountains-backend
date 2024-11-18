@@ -22,6 +22,12 @@ class FountainFinder
         $fountain = $this->finder->__invoke(
             $fountainId,
         );
+
+        /*
+            I decided to create an ACL to avoid coupling between Fountains and Comment, it may not be necesary,
+            but also, i don't think is a bad choice.
+        */
+
         $comments = $this->fountainCommentsACL->getCommentsForFountainId($fountainId);
 
         return  $this->responseConverter->__invoke($fountain, $comments);
