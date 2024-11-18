@@ -2,7 +2,9 @@
 
 namespace App\Comments\Domain\ValueObject;
 
-class CommentContent
+use App\Shared\Domain\ValueObject\StringValueObject;
+
+class CommentContent extends StringValueObject
 {
 
 }

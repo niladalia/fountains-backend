@@ -9,7 +9,7 @@ class DoctrineUserGoogleRepository extends DoctrineDatabaseRepository implements
 {
     public function saveGoogleAccount(string $userId, string $googleId): void
     {
-        $connection = $this->entityManager->getConnection();
+        $connection = $this->getEntityManager()->getConnection();
         $sql = "INSERT INTO user_google_id (user_id, google_id) VALUES (:userId, :googleId)";
         // Use executeStatement for executing an INSERT, UPDATE, or DELETE
         $this->getConnection()->executeStatement($sql, [

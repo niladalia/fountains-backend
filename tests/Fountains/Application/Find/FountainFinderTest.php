@@ -4,6 +4,7 @@ namespace App\Tests\Fountains\Application\Find;
 
 use App\Fountains\Application\Find\FountainFinder;
 use App\Fountains\Application\Find\FountainResponseFactory;
+use App\Fountains\Domain\ACL\FountainCommentsACL;
 use App\Fountains\Domain\Exceptions\FountainNotFound;
 use App\Fountains\Domain\Services\Find\FountainFinder as DomainFinder;
 use App\Tests\Fountains\Application\Find\DTO\FountainFinderRequestMother;
@@ -19,7 +20,11 @@ class FountainFinderTest extends FountainsUnitTestCase
     public function setUp(): void
     {
         $this->domainFountainFinder = $this->createMock(DomainFinder::class);
-        $this->finder = new FountainFinder($this->domainFountainFinder, new FountainResponseFactory());
+        $this->finder = new FountainFinder(
+            $this->domainFountainFinder,
+            new FountainResponseFactory(),
+            $this->createMock(FountainCommentsACL::class)
+        );
     }
 
     private function domainFinderShouldFind($id)

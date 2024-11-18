@@ -10,7 +10,7 @@ use Stringable;
 
 class Uuid implements Stringable
 {
-    public function __construct(protected string $value)
+    final public function __construct(protected string $value)
     {
         $this->ensureIsValidUuid($value);
     }
@@ -22,7 +22,7 @@ class Uuid implements Stringable
         return $uuid;
     }
 
-    public static function generate(): static
+    final public static function generate(): static
     {
         return new static(RamseyUuid::uuid4()->toString());
     }

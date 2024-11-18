@@ -4,7 +4,7 @@ namespace App\Fountains\Application\Create\DTO;
 
 use DateTime;
 
-class CreateFountainRequest extends FountainRequest
+final class CreateFountainRequest extends FountainRequest
 {
     public function __construct(
         string $id,

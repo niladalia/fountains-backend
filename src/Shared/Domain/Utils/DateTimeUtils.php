@@ -27,6 +27,7 @@ final class DateTimeUtils
             return new DateTime($dateString);
         } catch (\Exception $e) {
             InvalidArgument::throw("Invalid date format for '$dateString'");
+            return null;
         }
     }
 }

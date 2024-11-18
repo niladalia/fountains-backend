@@ -9,8 +9,6 @@ class UserEmail extends StringValueObject
 {
     protected function validate()
     {
-        parent::validate();
-
         if (!filter_var($this->value, FILTER_VALIDATE_EMAIL)) {
             InvalidArgument::throw("Email $this->value is not valid");
         }

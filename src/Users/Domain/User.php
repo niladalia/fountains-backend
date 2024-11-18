@@ -2,6 +2,7 @@
 
 namespace App\Users\Domain;
 
+use App\Comments\Domain\Comments;
 use App\Fountains\Domain\Fountains;
 use App\Shared\Domain\AggregateRoot;
 use App\Users\Domain\Events\UserCreatedDomainEvent;
@@ -13,6 +14,7 @@ use App\Users\Infrastructure\Persistence\Doctrine\DoctrineUniqueEmailSpecificati
 class User extends AggregateRoot
 {
     private $fountains = [];
+    private $comments = [];
 
     public function __construct(
         private UserId $id,
@@ -20,6 +22,7 @@ class User extends AggregateRoot
         private UserPassword $password,
     ) {
         $this->fountains = [];
+        $this->comments = [];
     }
 
     /*
@@ -32,7 +35,7 @@ class User extends AggregateRoot
         UserEmail $email,
         UserPassword $password,
         DoctrineUniqueEmailSpecification $uniqueEmailSpecification,
-    ) {
+    ): self {
         $uniqueEmailSpecification->checkUnique($email);
 
         $user =  new self(
@@ -76,6 +79,7 @@ class User extends AggregateRoot
             "id" => $this->id()->getValue(),
             "email" => $this->email()->getValue(),
             "fountains" => $this->fountains()->toSmallArray(),
+            "comments" => $this->comments()->toArray()
         ];
     }
 }

@@ -7,6 +7,8 @@ doctrine:
         driver: 'pdo_pgsql'
         profiling_collect_backtrace: '%kernel.debug%'
         use_savepoints: true
+        types:
+            geography: Jsor\Doctrine\PostGIS\Types\GeographyType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
@@ -21,6 +23,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Providers/Infrastructure/Persistence/Doctrine'
                 prefix: 'App\Providers\Domain'
                 alias: App\Providers\Domain
+            Comments:
+                type: xml
+                is_bundle: false
+                dir: '%kernel.project_dir%/src/Comments/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Comments\Domain'
+                alias: App\Comments\Domain
             Fountains:
                 type: xml
                 is_bundle: false

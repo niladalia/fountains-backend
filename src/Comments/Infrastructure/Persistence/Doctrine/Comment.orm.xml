@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity repository-class="App\Comments\Infrastructure\Persistence\Doctrine\Repository\DoctrineCommentRepository" name="App\Comments\Domain\Comment" table="comments">
+
+
+
+        <embedded name="id" class="App\Comments\Domain\ValueObject\CommentId" use-column-prefix="false"/>
+
+        <embedded name="content" class="App\Comments\Domain\ValueObject\CommentContent" use-column-prefix="false"/>
+        <embedded name="created_at" class="App\Comments\Domain\ValueObject\CommentCreatedAt" use-column-prefix="false"/>
+        <embedded name="updated_at" class="App\Comments\Domain\ValueObject\CommentUpdatedAt" use-column-prefix="false"/>
+
+        <embedded name="user_id" class="App\Comments\Domain\ValueObject\CommentUserId" use-column-prefix="false"/>
+        <embedded name="fountain_id" class="App\Comments\Domain\ValueObject\CommentFountainId" use-column-prefix="false"/>
+
+
+
+
+    </entity>
+</doctrine-mapping>

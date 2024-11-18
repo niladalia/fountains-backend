@@ -27,6 +27,7 @@ class FountainResponse
         private ?string $provider_updated_at,
         private ?string $provider_url,
         private ?string $userId,
+        private ?array $comments
     ) {}
 
     public function data(): array
@@ -54,6 +55,7 @@ class FountainResponse
             'provider_updated_at' => $this->provider_updated_at,
             'provider_url' => $this->provider_url,
             'userId' => $this->userId,
+            'comments' => $this->comments
         ];
     }
 }

@@ -7,7 +7,7 @@ use App\Fountains\Domain\Fountain;
 
 final class FountainResponseFactory
 {
-    public function __invoke(Fountain $fountain): FountainResponse
+    public function __invoke(Fountain $fountain, ?array $comments = null): FountainResponse
     {
         return new FountainResponse(
             $fountain->id()->getValue(),
@@ -32,6 +32,7 @@ final class FountainResponseFactory
             $fountain->provider_updated_at()->getValue(),
             $fountain->provider_url()->getValue(),
             $fountain->user() ? $fountain->user()->id()->getValue() : null,
+            $comments
         );
     }
 }

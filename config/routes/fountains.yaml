@@ -32,3 +32,8 @@ fountain_by_id_controller_get:
   path: /api/fountains/{id}
   controller: App\Fountains\Infrastructure\Controllers\FountainGetController
   methods: [GET]
+
+comments_controller_post:
+  path: /api/fountains/{id}/comments
+  controller: App\Comments\Infrastructure\Controllers\CommentPostController
+  methods:  [POST]

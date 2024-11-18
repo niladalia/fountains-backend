@@ -23,6 +23,7 @@ class FountainsFinder
             $filterRequest->offset(),
             $boundingBox,
         );
+
         return $this->fountainRepository->findByFilter($filter);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Comments\Domain\ValueObject;
 
-class CommentId
+use App\Shared\Domain\ValueObject\UuidValueObject;
+
+class CommentId extends UuidValueObject
 {
 
 }

@@ -8,6 +8,7 @@ class FindUserResponse
         public string $id,
         private string $email,
         private array $fountains,
+        private array $comments,
     ) {}
 
     public function id(): string
@@ -24,12 +25,18 @@ class FindUserResponse
         return $this->fountains;
     }
 
+    public function comments(): array
+    {
+        return $this->comments;
+    }
+
     public function data(): array
     {
         return [
             'id' => $this->id(),
             'email' => $this->email(),
             'fountains' => $this->fountains(),
+            'comments' => $this->comments()
         ];
     }
 }
